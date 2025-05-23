@@ -60,17 +60,7 @@ public class ImageButton extends JButton {
         setFocusPainted(false);
         setBorderPainted(false);
         setForeground(releasedColor);
-
-        try {
-            InputStream fontStream = getClass().getResourceAsStream(Constants.FONT_NAME);
-            if (fontStream != null) {
-                Font font = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(fontSize);
-                setFont(font);
-                fontStream.close();
-            }
-        } catch (FontFormatException | IOException e) {
-            setFont(new Font("Arial", Font.BOLD, 16));
-        }
+        setFont(Constants.CUSTOM_FONT.deriveFont(fontSize));
 
         addMouseListener(new MouseAdapter() {
             @Override
