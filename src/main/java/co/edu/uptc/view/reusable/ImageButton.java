@@ -1,8 +1,6 @@
 package co.edu.uptc.view.reusable;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,8 +15,8 @@ public class ImageButton extends JButton {
     private BufferedImage press;
     private BufferedImage released;
     private BufferedImage actualImage;
-    private Color pressedColor;
-    private Color releasedColor;
+    private final Color pressedColor;
+    private final Color releasedColor;
 
     public ImageButton(String text, boolean inverted, float fontSize) {
         super(text);
@@ -35,7 +33,6 @@ public class ImageButton extends JButton {
             InputStream pressedButtonStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_PRESSED_IMAGE_PATH);
 
             if (buttonStream == null || pressedButtonStream == null) {
-                // Create fallback solid color images if resources are not found
                 press = createSolidColorImage(releasedColor);
                 released = createSolidColorImage(pressedColor);
             } else {
@@ -50,7 +47,6 @@ public class ImageButton extends JButton {
             actualImage = released;
 
         } catch (IOException e) {
-            // Create fallback solid color images if there's an error
             press = createSolidColorImage(pressedColor);
             released = createSolidColorImage(releasedColor);
             actualImage = released;
@@ -60,17 +56,7 @@ public class ImageButton extends JButton {
         setFocusPainted(false);
         setBorderPainted(false);
         setForeground(releasedColor);
-
-        try {
-            InputStream fontStream = getClass().getResourceAsStream(Constants.FONT_NAME);
-            if (fontStream != null) {
-                Font font = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(fontSize);
-                setFont(font);
-                fontStream.close();
-            }
-        } catch (FontFormatException | IOException e) {
-            setFont(new Font("Arial", Font.BOLD, 16));
-        }
+        setFont(Constants.CUSTOM_FONT.deriveFont(fontSize));
 
         addMouseListener(new MouseAdapter() {
             @Override
