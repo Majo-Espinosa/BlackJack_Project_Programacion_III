@@ -3,12 +3,8 @@ package co.edu.uptc.view.login;
 import co.edu.uptc.view.MainPanel;
 import co.edu.uptc.view.reusable.ImageButton;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class LoginPanel extends JPanel {
     private MainPanel mainPanel;
@@ -43,7 +39,7 @@ public class LoginPanel extends JPanel {
         gbc.fill = GridBagConstraints.CENTER;
         gbc.weightx = 1.0;
 
-        JTextFieldConFondo campoTexto = new JTextFieldConFondo();
+        UsernameTextField campoTexto = new UsernameTextField();
 
         franja.add(campoTexto, gbc);
         return franja;
