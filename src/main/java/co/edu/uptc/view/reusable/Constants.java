@@ -19,13 +19,13 @@ public class Constants {
     public static Font loadCustomFont() {
         try {
             Font font = Font.createFont(Font.TRUETYPE_FONT,
-                    Constants.class.getResourceAsStream(Constants.FONT_NAME)).deriveFont(15f);
+                    Constants.class.getResourceAsStream(Constants.FONT_NAME)).deriveFont(18f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
             return font;
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
-            return new Font("SansSerif", Font.BOLD, 24);
+            return new Font("Monospaced", Font.BOLD, 24);
         }
     }
 }
