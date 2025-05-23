@@ -8,12 +8,11 @@ package co.edu.uptc.view.popups;
 import co.edu.uptc.view.MainPanel;
 import co.edu.uptc.view.popups.draw.CustomBtn;
 import co.edu.uptc.view.popups.draw.OutlinedLabel;
+import co.edu.uptc.view.reusable.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * @author Jhon
@@ -43,12 +42,7 @@ public class ClosePanel extends JPanel {
     }
 
     private void initComponents(GridBagConstraints gbc) {
-        Font customFont;
-        try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File(PopUpConstants.FONT_NAME)).deriveFont(30f);
-        } catch (FontFormatException | IOException e) {
-            customFont = new Font(PopUpConstants.AUX_FONT_NAME, Font.PLAIN, 20);
-        }
+        Font customFont = Constants.CUSTOM_FONT;
         addTitleLbl(gbc, customFont);
         addAcceptBtn(gbc, customFont);
         addRefuseBtn(gbc, customFont);
