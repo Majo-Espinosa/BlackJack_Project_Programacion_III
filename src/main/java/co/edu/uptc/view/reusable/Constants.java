@@ -13,6 +13,7 @@ public class Constants {
     public static final String REUSABLE_BUTTON_PRESSED_IMAGE_PATH = "/images/icons/pressed_button.png";
     public static final String MAIN_MENU_BACKGROUND = "/images/backgrounds/menu_background.png";
     public static final String GAME_BACKGROUND = "/images/backgrounds/game_background.png";
+    public static final String CARDS_PATH = "/images/cards/1.2 Poker cards.png";
 
     public static final Font CUSTOM_FONT = loadCustomFont();
 
