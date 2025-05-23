@@ -51,10 +51,14 @@ public class UsernameTextField extends JTextField {
         }
         super.paintComponent(g);
 
-        if (getText().isEmpty() && !isFocusOwner()) {
-            g.setColor(new Color(255, 255, 255, 134));
-            g.setFont(Constants.CUSTOM_FONT.deriveFont(20f));
-            g.drawString(placeholder, 20, 40);
+        if (getText().isEmpty()) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setColor(Color.GRAY);
+            g2.setFont(getFont().deriveFont(Font.ITALIC));
+            Insets insets = getInsets();
+            int padding = (getHeight() - getFont().getSize()) / 2 + g2.getFontMetrics().getAscent() - 2;
+            g2.drawString(placeholder, insets.left + 5, padding);
+            g2.dispose();
         }
     }
 
