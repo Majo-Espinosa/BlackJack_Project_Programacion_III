@@ -56,7 +56,7 @@ public class LoginPanel extends JPanel {
                 setBorderPainted(false);
                 setFocusPainted(false);
 
-                addActionListener(e -> {
+                addActionListener(_ -> {
                     if (textoBoton.equals("JUGAR")) {
                         mainPanel.updatePanel("game", false);
                     } else {
