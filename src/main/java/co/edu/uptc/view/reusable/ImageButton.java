@@ -17,8 +17,8 @@ public class ImageButton extends JButton {
     private BufferedImage press;
     private BufferedImage released;
     private BufferedImage actualImage;
-    private Color pressedColor;
-    private Color releasedColor;
+    private final Color pressedColor;
+    private final Color releasedColor;
 
     public ImageButton(String text, boolean inverted, float fontSize) {
         super(text);
@@ -35,7 +35,6 @@ public class ImageButton extends JButton {
             InputStream pressedButtonStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_PRESSED_IMAGE_PATH);
 
             if (buttonStream == null || pressedButtonStream == null) {
-                // Create fallback solid color images if resources are not found
                 press = createSolidColorImage(releasedColor);
                 released = createSolidColorImage(pressedColor);
             } else {
@@ -50,7 +49,6 @@ public class ImageButton extends JButton {
             actualImage = released;
 
         } catch (IOException e) {
-            // Create fallback solid color images if there's an error
             press = createSolidColorImage(pressedColor);
             released = createSolidColorImage(releasedColor);
             actualImage = released;
