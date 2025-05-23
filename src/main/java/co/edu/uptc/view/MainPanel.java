@@ -1,13 +1,18 @@
 package co.edu.uptc.view;
 
+import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 import co.edu.uptc.view.game.GamePanel;
 import co.edu.uptc.view.login.LoginPanel;
 import co.edu.uptc.view.menu.MenuPanel;
 import co.edu.uptc.view.popups.ClosePanel;
 import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.rules.RulesPanel;
-import javax.swing.*;
-import java.awt.*;
 
 public class MainPanel extends JPanel {
 	private MenuPanel menuPanel;
@@ -23,7 +28,7 @@ public class MainPanel extends JPanel {
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
 		initComponents();
-		gameBackground = new ImageIcon(getClass().getResource(Constants.MAIN_MENU_BACKGROUND)).getImage();
+		gameBackground = new ImageIcon(getClass().getResource(Constants.GAME_BACKGROUND)).getImage();
 	}
 
 	public void initComponents() {
@@ -33,7 +38,6 @@ public class MainPanel extends JPanel {
 		loginPanel = new LoginPanel(this);
 		closePanel = new ClosePanel(this);
 
-		setGameBackground(true);
 		add(menuPanel, "menu");
 		add(gamePanel, "game");
 		add(loginPanel, "login");
@@ -41,18 +45,10 @@ public class MainPanel extends JPanel {
 	}
 
 	public void updatePanel(String panelName, boolean isMainMenuBackground) {
-		setGameBackground(isMainMenuBackground);
 		cardLayout.show(this, panelName);
 	}
 
-	public void setGameBackground(boolean isMainMenuBackground) {
-		if (isMainMenuBackground) {
-			gameBackground = new ImageIcon(getClass().getResource(Constants.MAIN_MENU_BACKGROUND)).getImage();
-		} else {
-			gameBackground = new ImageIcon(getClass().getResource(Constants.GAME_BACKGROUND)).getImage();
-		}
-		repaint();
-	}
+
 
 	public void openClosePopup() {
 		closePanel.showPopUp(true);

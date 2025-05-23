@@ -1,56 +1,77 @@
 package co.edu.uptc.view.menu;
 
-import co.edu.uptc.view.MainPanel;
-import co.edu.uptc.view.reusable.ImageButton;
-
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import javax.swing.JPanel;
+
+import co.edu.uptc.view.MainPanel;
 
 public class MenuPanel extends JPanel {
 
 
 
     private MainPanel mainPanel;
+    private MenuButtonsPanel buttons;
+    private MenuTitlePanel title;
     private GridBagConstraints gbc;
-    private ImageButton play;
-    private ImageButton rules;
-    private ImageButton exit;
+    private MenuIconsPanel leftiIconPanel;
+    private MenuIconsPanel rightIconPanel;
+
+    
 
     public MenuPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
         initComponents();
-        this.setLayout(new GridBagLayout());
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.ipadx = 170;
-        gbc.ipady = 40;
-        gbc.insets = new Insets(200, 0, 10, 0);
-        this.add(play, gbc);
-        gbc.insets = new Insets(10, 0, 10, 0);
-        this.add(rules, gbc);
-        this.add(exit, gbc);
+        JPanel auxPanel = new JPanel(new GridBagLayout());   
+        gbc.ipadx = 1080;
+        gbc.ipady = 190;
+        gbc.insets = new Insets(110, 0, 0, 0);
 
+        auxPanel.add(title,gbc);
+        auxPanel.setOpaque(false);
+        auxPanel.setPreferredSize(new Dimension(this.getWidth()/2, 200));
+        gbc.ipadx = 250;
+        gbc.ipady = 400;
+         gbc.insets = new Insets(0, 0, 0, 0);
+
+        JPanel leftAuxPanel = new JPanel(new GridBagLayout());
+        gbc.insets = new Insets(0, 30, 0, 0);
+        leftAuxPanel.add(leftiIconPanel,gbc);
+        leftAuxPanel.setOpaque(false);
+
+        JPanel rightAuxPanel = new JPanel(new GridBagLayout());
+        gbc.insets = new Insets(0, 0, 0, 30);
+        rightAuxPanel.add(rightIconPanel,gbc);
+        rightAuxPanel.setOpaque(false);
+
+        this.setLayout(new BorderLayout());
+        this.add(auxPanel,BorderLayout.NORTH);
+        this.add(buttons,BorderLayout.CENTER);
+        this.add(leftAuxPanel,BorderLayout.WEST);
+        this.add(rightAuxPanel,BorderLayout.EAST);
         this.setOpaque(false);
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
 
     }
+    
+    private void initComponents(){
 
-    private void initComponents() {
         gbc = new GridBagConstraints();
-        play = new ImageButton("Jugar", false, 16);
-        rules = new ImageButton("Reglas", true, 16);
-        exit = new ImageButton("Salir", false, 16);
-
-        play.addActionListener(e -> mainPanel.updatePanel("login", true));
-        rules.addActionListener(e -> mainPanel.openRulesPopup());
-        exit.addActionListener(e -> mainPanel.openClosePopup());
+        leftiIconPanel = new MenuIconsPanel("/images/icons/MenuCardsLeft.png");
+        rightIconPanel = new MenuIconsPanel("/images/icons/MenuCardsRight.png");
+        buttons = new MenuButtonsPanel(mainPanel);
+        title = new MenuTitlePanel();
     }
+    
 
 }
