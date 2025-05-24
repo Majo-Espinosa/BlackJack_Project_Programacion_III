@@ -1,5 +1,6 @@
 package co.edu.uptc.view.game.players;
 
+import co.edu.uptc.view.game.CardImage;
 import co.edu.uptc.view.reusable.Constants;
 import javax.swing.*;
 import java.awt.*;
@@ -9,49 +10,33 @@ public class PlayersPanel extends JPanel {
 
     private GridBagConstraints gbc;
     private JLabel leftPlayerLabel, centerPlayerLabel, rightPlayerLabel, decoration1, decoration2, decoration3;
-    private JPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
-    private Image playerTokens;
+    private JPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel, playerTokens;
     private ActionsPanel actionsPanel;
-    private Font customFont;
 
     public PlayersPanel() {
         setOpaque(false);
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
 
-        loadCustomFont();
         initComponents();
         firstLine();
-        applyFont(this);
-    }
-
-    private void loadCustomFont() {
-        try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT,
-                    getClass().getResourceAsStream(Constants.FONT_NAME)).deriveFont(15f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-            customFont = new Font("SansSerif", Font.BOLD, 24);
-        }
     }
 
     private void initComponents() {
-        playerTokens = new ImageIcon(getClass().getResource("/images/icons/tokens.png")).getImage();
+        playerTokens = new TokensPanel();
         actionsPanel = new ActionsPanel();
 
         leftPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel cardLabel = new JLabel(new ImageIcon(getClass().getResource("/images/cards/card_back.png")));
-        leftPlayerPanel.add(cardLabel);
+        JLabel c0 = new CardImage(1,1);
+        leftPlayerPanel.add(c0);
 
         centerPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        cardLabel = new JLabel(new ImageIcon(getClass().getResource("/images/cards/card_back.png")));
-        centerPlayerPanel.add(cardLabel);
+        JLabel c1 = new CardImage(0,13);
+        centerPlayerPanel.add(c1);
 
         rightPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        cardLabel = new JLabel(new ImageIcon(getClass().getResource("/images/cards/card_back.png")));
-        rightPlayerPanel.add(cardLabel);
+        JLabel c2 = new CardImage(4,2);
+        rightPlayerPanel.add(c2);
 
         leftPlayerPanel.setOpaque(false);
         centerPlayerPanel.setOpaque(false);
@@ -93,7 +78,7 @@ public class PlayersPanel extends JPanel {
     }
 
     private void firstLine() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 0));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 120, 0));
         panel.setOpaque(false);
         panel.add(decoration1);
         panel.add(decoration2);
@@ -141,19 +126,11 @@ public class PlayersPanel extends JPanel {
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
         add(actionsPanel, gbc);
 
+        gbc.ipadx = 0;
+        gbc.ipady = 0;
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.anchor = GridBagConstraints.LAST_LINE_END;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        add(new JLabel(new ImageIcon(playerTokens)), gbc);
-    }
-
-    private void applyFont(Component component) {
-        if (component instanceof JLabel) {
-            component.setFont(customFont);
-            component.setForeground(Color.WHITE);
-        } else if (component instanceof Container) {
-            for (Component child : ((Container) component).getComponents()) {
-                applyFont(child);
-            }
-        }
+        add(playerTokens, gbc);
     }
 }

@@ -7,7 +7,8 @@ import javax.swing.*;
 
 public class ActionsPanel extends JPanel {
     private JPanel firstLine, secondLine, thirdLine;
-    private JButton doblar, rendirse, quedarse, dividir, pedir;
+    private JButton doblar, quit, settle, divide, ask;
+    private TokensPanel tokens;
     private GridBagConstraints gbc;
 
     public ActionsPanel() {
@@ -22,19 +23,19 @@ public class ActionsPanel extends JPanel {
     public void firstLine() {
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.ipadx = 5;
-        gbc.ipady = 15;
+        gbc.ipady = 10;
 
-        firstLine.add(pedir, gbc);
+        firstLine.add(ask, gbc);
         firstLine.add(doblar, gbc);
-        firstLine.add(rendirse, gbc);
+        firstLine.add(quit, gbc);
         firstLine.setOpaque(false);
 
         secondLine();
     }
 
     public void secondLine() {
-        secondLine.add(quedarse,gbc);
-        secondLine.add(dividir,gbc);
+        secondLine.add(settle,gbc);
+        secondLine.add(divide,gbc);
         secondLine.setOpaque(false);
         gbc.insets = new Insets(0, 0, 0, 0);
         gbc.ipadx = 0;
@@ -44,12 +45,7 @@ public class ActionsPanel extends JPanel {
     }
 
     public void thirdLine() {
-        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/images/icons/tokens.png"));
-        Image scaledImage = originalIcon.getImage().getScaledInstance(80, 35, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImage);
-        JLabel fichas = new JLabel(scaledIcon);
-        fichas.setOpaque(false);
-        thirdLine.add(fichas,gbc);
+        thirdLine.add(tokens,gbc);
         gbc.ipadx = 0;
         gbc.ipady = 0;
 
@@ -73,11 +69,13 @@ public class ActionsPanel extends JPanel {
         secondLine.setLayout(new GridBagLayout());
         thirdLine.setLayout(new GridBagLayout());
 
-        pedir = new ImageButton("Pedir", false, 16);
-        doblar = new ImageButton("Doblar", false, 16);
-        rendirse = new ImageButton("Rendirse", false, 16);
-        quedarse = new ImageButton("Quedarse", true, 16);
-        dividir = new ImageButton("Dividir", true, 16);
+        ask = new ImageButton("Pedir", false, 10);
+        doblar = new ImageButton("Doblar", false, 10);
+        quit = new ImageButton("Rendirse", false, 10);
+        settle = new ImageButton("Quedarse", true, 10);
+        divide = new ImageButton("Dividir", true, 10);
+
+        tokens = new TokensPanel();
     }
 
 }

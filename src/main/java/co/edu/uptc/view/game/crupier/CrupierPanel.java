@@ -1,8 +1,10 @@
 package co.edu.uptc.view.game.crupier;
 
+import co.edu.uptc.view.game.CardImage;
 import co.edu.uptc.view.game.GamePanel;
 import co.edu.uptc.view.reusable.ArcadeButton;
 import co.edu.uptc.view.reusable.Constants;
+import co.edu.uptc.view.reusable.ImageButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +13,7 @@ public class CrupierPanel extends JPanel {
     private GamePanel gamePanel;
     private GridBagConstraints gbc;
     private JLabel crupierLabel, timerLabel, ruleLabel, leftPileLabel, rightPileLabel;
-    private ArcadeButton pauseButton, helpButton;
+    private JButton pauseButton, helpButton;
     private JPanel cardsPanel;
 
     public CrupierPanel(GamePanel gamePanel) {
@@ -22,8 +24,7 @@ public class CrupierPanel extends JPanel {
 
         initComponents();
         firstLine();
-        applyFont(this);
-        crupierLabel.setFont(Constants.CUSTOM_FONT.deriveFont(32f));
+        crupierLabel.setFont(Constants.CUSTOM_FONT.deriveFont(18f));
         crupierLabel.setForeground(Color.WHITE);
     }
 
@@ -31,14 +32,13 @@ public class CrupierPanel extends JPanel {
 
     private void initComponents() {
         initButtons();
-        ImageIcon pileIcon = new ImageIcon(getClass().getResource("/images/cards/cards_deck.png"));
-        leftPileLabel = new JLabel(pileIcon);
-        rightPileLabel = new JLabel(pileIcon);
+        leftPileLabel = new CardImage(0, 14);
+        rightPileLabel = new CardImage(0,13);
 
         cardsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
         cardsPanel.setOpaque(false);
         for (int i = 0; i < 3; i++) {
-            JLabel cardLabel = new JLabel(new ImageIcon(getClass().getResource("/images/cards/card_back.png")));
+            JLabel cardLabel = new CardImage(4, i);
             cardsPanel.add(cardLabel);
         }
 
@@ -46,15 +46,15 @@ public class CrupierPanel extends JPanel {
     }
 
     private void initButtons() {
-        pauseButton = new ArcadeButton("X", Constants.CUSTOM_FONT, Color.WHITE, new Color(94, 54, 67, 255));
-        helpButton = new ArcadeButton("?", Constants.CUSTOM_FONT, Color.WHITE, new Color(94, 54, 67, 255));
+        pauseButton = new ImageButton("||", false, 10);
+        helpButton = new ImageButton("?", false, 12);
 
         pauseButton.addActionListener(e -> {
             gamePanel.openClosePopup();
         });
 
         helpButton.addActionListener(e -> {
-//            gamePanel.openRulesMenu();
+            gamePanel.openRulesMenu();
         });
     }
 
@@ -64,34 +64,47 @@ public class CrupierPanel extends JPanel {
         timerLabel = new JLabel("30 s");
         timerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         timerLabel.setOpaque(true);
+        timerLabel.setFont(Constants.CUSTOM_FONT.deriveFont(15f));
         timerLabel.setBackground(new Color(49,41,41,255));
         timerLabel.setForeground(Color.WHITE);
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         ruleLabel = new JLabel("El crupier debe pedir hasta alcanzar 16 y plantarse en todos los 17");
+        ruleLabel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, new float[]{7,5}, 0), new Color(25,45,34,255)));
         ruleLabel.setOpaque(true);
+        ruleLabel.setFont(Constants.CUSTOM_FONT.deriveFont(13f));
         ruleLabel.setBackground(new Color(181,190,185,255));
         ruleLabel.setForeground(Color.YELLOW);
-        ruleLabel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, new float[]{7,5}, 0), new Color(25,45,34,255)));
+        ruleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     private void firstLine() {
+        gbc.ipadx = 0;
+        gbc.ipady = 10;
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.LINE_START;
         add(pauseButton, gbc);
         gbc.anchor = GridBagConstraints.CENTER;
 
+        gbc.insets = new Insets(0, 200, 0, 10);
+        gbc.anchor = GridBagConstraints.LINE_END;
         gbc.gridheight = 2;
         add(rightPileLabel, gbc);
         gbc.gridheight = 1;
 
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
         add(crupierLabel, gbc);
 
+        gbc.insets = new Insets(0, 10, 0, 200);
+        gbc.anchor = GridBagConstraints.LINE_START;
         gbc.gridheight = 2;
         add(leftPileLabel, gbc);
         gbc.gridheight = 1;
 
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.CENTER;
         add(helpButton, gbc);
         gbc.gridwidth = 1;
 
@@ -108,6 +121,8 @@ public class CrupierPanel extends JPanel {
         add(timerLabel, gbc);
         gbc.anchor = GridBagConstraints.CENTER;
 
+        gbc.ipadx = 0;
+        gbc.ipady = 0;
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.gridheight = 2;
@@ -125,26 +140,10 @@ public class CrupierPanel extends JPanel {
         gbc.ipady = 25;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1;
-
-        ruleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.weightx = 1.0;
         add(ruleLabel, gbc);
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-    }
-
-
-
-    private void applyFont(Component component) {
-        if (component instanceof JLabel) {
-            component.setFont(Constants.loadCustomFont());
-        } else if (component instanceof JButton) {
-            //component.setFont(customFont.deriveFont(18f));
-        } else if (component instanceof Container) {
-            for (Component child : ((Container) component).getComponents()) {
-                applyFont(child);
-            }
-        }
     }
 }

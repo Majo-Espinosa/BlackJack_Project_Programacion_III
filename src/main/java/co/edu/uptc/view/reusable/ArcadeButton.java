@@ -8,16 +8,14 @@ import java.awt.event.MouseEvent;
 
 public class ArcadeButton extends JButton {
 
-    private Font arcadeFont;
-
     private Color normalBg;
     private Color hoverBg;
     private Color clickBg;
     private Color textColor;
 
-    public ArcadeButton(String text, Font font, Color bgColor, Color textColor) {
+    public ArcadeButton(String text, long fontSize, Color bgColor, Color textColor) {
         super(text);
-        this.arcadeFont = font;
+        setFont(Constants.CUSTOM_FONT.deriveFont(fontSize));
         this.normalBg = bgColor;
         this.hoverBg = bgColor.brighter();
         this.clickBg = bgColor.darker();
@@ -30,18 +28,10 @@ public class ArcadeButton extends JButton {
     private void initStyle() {
         setBackground(normalBg);
         setForeground(textColor);
-        setFont(arcadeFont.deriveFont(20f));
         setFocusPainted(false);
-
-        // Borde negro grueso (igual que la fuente)
         Border blackLine = BorderFactory.createLineBorder(textColor, 4);
-
-        // Padding interno para hacer el botón más "grueso"
         Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-
-        // Combinar ambos bordes
         setBorder(BorderFactory.createCompoundBorder(blackLine, padding));
-
         setContentAreaFilled(true);
         setOpaque(true);
         setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
