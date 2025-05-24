@@ -11,16 +11,16 @@ public class Constants {
 
     public static final String REUSABLE_BUTTON_IMAGE_PATH = "/images/icons/button.png";
     public static final String REUSABLE_BUTTON_PRESSED_IMAGE_PATH = "/images/icons/pressed_button.png";
-    public static final String MAIN_MENU_BACKGROUND = "/images/backgrounds/menu_background.png";
     public static final String GAME_BACKGROUND = "/images/backgrounds/game_background.png";
-    public static final String CARDS_PATH = "/images/cards/1.2 Poker cards.png";
+    public static final String CARDS_PATH = "/images/cards/cards.png";
+    public static final String TOKENS_PATH = "/images/cards/tokens.png";
 
     public static final Font CUSTOM_FONT = loadCustomFont();
 
-    public static Font loadCustomFont() {
+    private static Font loadCustomFont() {
         try {
             Font font = Font.createFont(Font.TRUETYPE_FONT,
-                    Constants.class.getResourceAsStream(Constants.FONT_NAME)).deriveFont(18f);
+                    Constants.class.getResourceAsStream(Constants.FONT_NAME)).deriveFont(17f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
             return font;

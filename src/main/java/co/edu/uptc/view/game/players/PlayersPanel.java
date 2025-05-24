@@ -10,8 +10,7 @@ public class PlayersPanel extends JPanel {
 
     private GridBagConstraints gbc;
     private JLabel leftPlayerLabel, centerPlayerLabel, rightPlayerLabel, decoration1, decoration2, decoration3;
-    private JPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
-    private Image playerTokens;
+    private JPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel, playerTokens;
     private ActionsPanel actionsPanel;
 
     public PlayersPanel() {
@@ -21,23 +20,22 @@ public class PlayersPanel extends JPanel {
 
         initComponents();
         firstLine();
-        applyFont(this);
     }
 
     private void initComponents() {
-        playerTokens = new ImageIcon(getClass().getResource("/images/icons/tokens.png")).getImage();
+        playerTokens = new TokensPanel();
         actionsPanel = new ActionsPanel();
 
         leftPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel c0 = new CardImage(0,0);
+        JLabel c0 = new CardImage(1,1);
         leftPlayerPanel.add(c0);
 
         centerPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel c1 = new CardImage(1,13);
+        JLabel c1 = new CardImage(0,13);
         centerPlayerPanel.add(c1);
 
         rightPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel c2 = new CardImage(4,13);
+        JLabel c2 = new CardImage(4,2);
         rightPlayerPanel.add(c2);
 
         leftPlayerPanel.setOpaque(false);
@@ -128,19 +126,11 @@ public class PlayersPanel extends JPanel {
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
         add(actionsPanel, gbc);
 
+        gbc.ipadx = 0;
+        gbc.ipady = 0;
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.anchor = GridBagConstraints.LAST_LINE_END;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        add(new JLabel(new ImageIcon(playerTokens)), gbc);
-    }
-
-    private void applyFont(Component component) {
-        if (component instanceof JLabel) {
-            component.setFont(Constants.CUSTOM_FONT.deriveFont(8f));
-            component.setForeground(Color.WHITE);
-        } else if (component instanceof Container) {
-            for (Component child : ((Container) component).getComponents()) {
-                applyFont(child);
-            }
-        }
+        add(playerTokens, gbc);
     }
 }
