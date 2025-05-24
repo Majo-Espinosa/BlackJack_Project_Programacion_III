@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Stack;
 
+import co.edu.uptc.view.reusable.Constants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -13,26 +14,24 @@ import com.google.gson.JsonObject;
 // de las imagenes
 public class DeckJsonCreator {
     private Stack<String> cards;
-    private static final String[] RANKS = { "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A" };
-    private static final String[] SUITS = { "H", "D", "C", "S" };
-    private static final String[] SUIT_NAMES = { "HEARTS", "DIAMONDS", "CLUBS", "SPADES" };
+    private static final String[] RANKS = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
+    private static final String[] SUIT_NAMES = { "HEARTS", "DIAMONDS", "SPADES", "CLUBS" };
 
     public void createDeckJson(int singleDecks, String outputPath) {
         cards = new Stack<>();
         JsonArray imagesArray = new JsonArray();
 
         for (int i = 0; i < singleDecks; i++) {
-            for (int s = 0; s < SUITS.length; s++) {
-                String suit = SUITS[s];
-                String suitName = SUIT_NAMES[s];
-                for (String rank : RANKS) {
-                    String cardName = suit + rank;
-                    String path = "assets/cards/" + suitName + "/" + suit + rank + ".png";
+            for (int s = 0; s < SUIT_NAMES.length; s++) {
+                String suit = SUIT_NAMES[s];
+                for (int r = 0; r < RANKS.length; r++) {
+                    String cardName = suit + "_" + RANKS[r];
                     cards.add(cardName);
 
                     JsonObject cardJson = new JsonObject();
                     cardJson.addProperty("name", cardName);
-                    cardJson.addProperty("path", path);
+                    cardJson.addProperty("row", s);
+                    cardJson.addProperty("column", r);
                     imagesArray.add(cardJson);
                 }
             }
@@ -55,6 +54,6 @@ public class DeckJsonCreator {
 
     public static void main(String[] args) {
         DeckJsonCreator deckJsonCreator = new DeckJsonCreator();
-        deckJsonCreator.createDeckJson(1, "data/images.json");
+        deckJsonCreator.createDeckJson(1, "target/images.json");
     }
 }

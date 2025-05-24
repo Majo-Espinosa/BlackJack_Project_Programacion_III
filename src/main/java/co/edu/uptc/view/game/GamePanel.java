@@ -29,7 +29,7 @@ public class GamePanel extends JPanel {
         closePanel.showPopUp(false);
     }
 
-//    public void openRulesMenu() {
-//        mainPanel.openRulesPopup();
-//    }
+    public void openRulesMenu() {
+        mainPanel.openRulesPopup();
+    }
 }
