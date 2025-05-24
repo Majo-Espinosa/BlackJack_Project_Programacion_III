@@ -8,13 +8,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class CardImage extends JLabel {
-    private final int width = 63;
-    private final int height = 77;
 
-    public CardImage(String resourcePath, int row, int column) {
+    public CardImage(int row, int column) {
         try {
             BufferedImage cardsSheet = ImageIO.read(getClass().getResource(Constants.CARDS_PATH));
+            int width = 48;
             int xposition = column * width;
+            int height = 64;
             int yposition = row * height;
             setIcon(new ImageIcon(cardsSheet.getSubimage(xposition, yposition, width, height)));
         } catch (IOException e) {

@@ -73,11 +73,11 @@ public class ActionsPanel extends JPanel {
         secondLine.setLayout(new GridBagLayout());
         thirdLine.setLayout(new GridBagLayout());
 
-        pedir = new ImageButton("Pedir", false, 16);
-        doblar = new ImageButton("Doblar", false, 16);
-        rendirse = new ImageButton("Rendirse", false, 16);
-        quedarse = new ImageButton("Quedarse", true, 16);
-        dividir = new ImageButton("Dividir", true, 16);
+        pedir = new ImageButton("Pedir", false, 8);
+        doblar = new ImageButton("Doblar", false, 8);
+        rendirse = new ImageButton("Rendirse", false, 8);
+        quedarse = new ImageButton("Quedarse", true, 8);
+        dividir = new ImageButton("Dividir", true, 8);
     }
 
 }

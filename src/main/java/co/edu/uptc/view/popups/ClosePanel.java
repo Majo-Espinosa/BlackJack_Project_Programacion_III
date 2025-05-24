@@ -84,9 +84,7 @@ public class ClosePanel extends JPanel {
         gbc.gridwidth = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
-        refuseBtn.addActionListener((ActionEvent e) -> {
-            dialog.dispose();
-        });
+        refuseBtn.addActionListener((ActionEvent _) -> dialog.dispose());
         add(refuseBtn, gbc);
     }
 
