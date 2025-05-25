@@ -9,8 +9,9 @@ import java.io.IOException;
 public class PlayersPanel extends JPanel {
 
     private GridBagConstraints gbc;
-    private JLabel leftPlayerLabel, centerPlayerLabel, rightPlayerLabel, decoration1, decoration2, decoration3;
-    private JPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel, playerTokens;
+    private JLabel decoration1, decoration2, decoration3;
+    private PlayerPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
+    private JPanel playerTokens;
     private ActionsPanel actionsPanel;
 
     public PlayersPanel() {
@@ -26,17 +27,17 @@ public class PlayersPanel extends JPanel {
         playerTokens = new TokensPanel();
         actionsPanel = new ActionsPanel();
 
-        leftPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel c0 = new CardImage(1,1);
-        leftPlayerPanel.add(c0);
+        leftPlayerPanel = new PlayerPanel("Waiting...");
+        leftPlayerPanel.addCard(0,0);
 
-        centerPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel c1 = new CardImage(0,13);
-        centerPlayerPanel.add(c1);
+        centerPlayerPanel = new PlayerPanel("Waiting...");
+        centerPlayerPanel.addCard(0,1);
+        centerPlayerPanel.addCard(1,1);
 
-        rightPlayerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        JLabel c2 = new CardImage(4,2);
-        rightPlayerPanel.add(c2);
+        rightPlayerPanel = new PlayerPanel("Waiting...");
+        rightPlayerPanel.addCard(0,2);
+        rightPlayerPanel.addCard(1,2);
+        rightPlayerPanel.addCard(2,2);
 
         leftPlayerPanel.setOpaque(false);
         centerPlayerPanel.setOpaque(false);
@@ -46,24 +47,6 @@ public class PlayersPanel extends JPanel {
     }
 
     private void initLabels() {
-        leftPlayerLabel = new JLabel("Jugador Izq");
-        centerPlayerLabel = new JLabel("Jugador Central");
-        rightPlayerLabel = new JLabel("Jugador Der");
-
-        leftPlayerLabel.setBackground(new Color(49,41,41,255));
-        leftPlayerLabel.setOpaque(true);
-        leftPlayerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        leftPlayerLabel.setBorder(BorderFactory.createLineBorder(new Color(238,189,138,255), 2, true) );
-        centerPlayerLabel.setBackground(new Color(49,41,41,255));
-        centerPlayerLabel.setOpaque(true);
-        centerPlayerLabel.setBorder(BorderFactory.createLineBorder(new Color(238,189,138,255), 2, true) );
-        centerPlayerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        rightPlayerLabel.setBackground(new Color(49,41,41,255));
-        rightPlayerLabel.setOpaque(true);
-        rightPlayerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        rightPlayerLabel.setBorder(BorderFactory.createLineBorder(new Color(238,189,138,255), 2, true) );
-
-
         decoration1 = new JLabel("Paga 2 a 1");
         decoration2 = new JLabel("SEGURO");
         decoration3 = new JLabel("Paga 2 a 1");
@@ -75,6 +58,14 @@ public class PlayersPanel extends JPanel {
         decoration1.setHorizontalAlignment(SwingConstants.CENTER);
         decoration2.setHorizontalAlignment(SwingConstants.CENTER);
         decoration3.setHorizontalAlignment(SwingConstants.CENTER);
+
+        decoration1.setFont(Constants.CUSTOM_FONT.deriveFont(12f));
+        decoration2.setFont(Constants.CUSTOM_FONT.deriveFont(12f));
+        decoration3.setFont(Constants.CUSTOM_FONT.deriveFont(12f));
+
+        decoration1.setForeground(new Color(255,255,255, 205));
+        decoration2.setForeground(new Color(255,255,255, 205));
+        decoration3.setForeground(new Color(255,255,255, 205));
     }
 
     private void firstLine() {
@@ -85,6 +76,7 @@ public class PlayersPanel extends JPanel {
         panel.add(decoration3);
 
         gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(5, 0, 20, 0);
 
         add(panel, gbc);
 
@@ -92,7 +84,6 @@ public class PlayersPanel extends JPanel {
     }
 
     private void secondLine() {
-        gbc.insets = new Insets(5, 100, 5, 100);
         gbc.gridwidth = 1;
 
         add(leftPlayerPanel, gbc);
@@ -110,12 +101,8 @@ public class PlayersPanel extends JPanel {
         gbc.ipadx = 30;
         gbc.ipady = 35;
         gbc.gridy = 2;
-        add(leftPlayerLabel, gbc);
-
-        add(centerPlayerLabel, gbc);
 
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        add(rightPlayerLabel, gbc);
         gbc.gridwidth = 1;
 
         fourthLine();
