@@ -118,7 +118,7 @@ public class RulesPanel extends JPanel {
     public void showPopUp(boolean isExit) {
         dialog = new JDialog();
         dialog.setContentPane(this);
-        dialog.setSize(new Dimension(1200, 790));
+        dialog.setSize(new Dimension(900, 700));
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setLocationRelativeTo(null);
         dialog.setResizable(false);
