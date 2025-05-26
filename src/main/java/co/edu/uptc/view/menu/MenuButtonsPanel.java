@@ -12,7 +12,7 @@ import co.edu.uptc.view.reusable.ImageButton;
 public class MenuButtonsPanel extends JPanel {
     
     private GridBagConstraints gbc;
-    private MainPanel mainPanel;
+    private final MainPanel mainPanel;
     private ImageButton play;
     private ImageButton rules;
     private ImageButton exit;

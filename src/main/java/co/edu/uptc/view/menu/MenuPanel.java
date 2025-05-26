@@ -13,65 +13,65 @@ import co.edu.uptc.view.MainPanel;
 
 public class MenuPanel extends JPanel {
 
+	private final MainPanel mainPanel;
 
+	private MenuButtonsPanel buttons;
 
-    private MainPanel mainPanel;
-    private MenuButtonsPanel buttons;
-    private MenuTitlePanel title;
-    private GridBagConstraints gbc;
-    private MenuIconsPanel leftiIconPanel;
-    private MenuIconsPanel rightIconPanel;
+	private MenuTitlePanel title;
 
-    
+	private GridBagConstraints gbc;
 
-    public MenuPanel(MainPanel mainPanel) {
-        this.mainPanel = mainPanel;
-        initComponents();
+	private MenuIconsPanel leftiIconPanel;
 
-        JPanel auxPanel = new JPanel(new GridBagLayout());   
-        gbc.ipadx = 1080;
-        gbc.ipady = 190;
-        gbc.insets = new Insets(110, 0, 0, 0);
+	private MenuIconsPanel rightIconPanel;
 
-        auxPanel.add(title,gbc);
-        auxPanel.setOpaque(false);
-        auxPanel.setPreferredSize(new Dimension(this.getWidth()/2, 200));
-        gbc.ipadx = 250;
-        gbc.ipady = 400;
-         gbc.insets = new Insets(0, 0, 0, 0);
+	public MenuPanel(MainPanel mainPanel) {
+		this.mainPanel = mainPanel;
+		initComponents();
 
-        JPanel leftAuxPanel = new JPanel(new GridBagLayout());
-        gbc.insets = new Insets(0, 30, 0, 0);
-        leftAuxPanel.add(leftiIconPanel,gbc);
-        leftAuxPanel.setOpaque(false);
+		JPanel auxPanel = new JPanel(new GridBagLayout());
+		gbc.ipadx = 1080;
+		gbc.ipady = 190;
+		gbc.insets = new Insets(110, 0, 0, 0);
 
-        JPanel rightAuxPanel = new JPanel(new GridBagLayout());
-        gbc.insets = new Insets(0, 0, 0, 30);
-        rightAuxPanel.add(rightIconPanel,gbc);
-        rightAuxPanel.setOpaque(false);
+		auxPanel.add(title, gbc);
+		auxPanel.setOpaque(false);
+		auxPanel.setPreferredSize(new Dimension(this.getWidth() / 2, 200));
+		gbc.ipadx = 250;
+		gbc.ipady = 400;
+		gbc.insets = new Insets(0, 0, 0, 0);
 
-        this.setLayout(new BorderLayout());
-        this.add(auxPanel,BorderLayout.NORTH);
-        this.add(buttons,BorderLayout.CENTER);
-        this.add(leftAuxPanel,BorderLayout.WEST);
-        this.add(rightAuxPanel,BorderLayout.EAST);
-        this.setOpaque(false);
+		JPanel leftAuxPanel = new JPanel(new GridBagLayout());
+		gbc.insets = new Insets(0, 30, 0, 0);
+		leftAuxPanel.add(leftiIconPanel, gbc);
+		leftAuxPanel.setOpaque(false);
 
-    }
+		JPanel rightAuxPanel = new JPanel(new GridBagLayout());
+		gbc.insets = new Insets(0, 0, 0, 30);
+		rightAuxPanel.add(rightIconPanel, gbc);
+		rightAuxPanel.setOpaque(false);
 
-    @Override
-    protected void paintComponent(Graphics g) {
+		this.setLayout(new BorderLayout());
+		this.add(auxPanel, BorderLayout.NORTH);
+		this.add(buttons, BorderLayout.CENTER);
+		this.add(leftAuxPanel, BorderLayout.WEST);
+		this.add(rightAuxPanel, BorderLayout.EAST);
+		this.setOpaque(false);
 
-    }
-    
-    private void initComponents(){
+	}
 
-        gbc = new GridBagConstraints();
-        leftiIconPanel = new MenuIconsPanel("/images/icons/MenuCardsLeft.png");
-        rightIconPanel = new MenuIconsPanel("/images/icons/MenuCardsRight.png");
-        buttons = new MenuButtonsPanel(mainPanel);
-        title = new MenuTitlePanel();
-    }
-    
+	@Override
+	protected void paintComponent(Graphics g) {
+
+	}
+
+	private void initComponents() {
+
+		gbc = new GridBagConstraints();
+		leftiIconPanel = new MenuIconsPanel("/images/icons/MenuCardsLeft.png");
+		rightIconPanel = new MenuIconsPanel("/images/icons/MenuCardsRight.png");
+		buttons = new MenuButtonsPanel(mainPanel);
+		title = new MenuTitlePanel();
+	}
 
 }

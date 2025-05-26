@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class RoundedBorder extends AbstractBorder {
-    private int radius;
+    private final int radius;
 
     public RoundedBorder(int radius) {
         this.radius = radius;

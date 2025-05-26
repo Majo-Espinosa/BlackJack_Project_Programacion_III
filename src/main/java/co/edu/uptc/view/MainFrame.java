@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public void initComponents() {
+    public final void initComponents() {
         mainPanel = new MainPanel();
         setContentPane(mainPanel);
     }
@@ -23,4 +23,5 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         new MainFrame();
     }
+
 }

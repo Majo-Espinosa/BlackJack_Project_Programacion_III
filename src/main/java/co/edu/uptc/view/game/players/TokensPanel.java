@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class TokensPanel extends JPanel {
     public JLabel tokens, image;
-    private GridBagConstraints gbc = new GridBagConstraints();
+    private final GridBagConstraints gbc = new GridBagConstraints();
 
     public TokensPanel() {
         initComponents();
@@ -22,7 +22,7 @@ public class TokensPanel extends JPanel {
         this.tokens.setText(String.valueOf(tokens));
     }
 
-    public void initComponents() {
+    public final void initComponents() {
         setBackground(Constants.SECONDARY_BUTTON_COLOR);
         setBorder(new LineBorder(Color.BLACK));
         setForeground(Constants.PRIMARY_BUTTON_COLOR);
@@ -46,7 +46,7 @@ public class TokensPanel extends JPanel {
         }
     }
 
-    public void addComponents() {
+    public final void addComponents() {
         gbc.ipadx = 5;
         gbc.ipady = 10;
         add(image, gbc);

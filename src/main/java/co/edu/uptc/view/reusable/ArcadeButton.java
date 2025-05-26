@@ -8,10 +8,10 @@ import java.awt.event.MouseEvent;
 
 public class ArcadeButton extends JButton {
 
-    private Color normalBg;
-    private Color hoverBg;
-    private Color clickBg;
-    private Color textColor;
+    private final Color normalBg;
+    private final Color hoverBg;
+    private final Color clickBg;
+    private final Color textColor;
 
     public ArcadeButton(String text, long fontSize, Color bgColor, Color textColor) {
         super(text);

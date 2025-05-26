@@ -1,10 +1,8 @@
 package co.edu.uptc.view.game.players;
 
-import co.edu.uptc.view.game.CardImage;
 import co.edu.uptc.view.reusable.Constants;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class PlayersPanel extends JPanel {
 

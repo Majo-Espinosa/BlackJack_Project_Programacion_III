@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 public class MenuIconsPanel extends  JPanel {
     
-    private Image icon;
+    private final Image icon;
 
     public MenuIconsPanel(String iconSource){
 

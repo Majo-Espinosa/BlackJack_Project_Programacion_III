@@ -16,11 +16,10 @@ public class ActionsPanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         setLayout(new GridBagLayout());
         initComponents();
-
         firstLine();
     }
 
-    public void firstLine() {
+    public final void firstLine() {
         gbc.insets = new Insets(0, 0, 10, 0);
         gbc.ipadx = 5;
         gbc.ipady = 10;

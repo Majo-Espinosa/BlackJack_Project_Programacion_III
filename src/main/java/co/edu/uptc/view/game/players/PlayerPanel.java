@@ -7,9 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PlayerPanel extends JPanel {
-    private JLabel name;
-    private CardsPanel cardsPanel;
-    private GridBagConstraints gbc = new GridBagConstraints();
+    private final JLabel name;
+    private final CardsPanel cardsPanel;
+    private final GridBagConstraints gbc = new GridBagConstraints();
 
     public PlayerPanel(String name) {
         this.name = new JLabel(name);
@@ -19,7 +19,7 @@ public class PlayerPanel extends JPanel {
         addComponents();
     }
 
-    public void initComponents() {
+    public final void initComponents() {
         setLayout(new GridBagLayout());
         setOpaque(false);
 
@@ -31,7 +31,7 @@ public class PlayerPanel extends JPanel {
         name.setBorder(BorderFactory.createLineBorder(new Color(238,189,138,255), 2, true));
     }
 
-    public void addComponents() {
+    public final void addComponents() {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 20, 0, 20);

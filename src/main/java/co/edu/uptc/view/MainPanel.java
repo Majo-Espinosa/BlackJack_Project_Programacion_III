@@ -15,14 +15,20 @@ import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.rules.RulesPanel;
 
 public class MainPanel extends JPanel {
+
 	private MenuPanel menuPanel;
+
 	private GamePanel gamePanel;
+
 	private LoginPanel loginPanel;
+
 	private RulesPanel rulesPanel;
+
 	private ClosePanel closePanel;
 
-	private Image gameBackground;
-	private CardLayout cardLayout;
+	private final Image gameBackground;
+
+	private final CardLayout cardLayout;
 
 	public MainPanel() {
 		cardLayout = new CardLayout();
@@ -31,7 +37,7 @@ public class MainPanel extends JPanel {
 		gameBackground = new ImageIcon(getClass().getResource(Constants.GAME_BACKGROUND)).getImage();
 	}
 
-	public void initComponents() {
+	public final void initComponents() {
 		rulesPanel = new RulesPanel();
 		menuPanel = new MenuPanel(this);
 		gamePanel = new GamePanel(this);
@@ -48,8 +54,6 @@ public class MainPanel extends JPanel {
 		cardLayout.show(this, panelName);
 	}
 
-
-
 	public void openClosePopup() {
 		closePanel.showPopUp(true);
 	}
@@ -63,4 +67,5 @@ public class MainPanel extends JPanel {
 		super.paintComponent(g);
 		g.drawImage(gameBackground, 0, 0, getWidth(), getHeight(), this);
 	}
+
 }
