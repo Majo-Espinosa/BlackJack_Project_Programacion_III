@@ -7,11 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class UsernameTextField extends JTextField {
     private Image backgoundImage;
-    private final String placeholder = "Ingresa tu nombre";
 
     public UsernameTextField() {
         super();
@@ -57,6 +55,7 @@ public class UsernameTextField extends JTextField {
             g2.setFont(getFont().deriveFont(Font.ITALIC));
             Insets insets = getInsets();
             int padding = (getHeight() - getFont().getSize()) / 2 + g2.getFontMetrics().getAscent() - 2;
+            String placeholder = "Ingresa tu nombre";
             g2.drawString(placeholder, insets.left + 5, padding);
             g2.dispose();
         }

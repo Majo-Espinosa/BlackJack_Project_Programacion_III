@@ -42,9 +42,9 @@ public class MenuButtonsPanel extends JPanel {
         rules = new ImageButton("Reglas", true, 16, ImageButton.DARK_QUESTION_MARK_ICON);
         exit = new ImageButton("Salir", false, 16, ImageButton.SKULL_ICON);
 
-        play.addActionListener(e -> mainPanel.updatePanel("login", true));
-        rules.addActionListener(e -> mainPanel.openRulesPopup());
-        exit.addActionListener(e -> mainPanel.openClosePopup());
+        play.addActionListener(_ -> mainPanel.updatePanel("login", true));
+        rules.addActionListener(_ -> mainPanel.openRulesPopup());
+        exit.addActionListener(_ -> mainPanel.openClosePopup());
     }
 
 }
