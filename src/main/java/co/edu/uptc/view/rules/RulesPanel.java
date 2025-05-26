@@ -1,10 +1,16 @@
 package co.edu.uptc.view.rules;
 
-import co.edu.uptc.view.rules.draw.RulesCustomBtn;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+import co.edu.uptc.view.rules.draw.RulesCustomBtn;
 
 public class RulesPanel extends JPanel {
 

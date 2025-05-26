@@ -37,8 +37,9 @@ public class MenuPanel extends JPanel {
 		auxPanel.add(title, gbc);
 		auxPanel.setOpaque(false);
 		auxPanel.setPreferredSize(new Dimension(this.getWidth() / 2, 200));
+
 		gbc.ipadx = 250;
-		gbc.ipady = 400;
+		gbc.ipady = 340;
 		gbc.insets = new Insets(0, 0, 0, 0);
 
 		JPanel leftAuxPanel = new JPanel(new GridBagLayout());
