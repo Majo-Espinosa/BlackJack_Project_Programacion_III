@@ -23,8 +23,8 @@ public class LoginPanel extends JPanel {
         setLayout(new GridBagLayout());
 
         usernameTextField = new UsernameTextField();
-        play = new ImageButton("Entrar a la sala", false,  16);
-        backToMenu = new ImageButton("Volver", false, 16);
+        play = new ImageButton("Entrar a la sala", false,  16, ImageButton.PLAY_ICON);
+        backToMenu = new ImageButton("Volver", false, 16, ImageButton.HOME_ICON);
 
         play.addActionListener(e -> mainPanel.updatePanel("game", false));
         backToMenu.addActionListener(e -> mainPanel.updatePanel("menu", true));

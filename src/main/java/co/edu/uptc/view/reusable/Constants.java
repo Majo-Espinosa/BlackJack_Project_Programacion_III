@@ -10,8 +10,6 @@ public class Constants {
     public static final String FONT_NAME = "/fonts/PressStart2P-Regular.ttf";
 
     public static final String BUTTONS_PATH = "/images/icons/buttons.png";
-    public static final String REUSABLE_BUTTON_IMAGE_PATH = "/images/icons/button.png";
-    public static final String REUSABLE_BUTTON_PRESSED_IMAGE_PATH = "/images/icons/pressed_button.png";
     public static final String GAME_BACKGROUND = "/images/backgrounds/game_background.png";
     public static final String CARDS_PATH = "/images/cards/cards.png";
     public static final String TOKENS_PATH = "/images/cards/tokens.png";
