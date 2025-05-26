@@ -24,13 +24,14 @@ public class TokensPanel extends JPanel {
 
     public void initComponents() {
         setBackground(Constants.SECONDARY_BUTTON_COLOR);
-        setBorder(new LineBorder(Color.BLACK));
         setForeground(Constants.PRIMARY_BUTTON_COLOR);
         setLayout(new GridBagLayout());
 
         tokens = new JLabel("100");
         tokens.setFont(Constants.CUSTOM_FONT.deriveFont(20f));
         tokens.setForeground(Constants.PRIMARY_BUTTON_COLOR);
+        tokens.setBorder(new LineBorder(Color.BLACK, 1, true));
+        tokens.setHorizontalAlignment(SwingConstants.CENTER);
 
         setImage();
     }
@@ -39,21 +40,22 @@ public class TokensPanel extends JPanel {
         try {
             image = new JLabel();
             BufferedImage bufferedImage = ImageIO.read(getClass().getResource(Constants.TOKENS_PATH));
-            image.setIcon(new ImageIcon(bufferedImage.getSubimage(0, 18, 33, 30)));
-            image.setBorder(new LineBorder(Color.BLACK, 1));
+            image.setIcon(new ImageIcon(bufferedImage.getSubimage(0, 162, 33, 30)));
+            image.setBorder(new LineBorder(Color.BLACK, 1, true));
+            image.setHorizontalAlignment(SwingConstants.CENTER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void addComponents() {
-        gbc.ipadx = 5;
+        gbc.ipadx = 10;
         gbc.ipady = 10;
         add(image, gbc);
 
-        gbc.ipadx = 0;
-        gbc.ipady = 0;
-        gbc.insets = new Insets(0, 20, 0, 20);
+        gbc.ipady = 20;
+        gbc.ipadx = 20;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(tokens, gbc);
     }
 }
