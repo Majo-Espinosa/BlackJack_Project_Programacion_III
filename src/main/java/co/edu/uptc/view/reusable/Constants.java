@@ -4,6 +4,14 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Constants {
+    public static final Dimension WINDOW_DIMENSION = new Dimension(1080, 720);
+
+    public static final String FRAME_TITLE = "BlackJack!";
+
+    public static final String MENU_KEY = "menu";
+    public static final String LOGIN_KEY = "login";
+    public static final String GAME_KEY = "game";
+
     public static final Color PRIMARY_BUTTON_COLOR = new Color(248,244,239,255);
     public static final Color SECONDARY_BUTTON_COLOR = new Color(71,45,60,255);
 
@@ -13,6 +21,7 @@ public class Constants {
     public static final String GAME_BACKGROUND = "/images/backgrounds/game_background.png";
     public static final String CARDS_PATH = "/images/cards/cards.png";
     public static final String TOKENS_PATH = "/images/cards/tokens.png";
+    public static final String FRAME_ICON_PATH = "/images/icons/logo.png";
 
     public static final Font CUSTOM_FONT = loadCustomFont();
 

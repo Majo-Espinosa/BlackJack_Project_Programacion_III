@@ -44,9 +44,9 @@ public class MainPanel extends JPanel {
 		loginPanel = new LoginPanel(this);
 		closePanel = new ClosePanel(this);
 
-		add(menuPanel, "menu");
-		add(gamePanel, "game");
-		add(loginPanel, "login");
+		add(menuPanel, Constants.MENU_KEY);
+		add(gamePanel, Constants.GAME_KEY);
+		add(loginPanel, Constants.LOGIN_KEY);
 		setOpaque(false);
 	}
 

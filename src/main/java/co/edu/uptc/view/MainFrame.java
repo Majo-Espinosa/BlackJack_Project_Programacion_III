@@ -1,5 +1,7 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.view.reusable.Constants;
+
 import java.net.URL;
 import javax.swing.*;
 
@@ -8,9 +10,9 @@ public class MainFrame extends JFrame {
 
 
     public MainFrame() {
-        super("Blackjack!");
+        super(Constants.FRAME_TITLE);
         initComponents();
-        setSize(1080, 720);
+        setSize(Constants.WINDOW_DIMENSION);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -19,7 +21,7 @@ public class MainFrame extends JFrame {
     }
 
     private void setIcon() {
-        URL iconURL = getClass().getResource("/images/icons/logo.png");
+        URL iconURL = getClass().getResource(Constants.FRAME_ICON_PATH);
         if (iconURL != null) {
             ImageIcon icon = new ImageIcon(iconURL);
             this.setIconImage(icon.getImage());
