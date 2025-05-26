@@ -1,128 +1,162 @@
 package co.edu.uptc.view.rules;
 
-import co.edu.uptc.view.reusable.ImageButton;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+
+import co.edu.uptc.view.rules.draw.RulesCustomBtn;
 
 public class RulesPanel extends JPanel {
 
-    private ImagePanel rules1;
-    private ImagePanel rules2;
-    private ImagePanel rules3;
-    private ImagePanel rules4;
-    private JDialog dialog;
+	private ImagePanel informationPanel;
 
-    public RulesPanel() {
-        initComponents();
-        this.setLayout(new BorderLayout());
+	private ImagePanel actionsPanel;
 
-        CardLayout cardLayout = new CardLayout();
-        JPanel cardPanel = new JPanel(cardLayout);
+	private ImagePanel crupierPanel;
 
+	private ImagePanel rewardsPanel;
 
-        JPanel auxPanel1 = new JPanel();
-        auxPanel1.setLayout(new BorderLayout());
-        auxPanel1.setOpaque(false);
-        ImageButton button1 = new ImageButton("->", false, 16);
-        auxPanel1.add(button1, BorderLayout.EAST);
-        button1.addActionListener(new ActionListener() {
+	private JDialog popUp;
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "2");
-            }
-        });
-        rules1.add(auxPanel1, BorderLayout.SOUTH);
+	private final CardLayout cardLayout;
 
+	public RulesPanel() {
+		cardLayout = new CardLayout();
+		setLayout(cardLayout);
+		initComponents();
+		// Se agregan los paneles con un nombre clave para que CardLayout pueda mostrarlos :(
+		// al invocar show()
+		this.add(informationPanel, RulesConstants.INFO_PANEL_NAME);
+		this.add(actionsPanel, RulesConstants.ACTIONS_PANEL_NAME);
+		this.add(crupierPanel, RulesConstants.CRUPIER_PANEL_NAME);
+		this.add(rewardsPanel, RulesConstants.REWARDS_PANEL_NAME);
+	}
 
-        JPanel auxPanel2 = new JPanel();
-        auxPanel2.setLayout(new BorderLayout());
-        auxPanel2.setOpaque(false);
-        ImageButton button2 = new ImageButton("->", false, 16);
-        ImageButton button2Prev = new ImageButton("<-", false, 16);
-        auxPanel2.add(button2, BorderLayout.EAST);
-        auxPanel2.add(button2Prev,BorderLayout.WEST);
-        rules2.add(auxPanel2, BorderLayout.SOUTH);
-        button2.addActionListener(new ActionListener() {
+	private void initComponents() {
+		// Inicializa cada ImagePanel con su respectiva imagen :)
+		informationPanel = new ImagePanel(RulesConstants.INFO_PANEL_IMG);
+		actionsPanel = new ImagePanel(RulesConstants.ACTIONS_PANEL_IMG);
+		crupierPanel = new ImagePanel(RulesConstants.CRUPIER_PANEL_IMG);
+		rewardsPanel = new ImagePanel(RulesConstants.REWARDS_PANEL_IMG);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
+		// Inicializa la configuración interna de cada panel, agregando botones y layouts :)
+		initInformationPanel();
+		initActionsPanel();
+		initCrupierPanel();
+		initRewardsPanel();
+	}
 
-                cardLayout.show(cardPanel, "3");
-            }
-        });
-        button2Prev.addActionListener(new ActionListener() {
+	/**
+	 * Método para crear un panel de navegación con botones "previo" y "siguiente"
+	 * utilizando un BorderLayout para ubicarlos a izquierda y derecha respectivamente. Se
+	 * usan paneles intermedios con FlowLayout para mantener el alineamiento correcto.
+	 * @param prevBtn botón previo (puede ser null si no se quiere mostrar)
+	 * @param nextBtn botón siguiente (puede ser null si no se quiere mostrar)
+	 * @return JPanel configurado con los botones alineados a izquierda y derecha
+	 */
+	private JPanel createButtonsPanel(JButton prevBtn, JButton nextBtn) {
+		JPanel navPanel = new JPanel(new BorderLayout());
+		navPanel.setOpaque(false);
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "1");
-            }
-        });
+		if (prevBtn != null) {
+			// Panel izquierdo con FlowLayout alineado a la izquierda para el botón previo
+			JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+			leftPanel.setOpaque(false);
+			leftPanel.add(prevBtn);
+			navPanel.add(leftPanel, BorderLayout.WEST);
+		}
 
-        JPanel auxPanel3 = new JPanel();
-        auxPanel3.setLayout(new BorderLayout());
-        auxPanel3.setOpaque(false);
-        ImageButton button3 = new ImageButton("->", false, 16);
-        auxPanel3.add(button3, BorderLayout.EAST);
-        ImageButton button3Prev = new ImageButton("<-", false, 16);
-        rules3.add(auxPanel3, BorderLayout.SOUTH);
-        auxPanel3.add(button3Prev,BorderLayout.WEST);
-        button3.addActionListener(new ActionListener() {
+		if (nextBtn != null) {
+			// Panel derecho con FlowLayout alineado a la derecha para el botón siguiente
+			JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+			rightPanel.setOpaque(false);
+			rightPanel.add(nextBtn);
+			navPanel.add(rightPanel, BorderLayout.EAST);
+		}
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "4");
-            }
-        });
-        button3Prev.addActionListener(new ActionListener() {
+		return navPanel;
+	}
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "2");
-            }
-        });
+	// Los métodos initInformationPanel, initActionsPanel, initCrupierPanel e
+	// initRewardsPanel
+	// configuran cada panel con su imagen de fondo, layout y botones para navegar entre
+	// ellos.
+	// Los botones prev y next llaman a cardLayout.show() para mostrar el panel deseado.
 
-        JPanel auxPanel4 = new JPanel();
-        auxPanel4.setLayout(new BorderLayout());
-        auxPanel4.setOpaque(false);
-        ImageButton button4Prev = new ImageButton("<-", false, 16);
-        auxPanel4.add(button4Prev,BorderLayout.WEST);
-        button4Prev.addActionListener(new ActionListener() {
+	private void initInformationPanel() {
+		informationPanel = new ImagePanel(RulesConstants.INFO_PANEL_IMG);
+		informationPanel.setLayout(new BorderLayout());
 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(cardPanel, "3");
-            }
-        });
-        rules4.add(auxPanel4, BorderLayout.SOUTH);
+		RulesCustomBtn nextBtn = new RulesCustomBtn("", RulesConstants.NEXT_BTN_IMG, 56, 32);
+		nextBtn.addActionListener((ActionEvent e) -> {
+			cardLayout.show(this, RulesConstants.ACTIONS_PANEL_NAME);
+		});
 
-        cardPanel.add(rules1, "1");
-        cardPanel.add(rules2, "2");
-        cardPanel.add(rules3, "3");
-        cardPanel.add(rules4, "4");
-        this.add(cardPanel);
-    }
+		informationPanel.add(createButtonsPanel(null, nextBtn), BorderLayout.SOUTH);
+	}
 
-    private void initComponents() {
+	private void initActionsPanel() {
+		actionsPanel = new ImagePanel(RulesConstants.ACTIONS_PANEL_IMG);
+		actionsPanel.setLayout(new BorderLayout());
 
-        rules1 = new ImagePanel("/images/backgrounds/rules_1.png");
-        rules2 = new ImagePanel("/images/backgrounds/rules_2.png");
-        rules3 = new ImagePanel("/images/backgrounds/rules_3.png");
-        rules4 = new ImagePanel("/images/backgrounds/rules_4.png");
+		RulesCustomBtn nextBtn = new RulesCustomBtn("", RulesConstants.NEXT_BTN_IMG, 56, 32);
+		RulesCustomBtn prevBtn = new RulesCustomBtn("", RulesConstants.PREV_BTN_IMG, 56, 32);
 
-    }
+		nextBtn.addActionListener((ActionEvent e) -> {
+			cardLayout.show(this, RulesConstants.CRUPIER_PANEL_NAME);
+		});
+		prevBtn.addActionListener((ActionEvent e) -> {
+			cardLayout.show(this, RulesConstants.INFO_PANEL_NAME);
+		});
 
-    public void showPopUp(boolean isExit) {
-        dialog = new JDialog();
-        dialog.setContentPane(this);
-        dialog.setSize(new Dimension(1200, 790));
-        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        dialog.setLocationRelativeTo(null);
-        dialog.setResizable(false);
-        dialog.setVisible(true);
-    }
+		actionsPanel.add(createButtonsPanel(prevBtn, nextBtn), BorderLayout.SOUTH);
+	}
+
+	private void initCrupierPanel() {
+		crupierPanel = new ImagePanel(RulesConstants.CRUPIER_PANEL_IMG);
+		crupierPanel.setLayout(new BorderLayout());
+
+		RulesCustomBtn nextBtn = new RulesCustomBtn("", RulesConstants.NEXT_BTN_IMG, 56, 32);
+		RulesCustomBtn prevBtn = new RulesCustomBtn("", RulesConstants.PREV_BTN_IMG, 56, 32);
+
+		nextBtn.addActionListener((ActionEvent e) -> {
+			cardLayout.show(this, RulesConstants.REWARDS_PANEL_NAME);
+		});
+		prevBtn.addActionListener((ActionEvent e) -> {
+			cardLayout.show(this, RulesConstants.ACTIONS_PANEL_NAME);
+		});
+
+		crupierPanel.add(createButtonsPanel(prevBtn, nextBtn), BorderLayout.SOUTH);
+	}
+
+	private void initRewardsPanel() {
+		rewardsPanel = new ImagePanel(RulesConstants.REWARDS_PANEL_IMG);
+		rewardsPanel.setLayout(new BorderLayout());
+
+		RulesCustomBtn prevBtn = new RulesCustomBtn("", RulesConstants.PREV_BTN_IMG, 56, 32);
+
+		prevBtn.addActionListener((ActionEvent e) -> {
+			cardLayout.show(this, RulesConstants.CRUPIER_PANEL_NAME);
+		});
+
+		rewardsPanel.add(createButtonsPanel(prevBtn, null), BorderLayout.SOUTH);
+	}
+
+	public void showPopUp(boolean isExit) {
+		// Crea un diálogo modal para mostrar este RulesPanel como ventana emergente
+		popUp = new JDialog();
+		popUp.setContentPane(this);
+		popUp.setSize(new Dimension(720, 480));
+		popUp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		popUp.setLocationRelativeTo(null);
+		popUp.setResizable(false);
+		popUp.setVisible(true);
+	}
 
 }

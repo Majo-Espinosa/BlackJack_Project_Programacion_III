@@ -9,10 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
-    private MainPanel mainPanel;
-    private CrupierPanel crupierPanel;
-    private PlayersPanel playersPanel;
-    private ClosePanel closePanel;
+    private final MainPanel mainPanel;
+    private final CrupierPanel crupierPanel;
+    private final PlayersPanel playersPanel;
+    private final ClosePanel closePanel;
 
     public GamePanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;

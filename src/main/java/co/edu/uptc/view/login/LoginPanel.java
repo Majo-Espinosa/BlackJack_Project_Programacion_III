@@ -7,10 +7,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoginPanel extends JPanel {
-    private MainPanel mainPanel;
+    private final MainPanel mainPanel;
     private JButton play, backToMenu;
     private UsernameTextField usernameTextField;
-    private GridBagConstraints gbc = new GridBagConstraints();
+    private final GridBagConstraints gbc = new GridBagConstraints();
 
     public LoginPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
@@ -18,7 +18,7 @@ public class LoginPanel extends JPanel {
         addComponents();
     }
 
-    public void initComponents() {
+    public final void initComponents() {
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -30,7 +30,7 @@ public class LoginPanel extends JPanel {
         backToMenu.addActionListener(e -> mainPanel.updatePanel("menu", true));
     }
 
-    public void addComponents() {
+    public final void addComponents() {
         gbc.gridx = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 0.25;

@@ -2,7 +2,6 @@ package co.edu.uptc.view.game.crupier;
 
 import co.edu.uptc.view.game.CardImage;
 import co.edu.uptc.view.game.GamePanel;
-import co.edu.uptc.view.reusable.ArcadeButton;
 import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.reusable.ImageButton;
 
@@ -10,8 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CrupierPanel extends JPanel {
-    private GamePanel gamePanel;
-    private GridBagConstraints gbc;
+    private final GamePanel gamePanel;
+    private final GridBagConstraints gbc;
     private JLabel crupierLabel, timerLabel, ruleLabel, leftPileLabel, rightPileLabel;
     private JButton pauseButton, helpButton;
     private JPanel cardsPanel;
