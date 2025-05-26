@@ -5,8 +5,9 @@
 
 package co.edu.uptc.view.popups;
 
-import co.edu.uptc.view.popups.draw.CustomBtn;
 import co.edu.uptc.view.popups.draw.OutlinedLabel;
+import co.edu.uptc.view.reusable.Constants;
+import co.edu.uptc.view.reusable.ImageButton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -44,30 +45,21 @@ public class NotEnoughTokensPanel extends JPanel {
 	}
 
 	private void initComponents(GridBagConstraints gbc) {
-		Font customFont;
-		try {
-			customFont = Font.createFont(Font.TRUETYPE_FONT, new File(PopUpConstants.FONT_NAME)).deriveFont(30f);
-		}
-		catch (FontFormatException | IOException e) {
-			customFont = new Font(PopUpConstants.AUX_FONT_NAME, Font.PLAIN, 20);
-		}
-		addTitleLbl(gbc, customFont);
-		addAcceptBtn(gbc, customFont);
+		addTitleLbl(gbc);
+		addAcceptBtn(gbc);
 	}
 
-	private void addTitleLbl(GridBagConstraints gbc, Font customFont) {
-		titleLbl = new OutlinedLabel(PopUpConstants.WARNING_TITLE_TEXT, customFont);
+	private void addTitleLbl(GridBagConstraints gbc) {
+		titleLbl = new OutlinedLabel(PopUpConstants.WARNING_TITLE_TEXT, Constants.CUSTOM_FONT);
 		titleLbl.setPreferredSize(new Dimension(600, 70));
 		gbc.gridy = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		add(titleLbl, gbc);
 	}
 
-	private void addAcceptBtn(GridBagConstraints gbc, Font customFont) {
-		acceptBtn = new CustomBtn(PopUpConstants.FIELD_SECOND_STAGE_NAME, PopUpConstants.FIELD_FIRST_STAGE_NAME,
-				PopUpConstants.ACCEPT_BTN_TEXT, customFont);
+	private void addAcceptBtn(GridBagConstraints gbc) {
+		acceptBtn = new ImageButton(PopUpConstants.ACCEPT_BTN_TEXT, false, 15f);
 
-		// Configuración para centrar el botón "SÍ"
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1; // El botón ocupa solo 1 columna
