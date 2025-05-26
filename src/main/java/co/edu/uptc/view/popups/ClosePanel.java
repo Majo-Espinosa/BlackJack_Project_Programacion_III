@@ -6,9 +6,9 @@
 package co.edu.uptc.view.popups;
 
 import co.edu.uptc.view.MainPanel;
-import co.edu.uptc.view.popups.draw.CustomBtn;
 import co.edu.uptc.view.popups.draw.OutlinedLabel;
 import co.edu.uptc.view.reusable.Constants;
+import co.edu.uptc.view.reusable.ImageButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,24 +46,21 @@ public class ClosePanel extends JPanel {
 	}
 
 	private void initComponents(GridBagConstraints gbc) {
-		Font customFont = Constants.CUSTOM_FONT;
-		addTitleLbl(gbc, customFont);
-		addAcceptBtn(gbc, customFont);
-		addRefuseBtn(gbc, customFont);
+		addTitleLbl(gbc);
+		addAcceptBtn(gbc);
+		addRefuseBtn(gbc);
 	}
 
-	private void addTitleLbl(GridBagConstraints gbc, Font customFont) {
-		titleLbl = new OutlinedLabel(PopUpConstants.CONFIRMATION_TITLE_TEXT, customFont);
+	private void addTitleLbl(GridBagConstraints gbc) {
+		titleLbl = new OutlinedLabel(PopUpConstants.CONFIRMATION_TITLE_TEXT, Constants.CUSTOM_FONT);
 		titleLbl.setPreferredSize(new Dimension(titleLbl.getPreferredSize().width, 60));
 		gbc.gridy = 0;
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		add(titleLbl, gbc);
 	}
 
-	private void addAcceptBtn(GridBagConstraints gbc, Font customFont) {
-		acceptBtn = new CustomBtn(PopUpConstants.FIELD_SECOND_STAGE_NAME, PopUpConstants.FIELD_FIRST_STAGE_NAME,
-				PopUpConstants.ACCEPT_BTN_TEXT, customFont);
-		acceptBtn.setFont(customFont.deriveFont(15f));
+	private void addAcceptBtn(GridBagConstraints gbc) {
+		acceptBtn = new ImageButton(PopUpConstants.ACCEPT_BTN_TEXT, false, 15f);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1; // El botón ocupa solo 1 columna
@@ -75,17 +72,15 @@ public class ClosePanel extends JPanel {
 				System.exit(0);
 			}
 			else {
-				mainPanel.updatePanel("menu", true);
+				mainPanel.updatePanel(Constants.MENU_KEY, true);
 				dialog.dispose();
 			}
 		});
 		add(acceptBtn, gbc);
 	}
 
-	private void addRefuseBtn(GridBagConstraints gbc, Font customFont) {
-		refuseBtn = new CustomBtn(PopUpConstants.FIELD_FIRST_STAGE_NAME, PopUpConstants.FIELD_SECOND_STAGE_NAME,
-				PopUpConstants.REFUSE_BTN_TEXT, customFont);
-		refuseBtn.setFont(customFont.deriveFont(15f));
+	private void addRefuseBtn(GridBagConstraints gbc) {
+		refuseBtn = new ImageButton(PopUpConstants.REFUSE_BTN_TEXT, true, 15f);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
