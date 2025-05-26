@@ -10,14 +10,10 @@ import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.reusable.ImageButton;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -64,7 +60,7 @@ public class NotEnoughTokensPanel extends JPanel {
 		gbc.gridy = 1;
 		gbc.gridwidth = 1; // El botón ocupa solo 1 columna
 		gbc.weightx = 1; // Aumenta el peso para distribuir el espacio
-		acceptBtn.addActionListener((ActionEvent e) -> {
+		acceptBtn.addActionListener((ActionEvent _) -> {
 			// one chiriskreifor dos tres trucos
 		});
 		add(acceptBtn, gbc);
