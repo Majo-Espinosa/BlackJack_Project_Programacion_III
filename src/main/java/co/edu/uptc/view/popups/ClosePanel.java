@@ -63,6 +63,7 @@ public class ClosePanel extends JPanel {
 	private void addAcceptBtn(GridBagConstraints gbc, Font customFont) {
 		acceptBtn = new CustomBtn(PopUpConstants.FIELD_SECOND_STAGE_NAME, PopUpConstants.FIELD_FIRST_STAGE_NAME,
 				PopUpConstants.ACCEPT_BTN_TEXT, customFont);
+		acceptBtn.setFont(customFont.deriveFont(15f));
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1; // El botón ocupa solo 1 columna
@@ -84,6 +85,7 @@ public class ClosePanel extends JPanel {
 	private void addRefuseBtn(GridBagConstraints gbc, Font customFont) {
 		refuseBtn = new CustomBtn(PopUpConstants.FIELD_FIRST_STAGE_NAME, PopUpConstants.FIELD_SECOND_STAGE_NAME,
 				PopUpConstants.REFUSE_BTN_TEXT, customFont);
+		refuseBtn.setFont(customFont.deriveFont(15f));
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		gbc.gridwidth = 1;
