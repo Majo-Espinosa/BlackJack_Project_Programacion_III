@@ -20,8 +20,8 @@ public class UsernameTextField extends JTextField {
 
     private void loadBackgroundImage() {
         try {
-            InputStream imgStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_PRESSED_IMAGE_PATH);
-            backgoundImage = ImageIO.read(imgStream);
+            BufferedImage image = ImageIO.read(getClass().getResource(Constants.BUTTONS_PATH));
+            backgoundImage = image.getSubimage(48, 16, 48, 16);
         } catch (IOException e) {
             backgoundImage = createSolidColorImage();
         }    }
