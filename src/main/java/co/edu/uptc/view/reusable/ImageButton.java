@@ -6,82 +6,146 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
+import javax.swing.*;
 
 public class ImageButton extends JButton {
 
     private BufferedImage press;
     private BufferedImage released;
     private BufferedImage actualImage;
-    private final Color pressedColor;
-    private final Color releasedColor;
+    private final Color textColor;
+    public static final int PLAY_ICON = 1;
+    public static final int SKULL_ICON = 3;
+    public static final int HOME_ICON = 4;
+    public static final int DARK_QUESTION_MARK_ICON = 12;
+
 
     public ImageButton(String text, boolean inverted, float fontSize) {
         super(text);
         if (inverted) {
-            pressedColor = Constants.SECONDARY_BUTTON_COLOR;
-            releasedColor = Constants.PRIMARY_BUTTON_COLOR;
+            textColor = Constants.PRIMARY_BUTTON_COLOR;
         } else {
-            releasedColor = Constants.SECONDARY_BUTTON_COLOR;
-            pressedColor = Constants.PRIMARY_BUTTON_COLOR;
+            textColor = Constants.SECONDARY_BUTTON_COLOR;
         }
 
-        try {
-            InputStream buttonStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_IMAGE_PATH);
-            InputStream pressedButtonStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_PRESSED_IMAGE_PATH);
-
-            if (buttonStream == null || pressedButtonStream == null) {
-                press = createSolidColorImage(releasedColor);
-                released = createSolidColorImage(pressedColor);
-            } else {
-                if (!inverted) {
-                    released = ImageIO.read(buttonStream);
-                    press = ImageIO.read(pressedButtonStream);
-                } else {
-                    released = ImageIO.read(pressedButtonStream);
-                    press = ImageIO.read(buttonStream);
-                }
-            }
-            actualImage = released;
-
-        } catch (IOException e) {
-            press = createSolidColorImage(pressedColor);
-            released = createSolidColorImage(releasedColor);
-            actualImage = released;
-        }
-
-        setContentAreaFilled(false);
-        setFocusPainted(false);
-        setBorderPainted(false);
-        setForeground(releasedColor);
-        setFont(Constants.CUSTOM_FONT.deriveFont(fontSize));
+        setButtonBackground(inverted);
+        setColorAndFeatures(fontSize);
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 actualImage = press;
-                setForeground(pressedColor);
                 repaint();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 actualImage = released;
-                setForeground(releasedColor);
                 repaint();
             }
         });
     }
 
-    private BufferedImage createSolidColorImage(Color color) {
+
+
+    public ImageButton(String text, boolean inverted, float fontSize, int iconType) {
+        super(text, addIcon(iconType));
+        if (inverted) {
+            textColor = Constants.PRIMARY_BUTTON_COLOR;
+        } else {
+            textColor = Constants.SECONDARY_BUTTON_COLOR;
+        }
+        setButtonBackground(inverted);
+        setHorizontalTextPosition(SwingConstants.LEFT);
+        setColorAndFeatures(fontSize);
+        setIconTextGap(25);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                actualImage = press;
+                repaint();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                actualImage = released;
+                repaint();
+            }
+        });
+    }
+
+    private void setButtonBackground(boolean inverted) {
+        try {
+            BufferedImage image = ImageIO.read(getClass().getResource(Constants.BUTTONS_PATH));
+
+            if (image == null) {
+                press = createSolidColorImage(true);
+                released = createSolidColorImage(false);
+            } else {
+                if (!inverted) {
+                    released = image.getSubimage(0, 0, 48, 16);
+                    press = image.getSubimage(48, 0, 48, 16);
+                } else {
+                    released = image.getSubimage(0, 16, 48, 16);
+                    press = image.getSubimage(48, 16, 48, 16);
+                }
+            }
+            actualImage = released;
+
+        } catch (IOException e) {
+            press = createSolidColorImage(true);
+            released = createSolidColorImage(false);
+            actualImage = released;
+        }
+    }
+
+    private void setColorAndFeatures(float fontSize) {
+        setContentAreaFilled(false);
+        setFocusPainted(false);
+        setBorderPainted(false);
+        setForeground(textColor);
+        setFont(Constants.CUSTOM_FONT.deriveFont(fontSize));
+    }
+
+    private BufferedImage createSolidColorImage(boolean pressed) {
         BufferedImage image = new BufferedImage(200, 50, BufferedImage.TYPE_INT_ARGB);
         Graphics g = image.getGraphics();
-        g.setColor(color);
-        g.fillRect(0, 0, 200, 50);
+        if (textColor.equals(Constants.PRIMARY_BUTTON_COLOR)) {
+            g.setColor(Constants.SECONDARY_BUTTON_COLOR);
+        } else g.setColor(textColor);
+
+        if (pressed) {
+            g.fillRect(0, 1, 200, 49);
+        } else {
+            g.fillRect(0, 0, 200, 50);
+        }
         g.dispose();
         return image;
+    }
+
+    public static ImageIcon addIcon(int iconType) {
+        try {
+            switch (iconType) {
+                case 1 -> {
+                    return new ImageIcon(ImageIO.read(ImageButton.class.getResource(Constants.BUTTONS_PATH)).getSubimage(150, 3, 8, 8).getScaledInstance(20, 20, BufferedImage.SCALE_SMOOTH));
+                }
+                case 3 -> {
+                    return new ImageIcon(ImageIO.read(ImageButton.class.getResource(Constants.BUTTONS_PATH)).getSubimage(148, 51, 8, 8).getScaledInstance(20, 20, BufferedImage.SCALE_SMOOTH));
+                }
+                case 4 -> {
+                    return new ImageIcon(ImageIO.read(ImageButton.class.getResource(Constants.BUTTONS_PATH)).getSubimage(164, 3, 8, 8).getScaledInstance(20, 20, BufferedImage.SCALE_SMOOTH));
+                }
+                case 12 -> {
+                    return new ImageIcon(ImageIO.read(ImageButton.class.getResource(Constants.BUTTONS_PATH)).getSubimage(164, 51, 8, 8).getScaledInstance(20, 20, BufferedImage.SCALE_SMOOTH));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 
     @Override
