@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
@@ -29,19 +28,18 @@ public class ImageButton extends JButton {
         }
 
         try {
-            InputStream buttonStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_IMAGE_PATH);
-            InputStream pressedButtonStream = getClass().getResourceAsStream(Constants.REUSABLE_BUTTON_PRESSED_IMAGE_PATH);
+            BufferedImage image = ImageIO.read(getClass().getResource(Constants.BUTTONS_PATH));
 
-            if (buttonStream == null || pressedButtonStream == null) {
+            if (image == null) {
                 press = createSolidColorImage(releasedColor);
                 released = createSolidColorImage(pressedColor);
             } else {
                 if (!inverted) {
-                    released = ImageIO.read(buttonStream);
-                    press = ImageIO.read(pressedButtonStream);
+                    released = image.getSubimage(0, 0, 48, 16);
+                    press = image.getSubimage(48, 0, 48, 16);
                 } else {
-                    released = ImageIO.read(pressedButtonStream);
-                    press = ImageIO.read(buttonStream);
+                    released = image.getSubimage(0, 16, 48, 16);
+                    press = image.getSubimage(48, 16, 48, 16);
                 }
             }
             actualImage = released;
@@ -62,14 +60,12 @@ public class ImageButton extends JButton {
             @Override
             public void mousePressed(MouseEvent e) {
                 actualImage = press;
-                setForeground(pressedColor);
                 repaint();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 actualImage = released;
-                setForeground(releasedColor);
                 repaint();
             }
         });
