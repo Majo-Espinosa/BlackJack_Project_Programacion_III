@@ -33,7 +33,7 @@ public class RulesPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		// Inicializa cada ImagePanel con su respectiva imagen
+		// Inicializa cada ImagePanel con su respectiva imagen :)
 		informationPanel = new ImagePanel(RulesConstants.INFO_PANEL_IMG);
 		actionsPanel = new ImagePanel(RulesConstants.ACTIONS_PANEL_IMG);
 		crupierPanel = new ImagePanel(RulesConstants.CRUPIER_PANEL_IMG);
