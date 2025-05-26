@@ -24,7 +24,7 @@ public class RulesPanel extends JPanel {
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
 		initComponents();
-		// Se agregan los paneles con un nombre clave para que CardLayout pueda mostrarlos
+		// Se agregan los paneles con un nombre clave para que CardLayout pueda mostrarlos :(
 		// al invocar show()
 		this.add(informationPanel, RulesConstants.INFO_PANEL_NAME);
 		this.add(actionsPanel, RulesConstants.ACTIONS_PANEL_NAME);
@@ -33,13 +33,13 @@ public class RulesPanel extends JPanel {
 	}
 
 	private void initComponents() {
-		// Inicializa cada ImagePanel con su respectiva imagen
+		// Inicializa cada ImagePanel con su respectiva imagen :)
 		informationPanel = new ImagePanel(RulesConstants.INFO_PANEL_IMG);
 		actionsPanel = new ImagePanel(RulesConstants.ACTIONS_PANEL_IMG);
 		crupierPanel = new ImagePanel(RulesConstants.CRUPIER_PANEL_IMG);
 		rewardsPanel = new ImagePanel(RulesConstants.REWARDS_PANEL_IMG);
 
-		// Inicializa la configuración interna de cada panel, agregando botones y layouts
+		// Inicializa la configuración interna de cada panel, agregando botones y layouts :)
 		initInformationPanel();
 		initActionsPanel();
 		initCrupierPanel();
