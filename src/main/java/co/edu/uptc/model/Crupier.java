@@ -4,6 +4,7 @@ package co.edu.uptc.model;
 public class Crupier extends Player{
     public Crupier() {
         super("dealer");
+        super.setBalance(50000);
     }
 
     public void playTurn(Deck deck) {
