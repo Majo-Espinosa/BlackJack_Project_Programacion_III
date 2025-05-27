@@ -60,6 +60,7 @@ public class RulesPanel extends JPanel {
 	 * @param nextBtn botón siguiente (puede ser null si no se quiere mostrar)
 	 * @return JPanel configurado con los botones alineados a izquierda y derecha
 	 */
+	
 	private JPanel createButtonsPanel(JButton prevBtn, JButton nextBtn) {
 		JPanel navPanel = new JPanel(new BorderLayout());
 		navPanel.setOpaque(false);
