@@ -41,6 +41,7 @@ public class ClosePanel extends JPanel {
 	private void initLayout() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.ipady = 15;
 		gbc.insets = new Insets(15, 30, 15, 30);
 		initComponents(gbc);
 	}
