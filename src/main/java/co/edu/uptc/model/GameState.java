@@ -2,6 +2,7 @@ package co.edu.uptc.model;
 
 import  java.util.*;
 
+//Clase usada para transmitir es el estado del juego entre el cliente y el servidor
 public class GameState {
     private Map<String, Player> players = new HashMap<>();
     private Crupier crupier = new Crupier();

@@ -1,5 +1,6 @@
 package co.edu.uptc.model;
 
+//Clase carta con sus rango, categoria y valor
 public class Card {
     private String suit;
     private String rank;

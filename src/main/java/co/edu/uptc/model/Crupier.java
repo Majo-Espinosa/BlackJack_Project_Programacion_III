@@ -1,5 +1,6 @@
 package co.edu.uptc.model;
 
+//Clase crupier que hereda de jugador
 public class Crupier extends Player{
     public Crupier() {
         super("dealer");

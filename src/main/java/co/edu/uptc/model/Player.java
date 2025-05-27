@@ -2,6 +2,7 @@ package co.edu.uptc.model;
 
 import java.util.*;
 
+//Clase jugador con su nombre, fichas, apuesta, mano
 public class Player {
     private String id;
     private List<Card> hand;
