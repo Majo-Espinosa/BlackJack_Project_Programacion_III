@@ -1,7 +1,9 @@
 package co.edu.uptc.client;
 
+import co.edu.uptc.model.Player;
 import co.edu.uptc.utils.JsonUtils;
 import co.edu.uptc.view.ConsoleView;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Map;
@@ -13,23 +15,39 @@ public class BlackjackClient {
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         ConsoleView view = new ConsoleView();
 
-        new Thread(() -> {
-            try {
-                String line;
-                while ((line = in.readLine()) != null) {
-                    if (line.contains("prompt") && line.contains("bet")) {
-                        int bet = view.promptBet(1000);
-                        out.println(JsonUtils.toJson(Map.of("type", "bet", "amount", bet)));
-                    } else if (line.contains("prompt") && line.contains("hit")) {
-                        String action = view.promptAction();
-                        out.println(action.equalsIgnoreCase("hit") ? "hit" : "stand");
-                    } else {
-                        System.out.println("[SERVER] " + line);
+        String username = view.askUserName();
+        Player player = new Player(username);
+
+        // Enviar al servidor el nombre del jugador
+        out.println(JsonUtils.toJson(Map.of("type", "register", "id", player.getId())));
+
+        Thread listeningThread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        Map<String, Object> message = JsonUtils.fromJson(line, Map.class);
+                        String type = (String) message.get("type");
+
+                        if (type.equals("prompt_bet")) {
+                            int bet = view.promptBet(player.getBalance());
+                            out.println(JsonUtils.toJson(Map.of("type", "bet", "amount", bet)));
+                        } else if (type.equals("prompt_hit")) {
+                            String action = view.promptAction();
+                            out.println(action.equalsIgnoreCase("hit") ? "hit" : "stand");
+                        } else if (type.equals("game_state")) {
+                            Map<String, Object> data = (Map<String, Object>) message.get("data");
+                            view.showGameState(data);
+                        } else {
+                            System.out.println("[SERVER] " + line);
+                        }
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }).start();
+        });
+
+        listeningThread.start();
     }
 }
