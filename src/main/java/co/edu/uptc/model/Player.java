@@ -1,137 +1,61 @@
 package co.edu.uptc.model;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Player {
-    private String nickName;
-    private PlayerHand hand;
-    private double points;
-    private double bet;
-    private boolean inGame;
-    private boolean inPay;
+    private String id;
+    private List<Card> hand;
+    private int balance;
+    private int bet;
 
-    private int position;
-
-    public Player(String nickName, double points) {
-        this.nickName = nickName;
-        this.points = points;
-        inGame = true;
-        inPay = true;
-        hand = new PlayerHand();
+    public Player(String id) {
+        this.id = id;
+        this.hand = new ArrayList<>();
+        this.balance = 1000;
+        this.bet = 0;
     }
 
-    public Player() {
-        inGame = true;
-        inPay = true;
-        hand = new PlayerHand();
+    public void addCard(Card card) {
+        hand.add(card);
     }
 
-    // Pide una carta
-    public void dealtCard(Card card) {
-        if (!hand.addCard(card)) {
-            inPay = false;
-            inGame = false;
+    public int getHandValue() {
+        int value = 0, aces = 0;
+        for (Card card : hand) {
+            value += card.getValue();
+            if (card.getRank().equals("A")) aces++;
         }
-        if (hand.getPlayerCards().size() == 2) {
-            hand.checkBlackJack();
-            if (blackJack()) {
-                inGame = false;
-            }
+        while (value > 21 && aces-- > 0) {
+            value -= 10;
         }
+        return value;
     }
 
-    // Divide la mano
-    public boolean splitHand(Card card1, Card card2) {
-        if (hand.isSpliteable()) {
-            hand.splitHand(card1, card2);
-            return true;
-        }
-        return false;
+    public void clearHand() {
+        hand.clear();
     }
 
-    public int[] cardsValue() {
-        return hand.handsValue();
-    }
-
-    public void resetGame() {
-        hand.clearHand();
-        bet = 0;
-        inGame = true;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public double getPoints() {
-        return points;
-    }
-
-    public void setPoints(double points) {
-        this.points = points;
-    }
-
-    public double getBet() {
-        return bet;
-    }
-
-    public void setBet(double bet) {
+    public void setBet(int bet) {
         this.bet = bet;
     }
 
-    public List<Card> getCardsInGame() {
-        return hand.getPlayerCards();
+    public int getBet() {
+        return bet;
     }
 
-    public List<Card> getCardsInSecondHand() {
-        return hand.getPlayerSecondHand();
+    public int getBalance() {
+        return balance;
     }
 
-    public boolean isInGame() {
-        return inGame;
+    public void updateBalance(int delta) {
+        balance += delta;
     }
 
-    public boolean blackJack() {
-        return hand.isBlackJack();
+    public List<Card> getHand() {
+        return hand;
     }
 
-    public boolean isSplit() {
-        return hand.isSplit();
+    public String getId() {
+        return id;
     }
-
-    public boolean canSplit() {
-        return hand.isSpliteable();
-    }
-
-    public void setInGame(boolean inGame) {
-        this.inGame = inGame;
-    }
-
-    public boolean isInPay() {
-        return inPay;
-    }
-
-    public void setInPay(boolean inPay) {
-        this.inPay = inPay;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    @Override
-    public String toString() {
-        return "Player : " + hand + " value=" + Arrays.toString(
-                hand.handsValue()) + " inGame=" + inGame + " inPay=" + inPay;
-    }
-
 }
