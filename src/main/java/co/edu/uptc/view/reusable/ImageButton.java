@@ -6,8 +6,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class ImageButton extends JButton {
 
@@ -59,7 +62,7 @@ public class ImageButton extends JButton {
         setButtonBackground(inverted);
         setHorizontalTextPosition(SwingConstants.LEFT);
         setColorAndFeatures(fontSize);
-        setIconTextGap(25);
+        setIconTextGap(10);
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -110,7 +113,7 @@ public class ImageButton extends JButton {
     }
 
     private BufferedImage createSolidColorImage(boolean pressed) {
-        BufferedImage image = new BufferedImage(200, 50, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(100, 50, BufferedImage.TYPE_INT_ARGB);
         Graphics g = image.getGraphics();
         if (textColor.equals(Constants.PRIMARY_BUTTON_COLOR)) {
             g.setColor(Constants.SECONDARY_BUTTON_COLOR);
