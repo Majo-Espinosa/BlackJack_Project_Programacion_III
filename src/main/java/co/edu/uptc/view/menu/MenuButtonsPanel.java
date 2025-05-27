@@ -26,7 +26,7 @@ public class MenuButtonsPanel extends JPanel {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.ipadx = 170;
+        gbc.ipadx = 130;
         gbc.ipady = 40;
         gbc.insets = new Insets(0, 0, 20, 0);
         this.add(play, gbc);
