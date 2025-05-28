@@ -43,8 +43,8 @@ public class MainPanel extends JPanel {
 	public final void initComponents() {
 		rulesPanel = new RulesPanel();
 		menuPanel = new MenuPanel(this);
-		gamePanel = new GamePanel(this,client);
-		loginPanel = new LoginPanel(this,client);
+		gamePanel = new GamePanel(this);
+		loginPanel = new LoginPanel(this);
 		closePanel = new ClosePanel(this);
 
 		add(menuPanel, Constants.MENU_KEY);
@@ -65,10 +65,20 @@ public class MainPanel extends JPanel {
 		rulesPanel.showPopUp(true);
 	}
 
+	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(gameBackground, 0, 0, getWidth(), getHeight(), this);
+	}
+
+    public void conectClient(){
+        this.client.start();
+    }
+
+	public GameClient getClient(){
+		return this.client;
 	}
 
 }

@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import co.edu.uptc.clientUs.GameClient;
 import co.edu.uptc.clientUs.MainPanel;
 import co.edu.uptc.clientUs.game.crupier.CrupierPanel;
 import co.edu.uptc.clientUs.game.draw.RoundedBorder;
@@ -24,7 +23,7 @@ public class GamePanel extends JPanel {
     private final BottomPanel bottomPanel;
     private final ClosePanel closePanel;
 
-    public GamePanel(MainPanel mainPanel, GameClient client) {
+    public GamePanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
         closePanel = new ClosePanel(mainPanel);
         crupierPanel = new CrupierPanel(this);
