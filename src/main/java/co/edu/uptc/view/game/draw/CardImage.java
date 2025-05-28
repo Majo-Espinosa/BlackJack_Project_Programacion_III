@@ -1,14 +1,17 @@
 package co.edu.uptc.view.game.draw;
 
-import co.edu.uptc.view.reusable.Constants;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+import co.edu.uptc.view.reusable.Constants;
 
 public class CardImage extends JLabel {
 
@@ -19,7 +22,7 @@ public class CardImage extends JLabel {
 
     public CardImage(int row, int column) {
         setBorder(BorderFactory.createLineBorder(Color.RED));
-        setPreferredSize(new java.awt.Dimension(width + 20,  height + 20));
+        setPreferredSize(new java.awt.Dimension(width + 40,  height + 40));
         try {
             BufferedImage cardsSheet = ImageIO.read(getClass().getResource(Constants.CARDS_PATH));
             int xposition = column * width;
