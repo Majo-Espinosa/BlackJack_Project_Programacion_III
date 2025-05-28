@@ -1,10 +1,10 @@
 package co.edu.uptc.view.game;
 
-import java.awt.*;
+import java.awt.Dimension;
 
 public class GameConstants {
 
-    public static final Dimension PLAYER_CARDS_DIMENSION = new Dimension(360, 60);
+    public static final Dimension PLAYER_CARDS_DIMENSION = new Dimension(360, 140);
     public static final Dimension CRUPIER_CARDS_DIMENSION = new Dimension(300, 100);
     public static final Dimension PLAYER_INFO_DIMENSION = new Dimension(360, 150);
 

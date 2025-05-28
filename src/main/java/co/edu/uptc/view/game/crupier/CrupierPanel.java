@@ -55,7 +55,7 @@ public class CrupierPanel extends JPanel {
     }
 
     private void initButtons() {
-        pauseButton = new ImageButton("x", false, 10);
+        pauseButton = new ImageButton("X", false, 10);
         helpButton = new ImageButton("?", false, 12);
 
         pauseButton.addActionListener(e -> {
