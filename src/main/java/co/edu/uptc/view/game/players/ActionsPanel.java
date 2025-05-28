@@ -1,9 +1,15 @@
 package co.edu.uptc.view.game.players;
 
-import co.edu.uptc.view.reusable.ImageButton;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import co.edu.uptc.view.reusable.ImageButton;
 
 public class ActionsPanel extends JPanel {
     private JPanel firstLine, secondLine, thirdLine;
@@ -52,8 +58,8 @@ public class ActionsPanel extends JPanel {
     }
 
     public void addLinesToPanel() {
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(firstLine,gbc);
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(secondLine,gbc);
         add(thirdLine,gbc);
     }
@@ -71,8 +77,8 @@ public class ActionsPanel extends JPanel {
         ask = new ImageButton("Pedir", false, 10);
         doblar = new ImageButton("Doblar", false, 10);
         quit = new ImageButton("Rendirse", false, 10);
-        settle = new ImageButton("Quedarse", true, 10);
-        divide = new ImageButton("Dividir", true, 10);
+        settle = new ImageButton("Quedarse", false, 10);
+        divide = new ImageButton("Dividir", false, 10);
 
         tokens = new TokensPanel();
     }
