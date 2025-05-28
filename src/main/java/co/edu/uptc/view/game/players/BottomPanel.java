@@ -7,7 +7,6 @@ public class BottomPanel extends JPanel {
 
     private GridBagConstraints gbc;
     private PlayerPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
-    private JPanel playerTokens;
     private ActionsPanel actionsPanel;
 
     public BottomPanel() {
@@ -21,7 +20,6 @@ public class BottomPanel extends JPanel {
     }
 
     private void initComponents() {
-        playerTokens = new TokensPanel();
         actionsPanel = new ActionsPanel();
 
         leftPlayerPanel = new PlayerPanel("Waiting...");
@@ -68,12 +66,5 @@ public class BottomPanel extends JPanel {
         gbc.anchor = GridBagConstraints.LAST_LINE_START;
 
         add(actionsPanel, gbc);
-
-        gbc.ipady = 0;
-        gbc.gridx = 3;
-
-        gbc.anchor = GridBagConstraints.LAST_LINE_END;
-
-        add(playerTokens, gbc);
     }
 }
