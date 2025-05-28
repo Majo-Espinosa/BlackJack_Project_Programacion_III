@@ -5,12 +5,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import co.edu.uptc.clientUs.game.CardsPanel;
 import co.edu.uptc.clientUs.game.GameConstants;
@@ -68,21 +63,34 @@ public class CrupierPanel extends JPanel {
     private void initLabels() {
         crupierLabel = new JLabel("CRUPIER");
 
-        timerLabel = new JLabel("30 s");
+        timerLabel = new JLabel("30 s", SwingConstants.CENTER);
         timerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         timerLabel.setOpaque(true);
         timerLabel.setFont(Constants.CUSTOM_FONT.deriveFont(15f));
         timerLabel.setBackground(new Color(49,41,41,255));
         timerLabel.setForeground(Color.WHITE);
-        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        initTimer();
 
-        ruleLabel = new JLabel(GameConstants.CRUPIER_RULE_1);
+        ruleLabel = new JLabel(GameConstants.CRUPIER_RULE_1, SwingConstants.CENTER);
         ruleLabel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, new float[]{7,5}, 0), new Color(25,45,34,255)));
         ruleLabel.setOpaque(true);
         ruleLabel.setFont(Constants.CUSTOM_FONT.deriveFont(13f));
         ruleLabel.setBackground(new Color(181,190,185,255));
         ruleLabel.setForeground(Color.YELLOW);
-        ruleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    private void initTimer() {
+        Timer timer = new Timer(1000, e -> {
+            int seconds = 30;
+            if (!timerLabel.getText().equals("0 s")) {
+                seconds--;
+                timerLabel.setText(seconds + " s");
+            } else {
+                ((Timer) e.getSource()).stop();
+            }
+        });
+
+        timer.start();
     }
 
     private void firstLine() {

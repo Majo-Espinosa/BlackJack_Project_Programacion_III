@@ -6,10 +6,10 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-public class CenterPanel extends JPanel {
+public class PlayersPanel extends JPanel {
     private PlayerPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
 
-    public CenterPanel() {
+    public PlayersPanel() {
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridLayout(0, 3));
