@@ -1,10 +1,17 @@
 package co.edu.uptc.view.game;
 
-import co.edu.uptc.view.game.draw.CardImage;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+import co.edu.uptc.view.game.draw.CardImage;
 
 public class CardsPanel extends JPanel {
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -38,7 +45,7 @@ public class CardsPanel extends JPanel {
         for (int i = 0; i < cards.size(); i++) {
             gbc.gridx = 0;
             gbc.gridy = 0;
-            gbc.insets = new Insets(0, 0, 0, i*30);
+            gbc.insets = new Insets(0, (cards.size()*20)-(i*20) , 0, i*30);
 
             add(cards.get(i), gbc);
         }
