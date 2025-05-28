@@ -21,6 +21,8 @@ public class GameState {
         players.put(player.getId(), player);
     }
 
+    public void removePlayer(String id) { players.remove(id);}
+
     public Player getPlayer(String id) {
         return players.get(id);
     }
