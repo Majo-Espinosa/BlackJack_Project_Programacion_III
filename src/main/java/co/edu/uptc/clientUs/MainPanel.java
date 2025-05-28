@@ -30,9 +30,12 @@ public class MainPanel extends JPanel {
 
 	private final CardLayout cardLayout;
 
-	public MainPanel() {
+	private GameClient client;
+
+	public MainPanel(GameClient client) {
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
+		this.client = client;
 		initComponents();
 		gameBackground = new ImageIcon(getClass().getResource(Constants.GAME_BACKGROUND)).getImage();
 	}
@@ -40,8 +43,8 @@ public class MainPanel extends JPanel {
 	public final void initComponents() {
 		rulesPanel = new RulesPanel();
 		menuPanel = new MenuPanel(this);
-		gamePanel = new GamePanel(this);
-		loginPanel = new LoginPanel(this);
+		gamePanel = new GamePanel(this,client);
+		loginPanel = new LoginPanel(this,client);
 		closePanel = new ClosePanel(this);
 
 		add(menuPanel, Constants.MENU_KEY);
@@ -50,7 +53,7 @@ public class MainPanel extends JPanel {
 		setOpaque(false);
 	}
 
-	public void updatePanel(String panelName, boolean isMainMenuBackground) {
+	public void updatePanel(String panelName) {
 		cardLayout.show(this, panelName);
 	}
 

@@ -1,19 +1,27 @@
 package co.edu.uptc.clientUs.login;
 
-import co.edu.uptc.clientUs.MainPanel;
-import co.edu.uptc.clientUs.reusable.ImageButton;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+import co.edu.uptc.clientUs.GameClient;
+import co.edu.uptc.clientUs.MainPanel;
+import co.edu.uptc.clientUs.reusable.Constants;
+import co.edu.uptc.clientUs.reusable.ImageButton;
 
 public class LoginPanel extends JPanel {
     private final MainPanel mainPanel;
     private JButton play, backToMenu;
     private UsernameTextField usernameTextField;
     private final GridBagConstraints gbc = new GridBagConstraints();
+    private GameClient client;
 
-    public LoginPanel(MainPanel mainPanel) {
+    public LoginPanel(MainPanel mainPanel, GameClient client) {
         this.mainPanel = mainPanel;
+        this.client = client;
         initComponents();
         addComponents();
     }
@@ -26,8 +34,11 @@ public class LoginPanel extends JPanel {
         play = new ImageButton("Entrar a la sala", false,  16, ImageButton.PLAY_ICON);
         backToMenu = new ImageButton("Volver", false, 16, ImageButton.HOME_ICON);
 
-        play.addActionListener(_ -> mainPanel.updatePanel("game", false));
-        backToMenu.addActionListener(_ -> mainPanel.updatePanel("menu", true));
+        play.addActionListener(_ -> {
+            mainPanel.updatePanel(Constants.GAME_KEY);
+            this.client.setPlayerId(usernameTextField.getText());
+        }  );
+        backToMenu.addActionListener(_ -> mainPanel.updatePanel(Constants.MENU_KEY));
     }
 
     public final void addComponents() {
