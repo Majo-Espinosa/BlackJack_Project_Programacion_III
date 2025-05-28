@@ -1,14 +1,23 @@
 package co.edu.uptc.view.game.crupier;
 
-import co.edu.uptc.view.game.draw.CardImage;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import co.edu.uptc.view.game.CardsPanel;
 import co.edu.uptc.view.game.GameConstants;
 import co.edu.uptc.view.game.GamePanel;
+import co.edu.uptc.view.game.draw.CardImage;
 import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.reusable.ImageButton;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class CrupierPanel extends JPanel {
     private final GamePanel gamePanel;
@@ -46,7 +55,7 @@ public class CrupierPanel extends JPanel {
     }
 
     private void initButtons() {
-        pauseButton = new ImageButton("||", false, 10);
+        pauseButton = new ImageButton("x", false, 10);
         helpButton = new ImageButton("?", false, 12);
 
         pauseButton.addActionListener(e -> {
