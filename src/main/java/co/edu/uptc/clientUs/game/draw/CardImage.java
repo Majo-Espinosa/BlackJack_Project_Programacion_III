@@ -11,24 +11,23 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import co.edu.uptc.clientUs.reusable.Constants;
+import co.edu.uptc.clientUs.game.CardsPanel;
+import co.edu.uptc.clientUs.game.GameConstants;
 
 public class CardImage extends JLabel {
 
     private final int width = 48;
     private final int height = 64;
     private ImageIcon icon;
-    private ImageIcon extendedIcon;
+    private CardsPanel parent;
+    private int originalZindex = -1;
 
-    public CardImage(int row, int column) {
+    public CardImage(String path) {
         setBorder(BorderFactory.createLineBorder(Color.RED));
-        setPreferredSize(new java.awt.Dimension(width + 40,  height + 40));
+        setPreferredSize(new java.awt.Dimension(width + 40, height + 40));
         try {
-            BufferedImage cardsSheet = ImageIO.read(getClass().getResource(Constants.CARDS_PATH));
-            int xposition = column * width;
-            int yposition = row * height;
-            icon = new ImageIcon(cardsSheet.getSubimage(xposition, yposition, width, height).getScaledInstance(width + 20 , height + 20, BufferedImage.SCALE_REPLICATE));
-            extendedIcon = new ImageIcon(icon.getImage().getScaledInstance(width + 25 , height + 25, BufferedImage.TRANSLUCENT));
+            BufferedImage card = ImageIO.read(getClass().getResource(path));
+            icon = new ImageIcon(card.getScaledInstance(width + 20, height + 20, BufferedImage.SCALE_REPLICATE));
             setIcon(icon);
             setHorizontalAlignment(JLabel.CENTER);
             setVerticalAlignment(JLabel.CENTER);
@@ -36,12 +35,18 @@ public class CardImage extends JLabel {
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    setIcon(extendedIcon);
+                    if (parent != null) {
+                        originalZindex = parent.getComponentZOrder(CardImage.this);
+                        parent.bringToFront(CardImage.this);
+                    }
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    setIcon(icon);
+                    if (parent != null && originalZindex >= 0) {
+                        parent.restoreZOrder(CardImage.this, originalZindex);
+                        originalZindex = -1;
+                    }
                 }
             });
         } catch (IOException e) {
@@ -51,18 +56,19 @@ public class CardImage extends JLabel {
 
     public CardImage() {
         setBorder(BorderFactory.createLineBorder(Color.RED));
-        setPreferredSize(new java.awt.Dimension(width + 40,  height + 40));
+        setPreferredSize(new java.awt.Dimension(width + 40, height + 40));
         try {
-            BufferedImage cardsSheet = ImageIO.read(getClass().getResource(Constants.CARDS_PATH));
-            int xposition = 0 * width;
-            int yposition = 4 * height;
-            icon = new ImageIcon(cardsSheet.getSubimage(xposition, yposition, width, height).getScaledInstance(width + 20 , height + 20, BufferedImage.SCALE_REPLICATE));
-            extendedIcon = new ImageIcon(icon.getImage().getScaledInstance(width + 25 , height + 25, BufferedImage.TRANSLUCENT));
+            BufferedImage card = ImageIO.read(getClass().getResource(GameConstants.BACK_CARD_PATH));
+            icon = new ImageIcon(card.getScaledInstance(width + 20, height + 20, BufferedImage.SCALE_REPLICATE));
             setIcon(icon);
             setHorizontalAlignment(JLabel.CENTER);
             setVerticalAlignment(JLabel.CENTER);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setParentPanel(CardsPanel parent) {
+        this.parent = parent;
     }
 }

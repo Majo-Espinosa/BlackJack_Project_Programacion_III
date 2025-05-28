@@ -13,24 +13,22 @@ import com.google.gson.JsonObject;
 // de las imagenes
 public class DeckJsonCreator {
     private Stack<String> cards;
-    private static final String[] RANKS = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K"};
-    private static final String[] SUIT_NAMES = { "HEARTS", "DIAMONDS", "SPADES", "CLUBS" };
+    private static final String[] RANKS = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+    private static final String[] SUIT_NAMES = { "C", "D", "H", "P" };
 
     public void createDeckJson(int singleDecks, String outputPath) {
         cards = new Stack<>();
         JsonArray imagesArray = new JsonArray();
-
+        String cardPathName = "/images/cards/light/";
         for (int i = 0; i < singleDecks; i++) {
             for (int s = 0; s < SUIT_NAMES.length; s++) {
                 String suit = SUIT_NAMES[s];
                 for (int r = 0; r < RANKS.length; r++) {
-                    String cardName = suit + "_" + RANKS[r];
+                    String cardName = RANKS[r] + "-" + suit;
                     cards.add(cardName);
-
                     JsonObject cardJson = new JsonObject();
                     cardJson.addProperty("name", cardName);
-                    cardJson.addProperty("row", s);
-                    cardJson.addProperty("column", r);
+                    cardJson.addProperty("path", cardPathName + cardName + ".png");
                     imagesArray.add(cardJson);
                 }
             }
@@ -53,6 +51,6 @@ public class DeckJsonCreator {
 
     public static void main(String[] args) {
         DeckJsonCreator deckJsonCreator = new DeckJsonCreator();
-        deckJsonCreator.createDeckJson(1, "target/images.json");
+        deckJsonCreator.createDeckJson(1, "src/main/resources/json/deck.json");
     }
 }
