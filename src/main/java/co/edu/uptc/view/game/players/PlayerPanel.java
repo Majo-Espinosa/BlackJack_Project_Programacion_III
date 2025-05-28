@@ -1,6 +1,7 @@
 package co.edu.uptc.view.game.players;
 
 import co.edu.uptc.view.game.CardsPanel;
+import co.edu.uptc.view.game.GameConstants;
 import co.edu.uptc.view.reusable.Constants;
 
 import javax.swing.*;
@@ -12,8 +13,9 @@ public class PlayerPanel extends JPanel {
     private final GridBagConstraints gbc = new GridBagConstraints();
 
     public PlayerPanel(String name) {
+        setBorder(BorderFactory.createLineBorder(Color.RED));
         this.name = new JLabel(name);
-        cardsPanel = new CardsPanel();
+        cardsPanel = new CardsPanel(GameConstants.PLAYER_CARDS_DIMENSION);
 
         initComponents();
         addComponents();
@@ -22,6 +24,7 @@ public class PlayerPanel extends JPanel {
     public final void initComponents() {
         setLayout(new GridBagLayout());
         setOpaque(false);
+        setAlignmentY(Component.TOP_ALIGNMENT);
 
         name.setFont(Constants.CUSTOM_FONT.deriveFont(10f));
         name.setBackground(new Color(49,41,41,255));
@@ -32,14 +35,15 @@ public class PlayerPanel extends JPanel {
     }
 
     public final void addComponents() {
-        gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(0, 20, 0, 20);
+        gbc.ipady = 50;
+        gbc.ipadx = 180;
         add(cardsPanel, gbc);
 
         gbc.gridy = 1;
         gbc.ipadx = 30;
-        gbc.ipady = 35;
+        gbc.ipady = 30;
+        gbc.insets = new Insets(10, 0, 0, 0);
         add(name, gbc);
     }
 

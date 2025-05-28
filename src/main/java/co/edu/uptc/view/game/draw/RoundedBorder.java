@@ -1,4 +1,4 @@
-package co.edu.uptc.view.game.players;
+package co.edu.uptc.view.game.draw;
 
 import javax.swing.border.AbstractBorder;
 import java.awt.*;

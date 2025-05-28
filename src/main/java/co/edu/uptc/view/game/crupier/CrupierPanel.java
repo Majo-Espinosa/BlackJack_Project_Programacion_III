@@ -1,6 +1,8 @@
 package co.edu.uptc.view.game.crupier;
 
-import co.edu.uptc.view.game.CardImage;
+import co.edu.uptc.view.game.draw.CardImage;
+import co.edu.uptc.view.game.CardsPanel;
+import co.edu.uptc.view.game.GameConstants;
 import co.edu.uptc.view.game.GamePanel;
 import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.reusable.ImageButton;
@@ -13,10 +15,11 @@ public class CrupierPanel extends JPanel {
     private final GridBagConstraints gbc;
     private JLabel crupierLabel, timerLabel, ruleLabel, leftPileLabel, rightPileLabel;
     private JButton pauseButton, helpButton;
-    private JPanel cardsPanel;
+    private CardsPanel cardsPanel;
 
     public CrupierPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
+        setBorder(BorderFactory.createLineBorder(Color.RED));
         setOpaque(false);
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
@@ -34,11 +37,9 @@ public class CrupierPanel extends JPanel {
         leftPileLabel = new CardImage(0, 14);
         rightPileLabel = new CardImage(0,13);
 
-        cardsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        cardsPanel.setOpaque(false);
+        cardsPanel = new CardsPanel(GameConstants.CRUPIER_CARDS_DIMENSION);
         for (int i = 0; i < 3; i++) {
-            JLabel cardLabel = new CardImage(4, i);
-            cardsPanel.add(cardLabel);
+            cardsPanel.addCard(4, i);
         }
 
         initLabels();
@@ -68,7 +69,7 @@ public class CrupierPanel extends JPanel {
         timerLabel.setForeground(Color.WHITE);
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        ruleLabel = new JLabel("El crupier debe pedir hasta alcanzar 16 y plantarse en todos los 17");
+        ruleLabel = new JLabel(GameConstants.CRUPIER_RULE_1);
         ruleLabel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, new float[]{7,5}, 0), new Color(25,45,34,255)));
         ruleLabel.setOpaque(true);
         ruleLabel.setFont(Constants.CUSTOM_FONT.deriveFont(13f));

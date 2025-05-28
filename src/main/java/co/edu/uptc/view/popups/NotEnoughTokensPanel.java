@@ -36,6 +36,7 @@ public class NotEnoughTokensPanel extends JPanel {
 	private void initLayout() {
 		setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.ipady = 15;
 		gbc.insets = new Insets(25, 40, 25, 40);
 		initComponents(gbc);
 	}
