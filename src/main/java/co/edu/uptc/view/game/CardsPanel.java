@@ -27,6 +27,15 @@ public class CardsPanel extends JPanel {
 
     public void addCard(int row, int column) {
         CardImage label = new CardImage(row, column);
+        add(label);
+    }
+
+    public void addHiddenCard() {
+        CardImage label = new CardImage();
+        add(label);
+    }
+
+    private void add(CardImage label) {
         cards.add(label);
 
         if (cards.size() > 3) {

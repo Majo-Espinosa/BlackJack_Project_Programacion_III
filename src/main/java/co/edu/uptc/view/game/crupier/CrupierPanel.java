@@ -39,16 +39,14 @@ public class CrupierPanel extends JPanel {
         crupierLabel.setForeground(Color.WHITE);
     }
 
-
-
     private void initComponents() {
         initButtons();
-        leftPileLabel = new CardImage(0, 14);
-        rightPileLabel = new CardImage(0,13);
+        leftPileLabel = new CardImage();
+        rightPileLabel = new CardImage();
 
         cardsPanel = new CardsPanel(GameConstants.CRUPIER_CARDS_DIMENSION);
         for (int i = 0; i < 3; i++) {
-            cardsPanel.addCard(4, i);
+            cardsPanel.addHiddenCard();
         }
 
         initLabels();
