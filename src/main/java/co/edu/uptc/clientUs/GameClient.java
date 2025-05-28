@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import com.google.gson.Gson;
 
@@ -21,17 +22,30 @@ public class GameClient extends Thread{
 
     public GameClient() throws IOException{
 
+        player = new Player(null);
+        gson = new Gson();
+    }
+
+    private void conectClient() {
+    try {
         client = new Socket("localhost", 12345);
         reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
         writer = new PrintWriter(client.getOutputStream(),true);
-        gson = new Gson();
-        player = new Player(null);
         readerThread = new ReaderThread(reader, client);
         readerThread.start();
+    } catch (UnknownHostException e) {
+        
+        e.printStackTrace();
+    } catch (IOException e) {
+      
+        e.printStackTrace();
+    }
+       
     }
 
     @Override
     public void run() {
+        conectClient();
         boolean exit = false;
         boolean inParty = false;
         while (exit!=true){

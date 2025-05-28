@@ -19,9 +19,8 @@ public class LoginPanel extends JPanel {
     private final GridBagConstraints gbc = new GridBagConstraints();
     private GameClient client;
 
-    public LoginPanel(MainPanel mainPanel, GameClient client) {
+    public LoginPanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
-        this.client = client;
         initComponents();
         addComponents();
     }
@@ -36,7 +35,8 @@ public class LoginPanel extends JPanel {
 
         play.addActionListener(_ -> {
             mainPanel.updatePanel(Constants.GAME_KEY);
-            this.client.setPlayerId(usernameTextField.getText());
+            mainPanel.getClient().setPlayerId(usernameTextField.getText());
+            mainPanel.conectClient();
         }  );
         backToMenu.addActionListener(_ -> mainPanel.updatePanel(Constants.MENU_KEY));
     }
