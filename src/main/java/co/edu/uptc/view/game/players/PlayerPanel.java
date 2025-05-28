@@ -2,8 +2,10 @@ package co.edu.uptc.view.game.players;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
@@ -26,16 +28,17 @@ public class PlayerPanel extends JPanel {
         this.name = new JLabel(name);
         betTokens = new TokensPanel();
         cardsPanel = new CardsPanel(GameConstants.PLAYER_CARDS_DIMENSION);
-
+        
         initComponents();
         addComponents();
     }
 
     public final void initComponents() {
 
-        setLayout(new GridBagLayout());
+        setLayout(new GridLayout(3, 1));
         setOpaque(false);
         setAlignmentY(Component.TOP_ALIGNMENT);
+        
 
 
         name.setFont(Constants.CUSTOM_FONT.deriveFont(10f));
@@ -48,21 +51,35 @@ public class PlayerPanel extends JPanel {
 
     public final void addComponents() {
 
+        JPanel auxBetTokens = new JPanel();
+        auxBetTokens.setOpaque(false);
+        auxBetTokens.setLayout(new GridBagLayout());
+        auxBetTokens.add(betTokens,gbc);
+        auxBetTokens.setPreferredSize(new Dimension(300, 50));
+
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 0, 0);
-        add(betTokens,gbc);
+        gbc.insets = new Insets(0, 0, 10, 0);
+        add(auxBetTokens);
 
         gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridy = 1;
         gbc.ipady = 50;
         gbc.ipadx = 180;
-        add(cardsPanel, gbc);
+        cardsPanel.setPreferredSize(new Dimension(300, 200));
+        add(cardsPanel);
 
+
+        JPanel auxNamPanel = new JPanel();
         gbc.gridy = 2;
         gbc.ipadx = 30;
         gbc.ipady = 30;
+        auxNamPanel.setOpaque(false);
+        auxNamPanel.setLayout(new GridBagLayout());
+        auxNamPanel.add(name,gbc);
+        auxNamPanel.setPreferredSize(new Dimension(300, 50));
+        
         gbc.insets = new Insets(10, 0, 0, 0);
-        add(name, gbc);
+        add(auxNamPanel);
     }
 
     public void addCard(int row, int column) {

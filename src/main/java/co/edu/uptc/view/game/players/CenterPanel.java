@@ -1,5 +1,8 @@
 package co.edu.uptc.view.game.players;
 
+import java.awt.Color;
+import java.awt.GridLayout;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
