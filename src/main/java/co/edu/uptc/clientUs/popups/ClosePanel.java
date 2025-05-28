@@ -5,14 +5,22 @@
 
 package co.edu.uptc.clientUs.popups;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import co.edu.uptc.clientUs.MainPanel;
 import co.edu.uptc.clientUs.popups.draw.OutlinedLabel;
 import co.edu.uptc.clientUs.reusable.Constants;
 import co.edu.uptc.clientUs.reusable.ImageButton;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 
 /**
  * @author Jhon
@@ -73,7 +81,7 @@ public class ClosePanel extends JPanel {
 				System.exit(0);
 			}
 			else {
-				mainPanel.updatePanel(Constants.MENU_KEY, true);
+				mainPanel.updatePanel(Constants.MENU_KEY);
 				dialog.dispose();
 			}
 		});

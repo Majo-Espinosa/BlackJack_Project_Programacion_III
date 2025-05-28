@@ -1,6 +1,7 @@
 package co.edu.uptc.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //Clase jugador con su nombre, fichas, apuesta, mano
 public class Player {
@@ -62,5 +63,9 @@ public class Player {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 }

@@ -7,6 +7,7 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 
 import co.edu.uptc.clientUs.MainPanel;
+import co.edu.uptc.clientUs.reusable.Constants;
 import co.edu.uptc.clientUs.reusable.ImageButton;
 
 public class MenuButtonsPanel extends JPanel {
@@ -42,7 +43,7 @@ public class MenuButtonsPanel extends JPanel {
         rules = new ImageButton("Reglas", true, 16, ImageButton.DARK_QUESTION_MARK_ICON);
         exit = new ImageButton("Salir", false, 16, ImageButton.SKULL_ICON);
 
-        play.addActionListener(_ -> mainPanel.updatePanel("login", true));
+        play.addActionListener(_ -> mainPanel.updatePanel(Constants.LOGIN_KEY));
         rules.addActionListener(_ -> mainPanel.openRulesPopup());
         exit.addActionListener(_ -> mainPanel.openClosePopup());
     }

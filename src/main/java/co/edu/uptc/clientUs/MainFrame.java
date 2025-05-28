@@ -1,16 +1,21 @@
 package co.edu.uptc.clientUs;
 
-import co.edu.uptc.clientUs.reusable.Constants;
-
+import java.io.IOException;
 import java.net.URL;
-import javax.swing.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
+import co.edu.uptc.clientUs.reusable.Constants;
 
 public class MainFrame extends JFrame {
     private MainPanel mainPanel;
+    private GameClient client;
 
 
-    public MainFrame() {
+    public MainFrame(GameClient client) {
         super(Constants.FRAME_TITLE);
+        this.client = client;
         initComponents();
         setSize(Constants.WINDOW_DIMENSION);
         setResizable(false);
@@ -29,12 +34,15 @@ public class MainFrame extends JFrame {
     }
 
     public final void initComponents() {
-        mainPanel = new MainPanel();
+        mainPanel = new MainPanel(this.client);
         setContentPane(mainPanel);
     }
 
-    public static void main(String[] args) {
-        new MainFrame();
+    public static void main(String[] args) throws IOException {
+        GameClient client = new GameClient();
+        client.start();
+        MainFrame mainFrame = new MainFrame(client);
+        
     }
 
 }
