@@ -48,4 +48,21 @@ public class CardImage extends JLabel {
             throw new RuntimeException(e);
         }
     }
+
+    public CardImage() {
+        setBorder(BorderFactory.createLineBorder(Color.RED));
+        setPreferredSize(new java.awt.Dimension(width + 40,  height + 40));
+        try {
+            BufferedImage cardsSheet = ImageIO.read(getClass().getResource(Constants.CARDS_PATH));
+            int xposition = 0 * width;
+            int yposition = 4 * height;
+            icon = new ImageIcon(cardsSheet.getSubimage(xposition, yposition, width, height).getScaledInstance(width + 20 , height + 20, BufferedImage.SCALE_REPLICATE));
+            extendedIcon = new ImageIcon(icon.getImage().getScaledInstance(width + 25 , height + 25, BufferedImage.TRANSLUCENT));
+            setIcon(icon);
+            setHorizontalAlignment(JLabel.CENTER);
+            setVerticalAlignment(JLabel.CENTER);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
