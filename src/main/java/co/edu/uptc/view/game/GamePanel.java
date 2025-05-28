@@ -1,18 +1,25 @@
 package co.edu.uptc.view.game;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import co.edu.uptc.view.MainPanel;
 import co.edu.uptc.view.game.crupier.CrupierPanel;
-import co.edu.uptc.view.game.players.BottomPanel;
 import co.edu.uptc.view.game.draw.RoundedBorder;
+import co.edu.uptc.view.game.players.BottomPanel;
+import co.edu.uptc.view.game.players.CenterPanel;
 import co.edu.uptc.view.popups.ClosePanel;
 import co.edu.uptc.view.reusable.Constants;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class GamePanel extends JPanel {
     private final MainPanel mainPanel;
     private final CrupierPanel crupierPanel;
+    private final CenterPanel centerPanel;
     private final BottomPanel bottomPanel;
     private final ClosePanel closePanel;
 
@@ -20,10 +27,12 @@ public class GamePanel extends JPanel {
         this.mainPanel = mainPanel;
         closePanel = new ClosePanel(mainPanel);
         crupierPanel = new CrupierPanel(this);
+        centerPanel = new CenterPanel();
         bottomPanel = new BottomPanel();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(crupierPanel);
         addDecorations();
+        add(centerPanel);
         add(bottomPanel);
         setOpaque(false);
     }
