@@ -48,10 +48,11 @@ public class PlayerPanel extends JPanel {
 
     public final void addComponents() {
 
-         gbc.gridy = 0;
-         
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 0, 0);
         add(betTokens,gbc);
 
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridy = 1;
         gbc.ipady = 50;
         gbc.ipadx = 180;
