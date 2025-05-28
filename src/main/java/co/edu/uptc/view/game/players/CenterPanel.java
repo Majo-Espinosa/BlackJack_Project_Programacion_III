@@ -1,7 +1,5 @@
 package co.edu.uptc.view.game.players;
 
-import java.awt.*;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -12,7 +10,6 @@ public class CenterPanel extends JPanel {
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridLayout(0, 3));
-
         initComponents();
         firstLine();
     }
@@ -35,8 +32,6 @@ public class CenterPanel extends JPanel {
         rightPlayerPanel = new PlayerPanel("Waiting...");
         rightPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
         rightPlayerPanel.addCard(0,2);
-//        rightPlayerPanel.addCard(1,2);
-//        rightPlayerPanel.addCard(2,2);
 
         leftPlayerPanel.setOpaque(false);
         centerPlayerPanel.setOpaque(false);
@@ -47,5 +42,6 @@ public class CenterPanel extends JPanel {
         add(leftPlayerPanel);
         add(centerPlayerPanel);
         add(rightPlayerPanel);
+      
     }
 }
