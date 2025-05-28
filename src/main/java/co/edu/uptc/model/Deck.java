@@ -1,65 +1,35 @@
 package co.edu.uptc.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
+//Clase que representa la baraja
 public class Deck {
-
     private Stack<Card> cards;
 
-    public Deck(int size) {
-        createDeck(size);
-    }
-
-    // se crea un mazo con el numero de barajas que se deseen
-    public void createDeck(int SingleDecks) {
+    //Constructor de una baraja
+    public Deck() {
         cards = new Stack<>();
-        String[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A" };
-        String[] suits = { "H", "D", "C", "S" };
-        for (int i = 0; i < SingleDecks; i++) {
-            for (String rank : ranks) {
-                for (String suit : suits) {
-                    cards.add(createCard(rank, suit));
-                }
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        int[] values = {2,3,4,5,6,7,8,9,10,10,10,10,11};
+
+        //Se crean cuatro barajas, cada una con una categoria y todos los rangos
+        for (String suit : suits) {
+            for (int i = 0; i < ranks.length; i++) {
+                cards.push(new Card(suit, ranks[i], values[i]));
             }
         }
         shuffle();
     }
 
-    // Crea una carta
-    public Card createCard(String rank, String suit) {
-        Card card = new Card(suit.charAt(0), rank.charAt(0));
-        card.setName(suit + rank);
-        try {
-            card.setValue(Integer.parseInt(rank));
-        } catch (Exception e) {
-            if (!rank.equals("A")) {
-                card.setValue(10);
-            } else {
-                card.setValue(11);
-            }
-        }
-        return card;
-    }
-
-    // Mezcla la baraja
+    //usa el metodo shuffle de la clase collections para barajar
     public void shuffle() {
-        List<Card> list = new ArrayList<>(cards);
-        Collections.shuffle(list);
-        Collections.shuffle(list);
-        cards.clear();
-        cards.addAll(list);
+        Collections.shuffle(cards);
     }
 
-    // Reparte una carta
-    public Card dealCard() {
+    //"Saca" la carta que se encuentra en la parte superior
+    public Card draw() {
         return cards.pop();
     }
-
-    public int size() {
-        return cards.size();
-    }
-
 }
