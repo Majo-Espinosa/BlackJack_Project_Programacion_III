@@ -113,7 +113,7 @@ public class ImageButton extends JButton {
     }
 
     private BufferedImage createSolidColorImage(boolean pressed) {
-        BufferedImage image = new BufferedImage(100, 50, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image = new BufferedImage(200, 50, BufferedImage.TYPE_INT_ARGB);
         Graphics g = image.getGraphics();
         if (textColor.equals(Constants.PRIMARY_BUTTON_COLOR)) {
             g.setColor(Constants.SECONDARY_BUTTON_COLOR);
