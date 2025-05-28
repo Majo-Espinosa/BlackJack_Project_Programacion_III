@@ -82,8 +82,8 @@ public class PlayerPanel extends JPanel {
         add(auxNamPanel);
     }
 
-    public void addCard(int row, int column) {
-        cardsPanel.addCard(row, column);
+    public void addCard(String path) {
+        cardsPanel.addCard(path);
     }
 
     public void clearCards() {
