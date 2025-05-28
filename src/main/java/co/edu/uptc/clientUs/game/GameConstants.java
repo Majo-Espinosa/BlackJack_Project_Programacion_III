@@ -11,4 +11,6 @@ public class GameConstants {
     public static final String CRUPIER_RULE_1 = "El crupier debe pedir hasta alcanzar 16 y plantarse en todos los 17";
     public static final String CRUPIER_RULE_2 = "El crupier paga 2 a 1";
     public static final String CRUPIER_RULE_3 = "SEGURO";
+
+    public static final String BACK_CARD_PATH = "/images/cards/card_back.png";
 }
