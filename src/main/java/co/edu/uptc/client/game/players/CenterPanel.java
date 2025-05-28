@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class CenterPanel extends JPanel {
-    private PlayerPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
+    private PlayerPanel leftPlayerPanel, rightPlayerPanel;
 
     public CenterPanel() {
         setOpaque(false);
@@ -27,23 +27,16 @@ public class CenterPanel extends JPanel {
         leftPlayerPanel.addCard(0, 3);
         leftPlayerPanel.addCard(0, 3);
 
-        centerPlayerPanel = new PlayerPanel("Waiting...");
-        centerPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        centerPlayerPanel.addCard(0,1);
-        centerPlayerPanel.addCard(1,1);
-
         rightPlayerPanel = new PlayerPanel("Waiting...");
         rightPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
         rightPlayerPanel.addCard(0,2);
 
         leftPlayerPanel.setOpaque(false);
-        centerPlayerPanel.setOpaque(false);
         rightPlayerPanel.setOpaque(false);
     }
 
     private void firstLine() {
         add(leftPlayerPanel);
-        add(centerPlayerPanel);
         add(rightPlayerPanel);
       
     }
