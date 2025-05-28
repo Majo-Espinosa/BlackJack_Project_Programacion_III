@@ -35,13 +35,15 @@ public class PlayerPanel extends JPanel {
     }
 
     public final void addComponents() {
-        gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.ipady = 50;
+        gbc.ipadx = 180;
         add(cardsPanel, gbc);
 
         gbc.gridy = 1;
         gbc.ipadx = 30;
-        gbc.ipady = 35;
+        gbc.ipady = 30;
+        gbc.insets = new Insets(10, 0, 0, 0);
         add(name, gbc);
     }
 

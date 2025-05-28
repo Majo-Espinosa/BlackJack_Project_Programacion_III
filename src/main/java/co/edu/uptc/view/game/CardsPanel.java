@@ -1,5 +1,7 @@
 package co.edu.uptc.view.game;
 
+import co.edu.uptc.view.game.draw.CardImage;
+
 import javax.swing.*;
 import java.awt.*;
 

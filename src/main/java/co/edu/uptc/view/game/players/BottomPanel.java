@@ -3,14 +3,14 @@ package co.edu.uptc.view.game.players;
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayersPanel extends JPanel {
+public class BottomPanel extends JPanel {
 
     private GridBagConstraints gbc;
     private PlayerPanel leftPlayerPanel, centerPlayerPanel, rightPlayerPanel;
     private JPanel playerTokens;
     private ActionsPanel actionsPanel;
 
-    public PlayersPanel() {
+    public BottomPanel() {
         setOpaque(false);
         setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridBagLayout());
@@ -26,7 +26,6 @@ public class PlayersPanel extends JPanel {
 
         leftPlayerPanel = new PlayerPanel("Waiting...");
         leftPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        leftPlayerPanel.addCard(0,0);
 
         centerPlayerPanel = new PlayerPanel("Waiting...");
         centerPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -45,8 +44,6 @@ public class PlayersPanel extends JPanel {
     }
 
     private void firstLine() {
-        gbc.ipadx = 180;
-        gbc.ipady = 20;
         gbc.gridx = 1;
         gbc.gridy = 0;
         add(leftPlayerPanel, gbc);
@@ -57,7 +54,6 @@ public class PlayersPanel extends JPanel {
         gbc.gridx = 3;
         add(rightPlayerPanel, gbc);
         gbc.gridwidth = 1;
-        gbc.ipadx = 0;
         gbc.ipady = 10;
 
         secondLine();

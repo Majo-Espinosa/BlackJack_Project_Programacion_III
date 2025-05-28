@@ -1,4 +1,4 @@
-package co.edu.uptc.view.game;
+package co.edu.uptc.view.game.draw;
 
 import co.edu.uptc.view.reusable.Constants;
 

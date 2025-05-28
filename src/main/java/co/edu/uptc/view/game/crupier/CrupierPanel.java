@@ -1,6 +1,6 @@
 package co.edu.uptc.view.game.crupier;
 
-import co.edu.uptc.view.game.CardImage;
+import co.edu.uptc.view.game.draw.CardImage;
 import co.edu.uptc.view.game.CardsPanel;
 import co.edu.uptc.view.game.GameConstants;
 import co.edu.uptc.view.game.GamePanel;
