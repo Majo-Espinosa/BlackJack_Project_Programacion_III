@@ -24,8 +24,8 @@ public class CardImage extends JLabel {
             BufferedImage cardsSheet = ImageIO.read(getClass().getResource(Constants.CARDS_PATH));
             int xposition = column * width;
             int yposition = row * height;
-            icon = new ImageIcon(cardsSheet.getSubimage(xposition, yposition, width, height));
-            extendedIcon = new ImageIcon(icon.getImage().getScaledInstance(width + 5 , height + 5, BufferedImage.TRANSLUCENT));
+            icon = new ImageIcon(cardsSheet.getSubimage(xposition, yposition, width, height).getScaledInstance(width + 20 , height + 20, BufferedImage.SCALE_REPLICATE));
+            extendedIcon = new ImageIcon(icon.getImage().getScaledInstance(width + 25 , height + 25, BufferedImage.TRANSLUCENT));
             setIcon(icon);
             setHorizontalAlignment(JLabel.CENTER);
             setVerticalAlignment(JLabel.CENTER);
