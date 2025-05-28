@@ -13,14 +13,14 @@ import co.edu.uptc.clientUs.MainPanel;
 import co.edu.uptc.clientUs.game.crupier.CrupierPanel;
 import co.edu.uptc.clientUs.game.draw.RoundedBorder;
 import co.edu.uptc.clientUs.game.players.BottomPanel;
-import co.edu.uptc.clientUs.game.players.CenterPanel;
+import co.edu.uptc.clientUs.game.players.PlayersPanel;
 import co.edu.uptc.clientUs.popups.ClosePanel;
 import co.edu.uptc.clientUs.reusable.Constants;
 
 public class GamePanel extends JPanel {
     private final MainPanel mainPanel;
     private final CrupierPanel crupierPanel;
-    private final CenterPanel centerPanel;
+    private final PlayersPanel playersPanel;
     private final BottomPanel bottomPanel;
     private final ClosePanel closePanel;
 
@@ -28,12 +28,12 @@ public class GamePanel extends JPanel {
         this.mainPanel = mainPanel;
         closePanel = new ClosePanel(mainPanel);
         crupierPanel = new CrupierPanel(this);
-        centerPanel = new CenterPanel();
+        playersPanel = new PlayersPanel();
         bottomPanel = new BottomPanel();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(crupierPanel);
         addDecorations();
-        add(centerPanel);
+        add(playersPanel);
         add(bottomPanel);
         setOpaque(false);
     }

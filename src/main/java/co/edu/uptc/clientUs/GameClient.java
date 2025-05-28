@@ -52,10 +52,9 @@ public class GameClient extends Thread{
         }
     }
 
-    
-
     public void setPlayerId(String id){
         this.player.setId(id);
     }
 
+    
 }

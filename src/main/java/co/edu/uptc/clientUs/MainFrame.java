@@ -12,7 +12,6 @@ public class MainFrame extends JFrame {
     private MainPanel mainPanel;
     private GameClient client;
 
-
     public MainFrame(GameClient client) {
         super(Constants.FRAME_TITLE);
         this.client = client;
