@@ -1,5 +1,7 @@
 package co.edu.uptc.view.menu;
 
+import co.edu.uptc.view.reusable.Constants;
+
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -11,7 +13,7 @@ public class MenuTitlePanel extends JPanel {
 	private final Image title;
 
 	public MenuTitlePanel() {
-		title = new ImageIcon(getClass().getResource("/images/icons/title.png")).getImage();
+		title = new ImageIcon(getClass().getResource(Constants.TITLE_PATH)).getImage();
 
 	}
 
