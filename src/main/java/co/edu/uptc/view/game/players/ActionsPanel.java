@@ -83,6 +83,8 @@ public class ActionsPanel extends JPanel {
         divide = new ImageButton("Dividir", false, 10);
 
         tokens = new TokensPanel();
+
+        addActionListeners();
     }
 
     public void addActionListeners() {
