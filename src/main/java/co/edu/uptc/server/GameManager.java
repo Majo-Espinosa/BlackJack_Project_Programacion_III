@@ -1,51 +1,30 @@
 package co.edu.uptc.server;
 
-import co.edu.uptc.enums.GameResult;
-import co.edu.uptc.enums.GameState;
-import co.edu.uptc.enums.PlayerAction;
-import co.edu.uptc.model.Card;
-import co.edu.uptc.model.Dealer;
-import co.edu.uptc.model.Deck;
-import co.edu.uptc.model.Player;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import co.edu.uptc.enums.*;
+import co.edu.uptc.model.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 //Gestor de la logica en si del juego
 public class GameManager {
-    //Constantes
-    private static final int MIN_BET = 10;
-    private static final int MAX_BET = 1000;
-    private static final int BET_TIME_SECONDS = 20;
-    private static final int ACTION_TIME_SECONDS = 20;
-    private static final int INITIAL_BALANCE = 1000;
-    private static final int MIN_PLAYERS_TO_START = 1;
-    private static final int DELAY_BETWEEN_ROUNDS = 5;
-    private static final int DELAY_BEFORE_RESULTS = 3;
-
-    //Estado del juego
+    // Estado del juego
     private final Map<String, Player> players;
     private final Map<String, ClientHandler> clientHandlers;
     private final Deck deck;
     private final Dealer dealer;
     private final ScheduledExecutorService scheduler;
     private final List<String> playerOrder;
-    //Momento actually: Una variable es volatile es una que puede ser modificada por múltiples hilos al mismo tiempo☝️🤓
+    // Momento actually: Una variable es volatile es una que puede ser modificada
+    // por múltiples hilos al mismo tiempo☝️🤓
     private volatile GameState gameState;
     private volatile String currentPlayerId;
     private volatile int currentPlayerIndex;
-    //Representa una tarea que se está ejecutando o que puede completarse en el futuro, pero no se especifica el tipo
+    // Representa una tarea que se está ejecutando o que puede completarse en el
+    // futuro, pero no se especifica el tipo
     // del resultado (por eso el <?>)
     private volatile Future<?> currentTimeoutTask;
 
-    //Constructor
+    // Constructor
     public GameManager() {
         this.players = new ConcurrentHashMap<>();
         this.clientHandlers = new ConcurrentHashMap<>();
@@ -61,7 +40,7 @@ public class GameManager {
         logGameInfo("GameManager inicializado");
     }
 
-    //----------Gestion de los jugadores----------
+    // ----------Gestion de los jugadores----------
 
     public synchronized void addPlayer(String playerId, ClientHandler clientHandler) {
         if (playerId == null || clientHandler == null) {
@@ -74,23 +53,22 @@ public class GameManager {
             return;
         }
 
-        //Crear y configurar el jugador
+        // Crear y configurar el jugador
         Player player = new Player(playerId);
-        player.setBalance(INITIAL_BALANCE);
+        player.setBalance(GameManagerConstants.INITIAL_BALANCE);
 
         players.put(playerId, player);
         clientHandlers.put(playerId, clientHandler);
 
         logGameInfo("Jugador " + playerId + " agregado. Total jugadores: " + players.size());
 
-        //Notificar al jugador su balance inicial
+        // Notificar al jugador su balance inicial
         sendMessageToPlayer(playerId, Map.of(
-            "type", "balance_update",
-            "balance", INITIAL_BALANCE,
-            "message", "Bienvenido al Blackjack! Balance inicial: $" + INITIAL_BALANCE
-        ));
+                "type", "balance_update",
+                "balance", GameManagerConstants.INITIAL_BALANCE,
+                "message", "Bienvenido al Blackjack! Balance inicial: $" + GameManagerConstants.INITIAL_BALANCE));
 
-        //Iniciar juego
+        // Iniciar juego
         if (shouldStartNewGame()) {
             scheduleGameStart();
         }
@@ -107,18 +85,18 @@ public class GameManager {
 
         logGameInfo("Jugador " + playerId + " removido. Jugadores restantes: " + players.size());
 
-        //Ajustar índice del jugador actual si es necesario
+        // Ajustar índice del jugador actual si es necesario
         if (playerId.equals(currentPlayerId)) {
             advanceToNextPlayer();
         }
 
-        //Si no hay jugadores, volver a estado de espera
+        // Si no hay jugadores, volver a estado de espera
         if (players.isEmpty()) {
             resetGameToWaitingState();
         }
     }
 
-    //----------Control del ciclo del juego----------
+    // ----------Control del ciclo del juego----------
 
     private void startNewRound() {
         if (!canStartNewRound()) {
@@ -146,7 +124,7 @@ public class GameManager {
         scheduleAutomaticBets();
     }
 
-    //Apuestas para jugadores que no lo hicieron en los 20 segundos
+    // Apuestas para jugadores que no lo hicieron en los 20 segundos
     private void processAutomaticBets() {
         logGameInfo("Procesando apuestas automáticas...");
 
@@ -175,22 +153,22 @@ public class GameManager {
         processNextPlayerAction();
     }
 
-    //Turno del siguiente jugador
+    // Turno del siguiente jugador
     private void processNextPlayerAction() {
         cancelCurrentTimeout();
 
-        //Buscar el siguiente jugador activo
+        // Buscar el siguiente jugador activo
         String nextPlayerId = findNextActivePlayer();
-        //Todos jugaron
+        // Todos jugaron
         if (nextPlayerId == null) {
             playDealerTurn();
             return;
         }
-        //Configurar turno del jugador
+        // Configurar turno del jugador
         setupPlayerTurn(nextPlayerId);
     }
 
-    //Turno del dealer
+    // Turno del dealer
     private void playDealerTurn() {
         gameState = GameState.DEALER_TURN;
         logGameInfo("=== TURNO DEL DEALER ===");
@@ -198,12 +176,13 @@ public class GameManager {
         playDealerHand();
         logGameInfo("Dealer terminó con valor: " + dealer.getHandValue());
         broadcastGameState();
-        //Programa la ejecución del metodo calculateResults() después de un retraso fijo para dar tiempo a los
+        // Programa la ejecución del metodo calculateResults() después de un retraso
+        // fijo para dar tiempo a los
         // jugadores a ver las cartas del crupier antes de mostrar los resultados.
-        scheduler.schedule(this::calculateResults, DELAY_BEFORE_RESULTS, TimeUnit.SECONDS);
+        scheduler.schedule(this::calculateResults, GameManagerConstants.DELAY_BEFORE_RESULTS, TimeUnit.SECONDS);
     }
 
-    //Resultados de la ronda
+    // Resultados de la ronda
     private void calculateResults() {
         gameState = GameState.ROUND_FINISHED;
         logGameInfo("=== CALCULANDO RESULTADOS ===");
@@ -211,7 +190,7 @@ public class GameManager {
         int dealerValue = dealer.getHandValue();
         boolean dealerBusted = dealerValue > 21;
 
-        //Procesar resultado para cada jugador
+        // Procesar resultado para cada jugador
         for (Player player : players.values()) {
             if (playerParticipatedInRound(player)) {
                 processPlayerResult(player, dealerValue, dealerBusted);
@@ -223,7 +202,7 @@ public class GameManager {
         scheduleNextRound();
     }
 
-    //----------Procesar las acciones del cliente----------
+    // ----------Procesar las acciones del cliente----------
 
     public synchronized void processBet(String playerId, int amount) {
         if (!isValidBettingContext(playerId, amount)) {
@@ -242,16 +221,15 @@ public class GameManager {
         player.setBalance(player.getBalance() - validatedAmount);
 
         logGameInfo("Apuesta procesada - " + playerId + ": $" + validatedAmount +
-            " (Balance restante: $" + player.getBalance() + ")");
+                " (Balance restante: $" + player.getBalance() + ")");
         // Notificar al jugador
         sendMessageToPlayer(playerId, Map.of(
-            "type", "bet_accepted",
-            "amount", validatedAmount,
-            "newBalance", player.getBalance()
-        ));
+                "type", "bet_accepted",
+                "amount", validatedAmount,
+                "newBalance", player.getBalance()));
     }
 
-    //Procesa una acción de jugador durante su turno
+    // Procesa una acción de jugador durante su turno
     public synchronized void processPlayerAction(String playerId, PlayerAction action) {
         if (!isValidActionContext(playerId)) {
             return;
@@ -272,10 +250,10 @@ public class GameManager {
         broadcastGameState();
     }
 
-    //----------Utilidades para el juego----------
+    // ----------Utilidades para el juego----------
     private boolean shouldStartNewGame() {
         return gameState == GameState.WAITING_PLAYERS &&
-            players.size() >= MIN_PLAYERS_TO_START;
+                players.size() >= GameManagerConstants.MIN_PLAYERS_TO_START;
     }
 
     private boolean canStartNewRound() {
@@ -305,26 +283,28 @@ public class GameManager {
         playerOrder.addAll(players.keySet());
         currentPlayerIndex = 0;
     }
-    //Mensaje a los clientes para pedir la apuesta
+
+    // Mensaje a los clientes para pedir la apuesta
     private void requestBetsFromPlayers() {
         broadcastMessage(Map.of(
-            "type", "prompt_bet",
-            "minBet", MIN_BET,
-            "maxBet", MAX_BET,
-            "timeLimit", BET_TIME_SECONDS
-        ));
+                "type", "prompt_bet",
+                "minBet", GameManagerConstants.MIN_BET,
+                "maxBet", GameManagerConstants.MAX_BET,
+                "timeLimit", GameManagerConstants.BET_TIME_SECONDS));
     }
-    //Programar la apuesta automatica si no hace ninguna
+
+    // Programar la apuesta automatica si no hace ninguna
     private void scheduleAutomaticBets() {
         currentTimeoutTask = scheduler.schedule(() -> {
             processAutomaticBets();
-        }, BET_TIME_SECONDS, TimeUnit.SECONDS);
+        }, GameManagerConstants.BET_TIME_SECONDS, TimeUnit.SECONDS);
     }
+
     private void processAutomaticBetForPlayer(Player player) {
-        if (player.getBalance() >= MIN_BET) {
-            player.setBet(MIN_BET);
-            player.setBalance(player.getBalance() - MIN_BET);
-            logGameInfo("Apuesta automática para " + player.getId() + ": $" + MIN_BET);
+        if (player.getBalance() >= GameManagerConstants.MIN_BET) {
+            player.setBet(GameManagerConstants.MIN_BET);
+            player.setBalance(player.getBalance() - GameManagerConstants.MIN_BET);
+            logGameInfo("Apuesta automática para " + player.getId() + ": $" + GameManagerConstants.MIN_BET);
         } else {
             notifyInsufficientBalance(player.getId());
         }
@@ -340,7 +320,7 @@ public class GameManager {
                     player.addCard(deck.dealCard());
                 }
             }
-            //Carta para dealer
+            // Carta para dealer
             dealer.addCard(deck.dealCard());
         }
     }
@@ -360,9 +340,9 @@ public class GameManager {
 
     private boolean isPlayerActiveForTurn(Player player) {
         return player != null &&
-            player.getCurrentBet() > 0 &&
-            !player.isFinished() &&
-            player.getHandValue() < 21;
+                player.getCurrentBet() > 0 &&
+                !player.isFinished() &&
+                player.getHandValue() < 21;
     }
 
     private void setupPlayerTurn(String playerId) {
@@ -370,16 +350,15 @@ public class GameManager {
         logGameInfo("Turno del jugador: " + playerId);
 
         sendMessageToPlayer(playerId, Map.of(
-            "type", "prompt_hit",
-            "timeLimit", ACTION_TIME_SECONDS
-        ));
+                "type", "prompt_hit",
+                "timeLimit", GameManagerConstants.ACTION_TIME_SECONDS));
         // Configurar timeout
         currentTimeoutTask = scheduler.schedule(() -> {
             if (gameState == GameState.PLAYER_ACTIONS && playerId.equals(currentPlayerId)) {
                 logGameInfo("Timeout para " + playerId + ", se planta automáticamente");
                 processPlayerAction(playerId, PlayerAction.STAND);
             }
-        }, ACTION_TIME_SECONDS, TimeUnit.SECONDS);
+        }, GameManagerConstants.ACTION_TIME_SECONDS, TimeUnit.SECONDS);
 
         broadcastGameState();
     }
@@ -389,7 +368,9 @@ public class GameManager {
         currentPlayerIndex++;
         processNextPlayerAction();
     }
-    //Cancela una tarea programada previamente (por ejemplo, un temporizador) si todavía no ha terminado
+
+    // Cancela una tarea programada previamente (por ejemplo, un temporizador) si
+    // todavía no ha terminado
     private void cancelCurrentTimeout() {
         if (currentTimeoutTask != null && !currentTimeoutTask.isDone()) {
             currentTimeoutTask.cancel(false);
@@ -418,7 +399,8 @@ public class GameManager {
     }
 
     private int validateBetAmount(Player player, int amount) {
-        if (amount < MIN_BET || amount > MAX_BET || amount > player.getBalance()) {
+        if (amount < GameManagerConstants.MIN_BET || amount > GameManagerConstants.MAX_BET
+                || amount > player.getBalance()) {
             return -1;
         }
         return amount;
@@ -426,8 +408,8 @@ public class GameManager {
 
     private boolean isValidActionContext(String playerId) {
         return gameState == GameState.PLAYER_ACTIONS &&
-            playerId.equals(currentPlayerId) &&
-            players.containsKey(playerId);
+                playerId.equals(currentPlayerId) &&
+                players.containsKey(playerId);
     }
 
     private boolean executePlayerAction(Player player, PlayerAction action) {
@@ -456,7 +438,7 @@ public class GameManager {
         player.addCard(newCard);
 
         logGameInfo(player.getId() + " pidió carta: " + newCard +
-            " (Valor total: " + player.getHandValue() + ")");
+                " (Valor total: " + player.getHandValue() + ")");
         if (player.getHandValue() >= 21) {
             player.setFinished(true);
             return true; // Avanzar al siguiente jugador
@@ -484,14 +466,13 @@ public class GameManager {
         player.addCard(newCard);
         player.setFinished(true);
         logGameInfo(player.getId() + " dobló. Nueva apuesta: $" + player.getCurrentBet() +
-            ", Carta: " + newCard + " (Valor: " + player.getHandValue() + ")");
+                ", Carta: " + newCard + " (Valor: " + player.getHandValue() + ")");
         // Notificar actualización
         sendMessageToPlayer(player.getId(), Map.of(
-            "type", "action_processed",
-            "action", "DOUBLE",
-            "newBalance", player.getBalance(),
-            "newBet", player.getCurrentBet()
-        ));
+                "type", "action_processed",
+                "action", "DOUBLE",
+                "newBalance", player.getBalance(),
+                "newBet", player.getCurrentBet()));
         return true; // Avanzar al siguiente jugador
     }
 
@@ -502,17 +483,16 @@ public class GameManager {
         player.setFinished(true);
         logGameInfo(player.getId() + " se rindió. Recupera: $" + halfBet);
         sendMessageToPlayer(player.getId(), Map.of(
-            "type", "game_result",
-            "result", "SURRENDER",
-            "amount", -player.getCurrentBet() + halfBet,
-            "newBalance", player.getBalance()
-        ));
+                "type", "game_result",
+                "result", "SURRENDER",
+                "amount", -player.getCurrentBet() + halfBet,
+                "newBalance", player.getBalance()));
         return true; // Avanzar al siguiente jugador
     }
 
     private boolean canPlayerDouble(Player player) {
         return player.getHands().get(0).getCards().size() == 2 &&
-            player.getBalance() >= player.getCurrentBet();
+                player.getBalance() >= player.getCurrentBet();
     }
 
     private boolean playerParticipatedInRound(Player player) {
@@ -527,22 +507,21 @@ public class GameManager {
         // Actualizar balance
         player.setBalance(player.getBalance() + winAmount);
         logGameInfo("Resultado para " + player.getId() + ": " + result +
-            " | Apuesta: $" + player.getCurrentBet() +
-            " | Ganancia total: $" + winAmount +
-            " | Ganancia neta: $" + netGain +
-            " | Nuevo balance: $" + player.getBalance());
+                " | Apuesta: $" + player.getCurrentBet() +
+                " | Ganancia total: $" + winAmount +
+                " | Ganancia neta: $" + netGain +
+                " | Nuevo balance: $" + player.getBalance());
 
         // Enviar resultado al cliente
         sendMessageToPlayer(player.getId(), Map.of(
-            "type", "game_result",
-            "result", result.toString(),
-            "amount", netGain,
-            "totalWin", winAmount,
-            "bet", player.getCurrentBet(),
-            "newBalance", player.getBalance(),
-            "playerValue", player.getHandValue(),
-            "dealerValue", dealerValue
-        ));
+                "type", "game_result",
+                "result", result.toString(),
+                "amount", netGain,
+                "totalWin", winAmount,
+                "bet", player.getCurrentBet(),
+                "newBalance", player.getBalance(),
+                "playerValue", player.getHandValue(),
+                "dealerValue", dealerValue));
     }
 
     private void scheduleNextRound() {
@@ -553,14 +532,14 @@ public class GameManager {
             } else {
                 resetGameToWaitingState();
             }
-        }, DELAY_BETWEEN_ROUNDS, TimeUnit.SECONDS);
+        }, GameManagerConstants.DELAY_BETWEEN_ROUNDS, TimeUnit.SECONDS);
     }
 
     private void removePlayersWithoutBalance() {
         List<String> playersToRemove = new ArrayList<>();
 
         for (Player player : players.values()) {
-            if (player.getBalance() < MIN_BET) {
+            if (player.getBalance() < GameManagerConstants.MIN_BET) {
                 playersToRemove.add(player.getId());
                 notifyInsufficientBalance(player.getId());
             }
@@ -574,9 +553,8 @@ public class GameManager {
 
     private void notifyInsufficientBalance(String playerId) {
         sendMessageToPlayer(playerId, Map.of(
-            "type", "insufficient_balance",
-            "message", "Balance insuficiente para continuar. ¡Gracias por jugar!"
-        ));
+                "type", "insufficient_balance",
+                "message", "Balance insuficiente para continuar. ¡Gracias por jugar!"));
     }
 
     private GameResult determineResult(Player player, int dealerValue, boolean dealerBusted) {
@@ -584,15 +562,15 @@ public class GameManager {
         boolean playerBusted = playerValue > 21;
         boolean playerBlackjack = player.isBlackjack();
         boolean dealerBlackjack = dealer.getHand().isBlackjack();
-        //Perdida
+        // Perdida
         if (playerBusted) {
             return GameResult.LOSE;
         }
-        //Ganancia
+        // Ganancia
         if (dealerBusted) {
             return playerBlackjack ? GameResult.BLACKJACK : GameResult.WIN;
         }
-        //Blackjack
+        // Blackjack
         if (playerBlackjack && dealerBlackjack) {
             return GameResult.PUSH;
         }
@@ -602,7 +580,7 @@ public class GameManager {
         if (dealerBlackjack) {
             return GameResult.LOSE;
         }
-        //Comparar valores con el dealer
+        // Comparar valores con el dealer
         if (playerValue > dealerValue) {
             return GameResult.WIN;
         } else if (playerValue < dealerValue) {
@@ -612,25 +590,26 @@ public class GameManager {
         }
     }
 
-    //Calcular ganancia
+    // Calcular ganancia
     private int calculateWinAmount(Player player, GameResult result) {
         int bet = player.getCurrentBet();
         return switch (result) {
-            case BLACKJACK -> (int)(bet * 2.5); // Blackjack paga 3:2
+            case BLACKJACK -> (int) (bet * 2.5); // Blackjack paga 3:2
             case WIN -> bet * 2; // Ganancia normal 1:1
             case PUSH -> bet; // Empate: devolver apuesta
             case LOSE, SURRENDER -> 0; // Pérdida: no devolver nada
         };
     }
 
-    //----------Comunicacion----------
+    // ----------Comunicacion----------
     private void sendMessageToPlayer(String playerId, Map<String, Object> message) {
         ClientHandler handler = clientHandlers.get(playerId);
         if (handler != null && handler.isActive()) {
             handler.sendMessage(message);
         }
     }
-    //Enviar a todos
+
+    // Enviar a todos
     private void broadcastMessage(Map<String, Object> message) {
         for (ClientHandler handler : clientHandlers.values()) {
             if (handler.isActive()) {
@@ -638,34 +617,35 @@ public class GameManager {
             }
         }
     }
-    //Enviar el game state
+
+    // Enviar el game state
     private void broadcastGameState() {
         Map<String, Object> gameStateData = createGameStateData();
         broadcastMessage(Map.of(
-            "type", "game_state",
-            "data", gameStateData
-        ));
+                "type", "game_state",
+                "data", gameStateData));
     }
-    //Preparar el game state
+
+    // Preparar el game state
     private Map<String, Object> createGameStateData() {
         Map<String, Object> data = new HashMap<>();
         // Estado del dealer (mostrar todas las cartas solo al final)
         boolean showAllDealerCards = gameState == GameState.ROUND_FINISHED ||
-            gameState == GameState.DEALER_TURN;
+                gameState == GameState.DEALER_TURN;
         data.put("dealer", dealer.toMap(showAllDealerCards));
         // Estado de los jugadores
         data.put("players", players.values().stream()
-            .map(Player::toMap)
-            .toList());
+                .map(Player::toMap)
+                .toList());
         data.put("gameState", gameState.toString());
         data.put("currentPlayer", currentPlayerId);
-        data.put("minBet", MIN_BET);
-        data.put("maxBet", MAX_BET);
+        data.put("minBet", GameManagerConstants.MIN_BET);
+        data.put("maxBet", GameManagerConstants.MAX_BET);
         data.put("totalPlayers", players.size());
         return data;
     }
 
-    //----------Log dicese imprimir en consola del servidor----------
+    // ----------Log dicese imprimir en consola del servidor----------
 
     private void logGameInfo(String message) {
         System.out.println("[GAME] " + message);
