@@ -7,9 +7,11 @@ import javax.swing.JPanel;
 public class BottomPanel extends JPanel{
     
     private final ActionsPanel actionsPanel;
+    private final TokenButtonsPanel tokenButtonsPanel;
 
     public BottomPanel() {
         this.actionsPanel = new ActionsPanel();
+        this.tokenButtonsPanel = new TokenButtonsPanel();
         this.setOpaque(false);
         initcomponents();
         addComponents();
@@ -22,5 +24,6 @@ public class BottomPanel extends JPanel{
 
     private void addComponents(){
         this.add(actionsPanel);
+        this.add(tokenButtonsPanel);
     }
 }
