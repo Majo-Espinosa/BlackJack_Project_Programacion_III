@@ -2,70 +2,69 @@ package co.edu.uptc.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-//Clase jugador con su nombre, fichas, apuesta, mano
 public class Player {
     private String id;
-    private List<Card> hand;
     private int balance;
-    private int bet;
+    private List<Hand> hands;
+    private int currentBet;
+    private boolean finished;
 
     public Player(String id) {
         this.id = id;
-        this.hand = new ArrayList<>();
-        this.balance = 1000;
-        this.bet = 0;
+        this.balance = 1000; // Balance inicial
+        this.hands = new ArrayList<>();
+        this.hands.add(new Hand()); // Mano principal
+        this.currentBet = 0;
+        this.finished = false;
     }
 
     public void addCard(Card card) {
-        hand.add(card);
+        if (!hands.isEmpty()) {
+            hands.get(0).addCard(card);
+        }
     }
 
     public int getHandValue() {
-        int value = 0, aces = 0;
-        for (Card card : hand) {
-            value += card.getValue();
-            if (card.getRank().equals("A")) aces++;
-        }
-        while (value > 21 && aces-- > 0) {
-            value -= 10;
-        }
-        return value;
+        return hands.isEmpty() ? 0 : hands.get(0).getValue();
     }
 
-    public void clearHand() {
-        hand.clear();
+    public boolean isBlackjack() {
+        return !hands.isEmpty() && hands.get(0).isBlackjack();
     }
 
-    public void setBet(int bet) {
-        this.bet = bet;
+    public boolean isBusted() {
+        return !hands.isEmpty() && hands.get(0).isBusted();
     }
 
-    public int getBet() {
-        return bet;
+    public void clearHands() {
+        hands.clear();
+        hands.add(new Hand());
+        currentBet = 0;
+        finished = false;
     }
 
-    public int getBalance() {
-        return balance;
+    public void setBet(int amount) {
+        this.currentBet = amount;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public Map<String, Object> toMap() {
+        return Map.of(
+            "id", id,
+            "balance", balance,
+            "currentBet", currentBet,
+            "hands", hands.stream().map(Hand::toMap).toList(),
+            "finished", finished
+        );
     }
-
-    public void updateBalance(int delta) {
-        balance += delta;
-    }
-
-    public List<Card> getHand() {
-        return hand;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id){
-        this.id = id;
-    }
+    // Getters y Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public int getBalance() { return balance; }
+    public void setBalance(int balance) { this.balance = balance; }
+    public int getCurrentBet() { return currentBet; }
+    public boolean isFinished() { return finished; }
+    public void setFinished(boolean finished) { this.finished = finished; }
+    public List<Hand> getHands() { return hands; }
 }
