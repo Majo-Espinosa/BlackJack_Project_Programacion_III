@@ -19,9 +19,9 @@ public class Constants {
 
     public static final String BUTTONS_PATH = "/images/icons/buttons.png";
     public static final String GAME_BACKGROUND = "/images/backgrounds/game_background.png";
-    public static final String CARDS_PATH = "/images/cards/cards.png";
     public static final String TOKENS_PATH = "/images/cards/tokens.png";
     public static final String FRAME_ICON_PATH = "/images/icons/logo.png";
+    public static final String TITLE_PATH = "/images/icons/title.png";
 
     public static final Font CUSTOM_FONT = loadCustomFont();
 
