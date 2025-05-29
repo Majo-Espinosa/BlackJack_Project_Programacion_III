@@ -63,12 +63,22 @@ public class ConsoleView {
         System.out.println("=".repeat(50));
 
         // Mostrar dealer
-        Map<String, Object> dealer = (Map<String, Object>) gameStateData.get("dealer");
-        if (dealer != null) {
-            Map<String, Object> dealerHand = (Map<String, Object>) dealer.get("hand");
-            System.out.println("DEALER:");
-            System.out.println("  Cartas: " + dealerHand.get("cards"));
-            System.out.println("  Valor: " + dealerHand.get("value"));
+        Object dealerObj = gameStateData.get("dealer");
+        if (dealerObj instanceof Map<?, ?>) {
+            @SuppressWarnings("unchecked")
+            Map<String, Object> dealer = (Map<String, Object>) dealerObj;
+            Object handObj = dealer.get("hand");
+            if (handObj instanceof Map<?, ?>) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> dealerHand = (Map<String, Object>) handObj;
+                System.out.println("DEALER:");
+                System.out.println("  Cartas: " + dealerHand.get("cards"));
+                System.out.println("  Valor: " + dealerHand.get("value"));
+            } else {
+                System.out.println("DEALER:");
+                System.out.println("  Cartas: N/A");
+                System.out.println("  Valor: N/A");
+            }
         }
 
         // Mostrar jugadores

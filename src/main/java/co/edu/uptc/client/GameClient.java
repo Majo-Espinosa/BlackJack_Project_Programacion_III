@@ -39,6 +39,7 @@ public class GameClient extends Thread {
 
     //Correr el hilo del cliente
     @Override
+    @SuppressWarnings("unchecked")
     public void run() {
         //conectar al servidor
         connectClient();
