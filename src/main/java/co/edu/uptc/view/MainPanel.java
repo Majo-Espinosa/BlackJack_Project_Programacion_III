@@ -62,6 +62,8 @@ public class MainPanel extends JPanel {
 		rulesPanel.showPopUp(true);
 	}
 
+	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
