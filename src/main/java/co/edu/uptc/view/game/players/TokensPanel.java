@@ -1,13 +1,19 @@
 package co.edu.uptc.view.game.players;
 
-import co.edu.uptc.view.reusable.Constants;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import co.edu.uptc.view.reusable.Constants;
 
 public class TokensPanel extends JPanel {
     public JLabel tokens, image;
