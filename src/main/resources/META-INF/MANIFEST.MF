@@ -1,3 +1,7 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Main-Class: co.edu.uptc.view.MainFrame
+=======
+Main-Class: co.edu.uptc.client.MainFrame
+>>>>>>> origin/Daniel-otra-vez
 
