@@ -19,26 +19,13 @@ public class PlayersPanel extends JPanel {
 
     private void initComponents() {
         leftPlayerPanel = new PlayerPanel("Waiting...");
-        leftPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        leftPlayerPanel.addCard("/images/cards/light/2-C.png");
-        leftPlayerPanel.addCard("/images/cards/light/A-C.png");
-        leftPlayerPanel.addCard("/images/cards/light/3-D.png");
-        leftPlayerPanel.addCard("/images/cards/light/J-P.png");
-        leftPlayerPanel.addCard("/images/cards/light/10-H.png");
-        leftPlayerPanel.addCard("/images/cards/light/A-C.png");
-
         centerPlayerPanel = new PlayerPanel("Waiting...");
-        centerPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        centerPlayerPanel.addCard("/images/cards/light/A-C.png");
-        centerPlayerPanel.addCard("/images/cards/light/A-C.png");
-
         rightPlayerPanel = new PlayerPanel("Waiting...");
-        rightPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        rightPlayerPanel.addCard("/images/cards/light/A-C.png");
 
-        leftPlayerPanel.setOpaque(false);
-        centerPlayerPanel.setOpaque(false);
-        rightPlayerPanel.setOpaque(false);
+        centerPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+        leftPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+        rightPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+
     }
 
     private void firstLine() {
@@ -47,4 +34,5 @@ public class PlayersPanel extends JPanel {
         add(rightPlayerPanel);
       
     }
+
 }

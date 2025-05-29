@@ -33,7 +33,7 @@ public class TokensPanel extends JPanel {
         setForeground(Constants.PRIMARY_BUTTON_COLOR);
         setLayout(new GridBagLayout());
 
-        tokens = new JLabel("100");
+        tokens = new JLabel("0");
         tokens.setFont(Constants.CUSTOM_FONT.deriveFont(20f));
         tokens.setForeground(Constants.PRIMARY_BUTTON_COLOR);
         tokens.setBorder(new LineBorder(Color.BLACK, 1, true));

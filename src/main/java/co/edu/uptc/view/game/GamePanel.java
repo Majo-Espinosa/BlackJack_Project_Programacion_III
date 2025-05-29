@@ -25,10 +25,16 @@ public class GamePanel extends JPanel {
 
     public GamePanel(MainPanel mainPanel) {
         this.mainPanel = mainPanel;
+
         closePanel = new ClosePanel(mainPanel);
         crupierPanel = new CrupierPanel(this);
         playersPanel = new PlayersPanel();
         bottomPanel = new BottomPanel();
+
+        initComponents();
+    }
+
+    public void initComponents() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(crupierPanel);
         addDecorations();

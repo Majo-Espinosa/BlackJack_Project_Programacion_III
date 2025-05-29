@@ -89,4 +89,12 @@ public class PlayerPanel extends JPanel {
     public void clearCards() {
         cardsPanel.clearCards();
     }
+
+    public void setUsername(String name) {
+        this.name.setText(name);
+    }
+
+    public void setTokens(int tokens) {
+        betTokens.setTokens(tokens);
+    }
 }

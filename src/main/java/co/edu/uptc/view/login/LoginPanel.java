@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import co.edu.uptc.view.MainPanel;
+import co.edu.uptc.view.popups.MessageDialog;
 import co.edu.uptc.view.reusable.Constants;
 import co.edu.uptc.view.reusable.ImageButton;
 
@@ -32,7 +33,11 @@ public class LoginPanel extends JPanel {
         backToMenu = new ImageButton("Volver", false, 16, ImageButton.HOME_ICON);
 
         play.addActionListener(_ -> {
-            mainPanel.updatePanel(Constants.GAME_KEY);
+            if (usernameTextField.getText().isEmpty()) {
+                new MessageDialog("Ingresa un nombre de \nusuario para continuar").showPopUp();
+            } else {
+                mainPanel.updatePanel(Constants.GAME_KEY);
+            }
         }  );
         backToMenu.addActionListener(_ -> mainPanel.updatePanel(Constants.MENU_KEY));
     }
