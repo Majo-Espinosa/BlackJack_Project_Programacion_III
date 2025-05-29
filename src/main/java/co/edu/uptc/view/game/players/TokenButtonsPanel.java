@@ -55,8 +55,8 @@ public class TokenButtonsPanel extends  JPanel {
         fiveHundred = new TokenButton(0, 162,"500");
      
         thousand = new TokenButton(0, 162,"1K");
-        
 
+        setTokensActions();
     }
 
     private void setTokensActions() {
