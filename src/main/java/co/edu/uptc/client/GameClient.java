@@ -3,6 +3,8 @@ package co.edu.uptc.client;
 import co.edu.uptc.model.Player;
 import co.edu.uptc.utils.JsonUtils;
 import co.edu.uptc.view.ConsoleView;
+import co.edu.uptc.view.MainFrame;
+
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,12 +19,12 @@ public class GameClient extends Thread {
     private PrintWriter out;
     private Player player;
     private Gson gson;
-    private ConsoleView view;
+    private MainFrame view;
 
     public GameClient() throws IOException {
         player = new Player(null);
         gson = new Gson();
-        view = new ConsoleView();
+        view = new MainFrame();
     }
 
     private void connectClient() {
