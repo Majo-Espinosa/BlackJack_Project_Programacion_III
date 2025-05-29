@@ -1,66 +1,48 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.view.popups.MessageDialog;
+
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Map;
 
-//Cuando ya este la vista normal esto se puede borrar :p
-public class ConsoleView {
+public class GuiView {
     private BufferedReader consoleReader;
+    private MainFrame mainFrame;
 
-    public ConsoleView() {
-        this.consoleReader = new BufferedReader(new InputStreamReader(System.in));
+    public GuiView(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
     }
 
     public int promptBet(int balance, int minBet, int maxBet) {
-        System.out.println("\n---FASE DE APUESTAS---");
-        System.out.println("Balance actual: $" + balance);
-        System.out.println("Apuesta mínima: $" + minBet + " | Apuesta máxima: $" + maxBet);
-        System.out.print("Ingresa tu apuesta (tienes 20 segundos): $");
+        mainFrame.setAction("STAND");
+
+        mainFrame.getMainPanel().getGamePanel().getBottomPanel().getActionsPanel().getTokens().setTokens(balance);
 
         try {
-            String input = consoleReader.readLine();
-            int bet = Integer.parseInt(input);
-
+            int bet = mainFrame.promptBet();
             if (bet < minBet) bet = minBet;
             if (bet > maxBet) bet = maxBet;
             if (bet > balance) bet = balance;
 
             return bet;
-        } catch (IOException | NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return minBet; // Apuesta mínima por defecto
         }
     }
 
     public String promptAction() {
-        System.out.println("\n---TU TURNO---");
-        System.out.println("Acciones disponibles:");
-        System.out.println("1. HIT (Pedir carta)");
-        System.out.println("2. STAND (Plantarse)");
-        System.out.println("3. DOUBLE (Doblar)");
-        System.out.println("4. SURRENDER (Rendirse)");
-        System.out.print("Elige tu acción (1-4): ");
+        mainFrame.setAction("STAND");
+        mainFrame.setBet(10);
 
-        try {
-            String input = consoleReader.readLine();
-            return switch (input) {
-                case "1" -> "HIT";
-                case "2" -> "STAND";
-                case "3" -> "DOUBLE";
-                case "4" -> "SURRENDER";
-                default -> "STAND"; // Por defecto se planta
-            };
-        } catch (IOException e) {
-            return "STAND";
-        }
+        String input = mainFrame.promptAction();
+
+        System.out.println();
+        System.out.printf("GUIVIEW" + mainFrame.promptAction());
+        System.out.println();
+        return input;
     }
 
     public void showGameState(Map<String, Object> gameStateData) {
-        System.out.println("\n" + "=".repeat(50));
-        System.out.println("ESTADO DEL JUEGO");
-        System.out.println("=".repeat(50));
-
         // Mostrar dealer
         Object dealerObj = gameStateData.get("dealer");
         if (dealerObj instanceof Map<?, ?>) {
@@ -71,7 +53,7 @@ public class ConsoleView {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> dealerHand = (Map<String, Object>) handObj;
                 System.out.println("DEALER:");
-                System.out.println("  Cartas: " + dealerHand.get("cards"));
+                mainFrame.addCrupierCards(dealerHand.get("cards").toString());
                 System.out.println("  Valor: " + dealerHand.get("value"));
             } else {
                 System.out.println("DEALER:");
@@ -102,14 +84,14 @@ public class ConsoleView {
 
                 if (!hands.isEmpty()) {
                     Map<String, Object> hand = hands.get(0);
-                    System.out.println("    Cartas: " + hand.get("cards"));
+                    mainFrame.addPlayerCards(hand.get("cards").toString());
                     System.out.println("    Valor: " + hand.get("value"));
 
                     if ((Boolean) hand.get("isBlackjack")) {
-                        System.out.println("    ¡BLACKJACK!");
+                        mainFrame.showMessage("¡BLACKJACK!");
                     }
                     if ((Boolean) hand.get("isBusted")) {
-                        System.out.println("    ¡BUSTED!");
+                        mainFrame.showMessage("Te pasaste :C");
                     }
                 }
             }
@@ -118,27 +100,20 @@ public class ConsoleView {
     }
 
     public void showGameResult(String result, int amount, int newBalance) {
-        System.out.println("\n" + "=".repeat(30));
-        System.out.println("RESULTADO DE LA RONDA");
-        System.out.println("=".repeat(30));
-
         switch (result) {
             case "WIN" -> {
-                System.out.println("¡GANASTE!");
-                System.out.println("Ganancia: +$" + amount);
+                mainFrame.showMessage("RESULTADO DE LA RONDA\n ¡GANASTE!" + "\nGanancia: +$" + amount);
             }
             case "LOSE" -> {
-                System.out.println("Perdiste");
-                System.out.println("Pérdida: $" + Math.abs(amount));
+                mainFrame.showMessage("RESULTADO DE LA RONDA\nPerdiste \nPérdida: -$" + Math.abs(amount));
             }
             case "PUSH" -> {
-                System.out.println("Empate");
-                System.out.println("Sin cambios en el balance");
+                mainFrame.showMessage("RESULTADO DE LA RONDA\nEmpate\n Sin cambios en el balance");
             }
         }
-
-        System.out.println("Nuevo balance: $" + newBalance);
-        System.out.println("=".repeat(30));
+        mainFrame.getMainPanel().getGamePanel().getBottomPanel().getActionsPanel().getTokens().setTokens(newBalance);
+        mainFrame.clearCrupierCards();
+        mainFrame.clearPlayerCards();
     }
 
     public void showMessage(String message) {

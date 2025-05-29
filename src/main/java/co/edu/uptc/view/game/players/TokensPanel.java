@@ -28,6 +28,10 @@ public class TokensPanel extends JPanel {
         this.tokens.setText(String.valueOf(tokens));
     }
 
+    public int getTokens() {
+        return Integer.parseInt(tokens.getText());
+    }
+
     public void initComponents() {
         setBackground(Constants.SECONDARY_BUTTON_COLOR);
         setForeground(Constants.PRIMARY_BUTTON_COLOR);

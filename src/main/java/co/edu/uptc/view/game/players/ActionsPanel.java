@@ -1,25 +1,22 @@
 package co.edu.uptc.view.game.players;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import co.edu.uptc.view.MainFrame;
+import co.edu.uptc.view.reusable.ImageButton;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import co.edu.uptc.view.reusable.ImageButton;
-
 public class ActionsPanel extends JPanel {
+    private MainFrame frame;
     private JPanel firstLine, secondLine, thirdLine;
-    private JButton doblar, quit, settle, divide, ask;
+    private JButton doblar, quit, settle, ask;
     private TokensPanel tokens;
     private GridBagConstraints gbc;
 
-    public ActionsPanel() {
+    public ActionsPanel(MainFrame frame) {
+        this.frame = frame;
         setBackground(new java.awt.Color(4, 45, 6));
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         setLayout(new GridBagLayout());
@@ -41,8 +38,7 @@ public class ActionsPanel extends JPanel {
     }
 
     public void secondLine() {
-        secondLine.add(settle,gbc);
-        secondLine.add(divide,gbc);
+        secondLine.add(settle, gbc);
         secondLine.setOpaque(false);
         gbc.insets = new Insets(0, 0, 0, 0);
         gbc.ipadx = 0;
@@ -52,7 +48,7 @@ public class ActionsPanel extends JPanel {
     }
 
     public void thirdLine() {
-        thirdLine.add(tokens,gbc);
+        thirdLine.add(tokens, gbc);
         gbc.ipadx = 0;
         gbc.ipady = 0;
 
@@ -60,10 +56,10 @@ public class ActionsPanel extends JPanel {
     }
 
     public void addLinesToPanel() {
-        add(firstLine,gbc);
+        add(firstLine, gbc);
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        add(secondLine,gbc);
-        add(thirdLine,gbc);
+        add(secondLine, gbc);
+        add(thirdLine, gbc);
     }
 
     private void initComponents() {
@@ -80,7 +76,6 @@ public class ActionsPanel extends JPanel {
         doblar = new ImageButton("Doblar", false, 10);
         quit = new ImageButton("Rendirse", false, 10);
         settle = new ImageButton("Quedarse", false, 10);
-        divide = new ImageButton("Dividir", false, 10);
 
         tokens = new TokensPanel();
 
@@ -91,41 +86,38 @@ public class ActionsPanel extends JPanel {
         ask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setAction("HIT");
             }
         });
 
         doblar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setAction("DOUBLE");
             }
         });
 
         quit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setAction("SURRENDER");
             }
         });
 
         settle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setAction("STAND");
             }
         });
 
-        divide.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
     }
 
     public void setTokens(int tokens) {
         this.tokens.setTokens(tokens);
     }
 
+    public TokensPanel getTokens() {
+        return this.tokens;
+    }
 }

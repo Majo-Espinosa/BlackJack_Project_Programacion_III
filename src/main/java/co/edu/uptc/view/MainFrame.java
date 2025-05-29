@@ -1,16 +1,17 @@
 package co.edu.uptc.view;
 
-import java.io.IOException;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
 import co.edu.uptc.view.popups.MessageDialog;
 import co.edu.uptc.view.reusable.Constants;
 
+import javax.swing.*;
+import java.io.IOException;
+import java.net.URL;
+
 public class MainFrame extends JFrame {
+
     private MainPanel mainPanel;
+    private int bet = 0;
+    private String action = null;
 
     public MainFrame() {
         super(Constants.FRAME_TITLE);
@@ -31,8 +32,12 @@ public class MainFrame extends JFrame {
         }
     }
 
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+
     public final void initComponents() {
-        mainPanel = new MainPanel();
+        mainPanel = new MainPanel(this);
         setContentPane(mainPanel);
     }
 
@@ -40,31 +45,57 @@ public class MainFrame extends JFrame {
         new MessageDialog(message).showPopUp();
     }
 
-    public int promptBet(int balance, int minBet, int maxBet) {
-        System.out.println("\n---FASE DE APUESTAS---");
-        System.out.println("Balance actual: $" + balance);
-        System.out.println("Apuesta mínima: $" + minBet + " | Apuesta máxima: $" + maxBet);
-        System.out.print("Ingresa tu apuesta (tienes 20 segundos): $");
-
-        try {
-            String input = consoleReader.readLine();
-            int bet = Integer.parseInt(input);
-
-            if (bet < minBet)
-                bet = minBet;
-            if (bet > maxBet)
-                bet = maxBet;
-            if (bet > balance)
-                bet = balance;
-
-            return bet;
-        } catch (IOException | NumberFormatException e) {
-            return minBet; // Apuesta mínima por defecto
+    public int promptBet() {
+        mainPanel.resetTimer();
+        if (bet == 0) {
+            bet = 10;
         }
+        return bet;
     }
+
+    public String promptAction() {
+        mainPanel.resetTimer();
+        if (action == null) {
+            action = "STAND";
+        }
+        return action;
+    }
+
+
 
     public static void main(String[] args) throws IOException {
         MainFrame mainFrame = new MainFrame();
     }
 
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public int getBet() {
+        return bet;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void addCrupierCards(String cards) {
+        mainPanel.addCrupierCards(cards);
+    }
+
+    public void addPlayerCards(String cards) {
+        mainPanel.addPlayerCards(cards);
+    }
+
+    public void clearCrupierCards() {
+        mainPanel.clearCrupierCards();
+    }
+
+    public void clearPlayerCards() {
+        mainPanel.clearPlayerCards();
+    }
 }

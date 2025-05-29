@@ -32,7 +32,13 @@ public class PlayersPanel extends JPanel {
         add(leftPlayerPanel);
         add(centerPlayerPanel);
         add(rightPlayerPanel);
-      
     }
 
+    public void addCards(String cards) {
+        centerPlayerPanel.addCards(cards);
+    }
+
+    public void clearCards() {
+        centerPlayerPanel.clearCards();
+    }
 }

@@ -10,10 +10,13 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import co.edu.uptc.view.MainFrame;
 import co.edu.uptc.view.game.draw.TokenButton;
 
 public class TokenButtonsPanel extends  JPanel {
-    
+    private BottomPanel bottomPanel;
+
+    private MainFrame frame;
     private TokenButton ten;
     private TokenButton fifty;
     private TokenButton hundred;
@@ -22,7 +25,9 @@ public class TokenButtonsPanel extends  JPanel {
     private TokenButton thousand;
     private GridBagConstraints gbc;
 
-    public TokenButtonsPanel(){
+    public TokenButtonsPanel(BottomPanel bottomPanel, MainFrame frame) {
+        this.frame = frame;
+        this.bottomPanel = bottomPanel;
         initcomponents();
         this.setLayout(new GridBagLayout());
         setBackground(new java.awt.Color(4, 45, 6));
@@ -63,42 +68,42 @@ public class TokenButtonsPanel extends  JPanel {
         ten.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setBet(10);
             }
         });
 
         fifty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setBet(50);
             }
         });
 
         hundred.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setBet(100);
             }
         });
 
         twoHundred.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setBet(200);
             }
         });
 
         fiveHundred.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setBet(500);
             }
         });
 
         thousand.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                frame.setBet(1000);
             }
         });
     }

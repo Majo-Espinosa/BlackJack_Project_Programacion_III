@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import co.edu.uptc.view.MainFrame;
 import co.edu.uptc.view.MainPanel;
 import co.edu.uptc.view.game.crupier.CrupierPanel;
 import co.edu.uptc.view.game.draw.RoundedBorder;
@@ -17,19 +18,20 @@ import co.edu.uptc.view.popups.ClosePanel;
 import co.edu.uptc.view.reusable.Constants;
 
 public class GamePanel extends JPanel {
-    private final MainPanel mainPanel;
+    private final MainFrame frame;
+    private MainPanel mainPanel;
     private final CrupierPanel crupierPanel;
     private final PlayersPanel playersPanel;
     private final BottomPanel bottomPanel;
     private final ClosePanel closePanel;
 
-    public GamePanel(MainPanel mainPanel) {
+    public GamePanel(MainFrame frame, MainPanel mainPanel) {
+        this.frame = frame;
         this.mainPanel = mainPanel;
-
         closePanel = new ClosePanel(mainPanel);
         crupierPanel = new CrupierPanel(this);
         playersPanel = new PlayersPanel();
-        bottomPanel = new BottomPanel();
+        bottomPanel = new BottomPanel(this, frame);
 
         initComponents();
     }
@@ -79,5 +81,29 @@ public class GamePanel extends JPanel {
 
     public void openRulesMenu() {
         mainPanel.openRulesPopup();
+    }
+
+    public BottomPanel getBottomPanel(){
+        return bottomPanel;
+    }
+
+    public void resetTimer() {
+        crupierPanel.resetTimer();
+    }
+
+    public void addCrupierCards(String cards) {
+        crupierPanel.addMultipleCards(cards);
+    }
+
+    public void addPlayerCards(String cards) {
+        playersPanel.addCards(cards);
+    }
+
+    public void clearCrupierCards() {
+        crupierPanel.clearCards();
+    }
+
+    public void clearPlayerCards() {
+        playersPanel.clearCards();
     }
 }

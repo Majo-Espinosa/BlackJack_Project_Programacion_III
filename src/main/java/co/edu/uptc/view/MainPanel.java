@@ -4,8 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import co.edu.uptc.view.game.GamePanel;
 import co.edu.uptc.view.login.LoginPanel;
@@ -30,7 +29,10 @@ public class MainPanel extends JPanel {
 
 	private final CardLayout cardLayout;
 
-	public MainPanel() {
+	private MainFrame frame;
+
+	public MainPanel(MainFrame frame) {
+		this.frame = frame;
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
 		initComponents();
@@ -40,7 +42,7 @@ public class MainPanel extends JPanel {
 	public final void initComponents() {
 		rulesPanel = new RulesPanel();
 		menuPanel = new MenuPanel(this);
-		gamePanel = new GamePanel(this);
+		gamePanel = new GamePanel(frame, this);
 		loginPanel = new LoginPanel(this);
 		closePanel = new ClosePanel(this);
 
@@ -62,7 +64,33 @@ public class MainPanel extends JPanel {
 		rulesPanel.showPopUp(true);
 	}
 
+	public void resetTimer() {
+		gamePanel.resetTimer();
+	}
+
+	public void promptBet(int betValue) {
+		frame.setBet(betValue);
+	}
+
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public void addCrupierCards(String cards) {
+		gamePanel.addCrupierCards(cards);
+	}
+
+	public void addPlayerCards(String cards) {
+		gamePanel.addPlayerCards(cards);
+	}
 	
+	public void clearCrupierCards() {
+		gamePanel.clearCrupierCards();
+	}
+	
+	public void clearPlayerCards() {
+		gamePanel.clearPlayerCards();
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {

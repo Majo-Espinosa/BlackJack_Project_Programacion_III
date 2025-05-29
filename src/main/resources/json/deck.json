@@ -1,212 +1,214 @@
-{
-  "images": [
-    {
-      "name": "A-C",
-      "path": "/images/cards/light/A-C.png"
-    },
-    {
-      "name": "2-C",
-      "path": "/images/cards/light/2-C.png"
-    },
-    {
-      "name": "3-C",
-      "path": "/images/cards/light/3-C.png"
-    },
-    {
-      "name": "4-C",
-      "path": "/images/cards/light/4-C.png"
-    },
-    {
-      "name": "5-C",
-      "path": "/images/cards/light/5-C.png"
-    },
-    {
-      "name": "6-C",
-      "path": "/images/cards/light/6-C.png"
-    },
-    {
-      "name": "7-C",
-      "path": "/images/cards/light/7-C.png"
-    },
-    {
-      "name": "8-C",
-      "path": "/images/cards/light/8-C.png"
-    },
-    {
-      "name": "9-C",
-      "path": "/images/cards/light/9-C.png"
-    },
-    {
-      "name": "10-C",
-      "path": "/images/cards/light/10-C.png"
-    },
-    {
-      "name": "J-C",
-      "path": "/images/cards/light/J-C.png"
-    },
-    {
-      "name": "Q-C",
-      "path": "/images/cards/light/Q-C.png"
-    },
-    {
-      "name": "K-C",
-      "path": "/images/cards/light/K-C.png"
-    },
-    {
-      "name": "A-D",
-      "path": "/images/cards/light/A-D.png"
-    },
-    {
-      "name": "2-D",
-      "path": "/images/cards/light/2-D.png"
-    },
-    {
-      "name": "3-D",
-      "path": "/images/cards/light/3-D.png"
-    },
-    {
-      "name": "4-D",
-      "path": "/images/cards/light/4-D.png"
-    },
-    {
-      "name": "5-D",
-      "path": "/images/cards/light/5-D.png"
-    },
-    {
-      "name": "6-D",
-      "path": "/images/cards/light/6-D.png"
-    },
-    {
-      "name": "7-D",
-      "path": "/images/cards/light/7-D.png"
-    },
-    {
-      "name": "8-D",
-      "path": "/images/cards/light/8-D.png"
-    },
-    {
-      "name": "9-D",
-      "path": "/images/cards/light/9-D.png"
-    },
-    {
-      "name": "10-D",
-      "path": "/images/cards/light/10-D.png"
-    },
-    {
-      "name": "J-D",
-      "path": "/images/cards/light/J-D.png"
-    },
-    {
-      "name": "Q-D",
-      "path": "/images/cards/light/Q-D.png"
-    },
-    {
-      "name": "K-D",
-      "path": "/images/cards/light/K-D.png"
-    },
-    {
-      "name": "A-H",
-      "path": "/images/cards/light/A-H.png"
-    },
-    {
-      "name": "2-H",
-      "path": "/images/cards/light/2-H.png"
-    },
-    {
-      "name": "3-H",
-      "path": "/images/cards/light/3-H.png"
-    },
-    {
-      "name": "4-H",
-      "path": "/images/cards/light/4-H.png"
-    },
-    {
-      "name": "5-H",
-      "path": "/images/cards/light/5-H.png"
-    },
-    {
-      "name": "6-H",
-      "path": "/images/cards/light/6-H.png"
-    },
-    {
-      "name": "7-H",
-      "path": "/images/cards/light/7-H.png"
-    },
-    {
-      "name": "8-H",
-      "path": "/images/cards/light/8-H.png"
-    },
-    {
-      "name": "9-H",
-      "path": "/images/cards/light/9-H.png"
-    },
-    {
-      "name": "10-H",
-      "path": "/images/cards/light/10-H.png"
-    },
-    {
-      "name": "J-H",
-      "path": "/images/cards/light/J-H.png"
-    },
-    {
-      "name": "Q-H",
-      "path": "/images/cards/light/Q-H.png"
-    },
-    {
-      "name": "K-H",
-      "path": "/images/cards/light/K-H.png"
-    },
-    {
-      "name": "A-P",
-      "path": "/images/cards/light/A-P.png"
-    },
-    {
-      "name": "2-P",
-      "path": "/images/cards/light/2-P.png"
-    },
-    {
-      "name": "3-P",
-      "path": "/images/cards/light/3-P.png"
-    },
-    {
-      "name": "4-P",
-      "path": "/images/cards/light/4-P.png"
-    },
-    {
-      "name": "5-P",
-      "path": "/images/cards/light/5-P.png"
-    },
-    {
-      "name": "6-P",
-      "path": "/images/cards/light/6-P.png"
-    },
-    {
-      "name": "7-P",
-      "path": "/images/cards/light/7-P.png"
-    },
-    {
-      "name": "8-P",
-      "path": "/images/cards/light/8-P.png"
-    },
-    {
-      "name": "9-P",
-      "path": "/images/cards/light/9-P.png"
-    },
-    {
-      "name": "10-P",
-      "path": "/images/cards/light/10-P.png"
-    },
-    {
-      "name": "J-P",
-      "path": "/images/cards/light/J-P.png"
-    },
-    {
-      "name": "Q-P",
-      "path": "/images/cards/light/Q-P.png"
-    },
-    {
-      "name": "K-P",
-      "path": "/images/cards/light/K-P.png"
-    }
-  ]
-}
+[
+  {
+    "name": "ACE of CLUBS",
+    "path": "/images/cards/light/A-C.png"
+  },
+  {
+    "name": "TWO of CLUBS",
+    "path": "/images/cards/light/2-C.png"
+  },
+  {
+    "name": "THREE of CLUBS",
+    "path": "/images/cards/light/3-C.png"
+  },
+  {
+    "name": "FOUR of CLUBS",
+    "path": "/images/cards/light/4-C.png"
+  },
+  {
+    "name": "FIVE of CLUBS",
+    "path": "/images/cards/light/5-C.png"
+  },
+  {
+    "name": "SIX of CLUBS",
+    "path": "/images/cards/light/6-C.png"
+  },
+  {
+    "name": "SEVEN of CLUBS",
+    "path": "/images/cards/light/7-C.png"
+  },
+  {
+    "name": "EIGHT of CLUBS",
+    "path": "/images/cards/light/8-C.png"
+  },
+  {
+    "name": "NINE of CLUBS",
+    "path": "/images/cards/light/9-C.png"
+  },
+  {
+    "name": "TEN of CLUBS",
+    "path": "/images/cards/light/10-C.png"
+  },
+  {
+    "name": "JACK of CLUBS",
+    "path": "/images/cards/light/J-C.png"
+  },
+  {
+    "name": "QUEEN of CLUBS",
+    "path": "/images/cards/light/Q-C.png"
+  },
+  {
+    "name": "KING of CLUBS",
+    "path": "/images/cards/light/K-C.png"
+  },
+  {
+    "name": "ACE of DIAMONDS",
+    "path": "/images/cards/light/A-D.png"
+  },
+  {
+    "name": "TWO of DIAMONDS",
+    "path": "/images/cards/light/2-D.png"
+  },
+  {
+    "name": "THREE of DIAMONDS",
+    "path": "/images/cards/light/3-D.png"
+  },
+  {
+    "name": "FOUR of DIAMONDS",
+    "path": "/images/cards/light/4-D.png"
+  },
+  {
+    "name": "FIVE of DIAMONDS",
+    "path": "/images/cards/light/5-D.png"
+  },
+  {
+    "name": "SIX of DIAMONDS",
+    "path": "/images/cards/light/6-D.png"
+  },
+  {
+    "name": "SEVEN of DIAMONDS",
+    "path": "/images/cards/light/7-D.png"
+  },
+  {
+    "name": "EIGHT of DIAMONDS",
+    "path": "/images/cards/light/8-D.png"
+  },
+  {
+    "name": "NINE of DIAMONDS",
+    "path": "/images/cards/light/9-D.png"
+  },
+  {
+    "name": "TEN of DIAMONDS",
+    "path": "/images/cards/light/10-D.png"
+  },
+  {
+    "name": "JACK of DIAMONDS",
+    "path": "/images/cards/light/J-D.png"
+  },
+  {
+    "name": "QUEEN of DIAMONDS",
+    "path": "/images/cards/light/Q-D.png"
+  },
+  {
+    "name": "KING of DIAMONDS",
+    "path": "/images/cards/light/K-D.png"
+  },
+  {
+    "name": "ACE of HEARTS",
+    "path": "/images/cards/light/A-H.png"
+  },
+  {
+    "name": "TWO of HEARTS",
+    "path": "/images/cards/light/2-H.png"
+  },
+  {
+    "name": "THREE of HEARTS",
+    "path": "/images/cards/light/3-H.png"
+  },
+  {
+    "name": "FOUR of HEARTS",
+    "path": "/images/cards/light/4-H.png"
+  },
+  {
+    "name": "FIVE of HEARTS",
+    "path": "/images/cards/light/5-H.png"
+  },
+  {
+    "name": "SIX of HEARTS",
+    "path": "/images/cards/light/6-H.png"
+  },
+  {
+    "name": "SEVEN of HEARTS",
+    "path": "/images/cards/light/7-H.png"
+  },
+  {
+    "name": "EIGHT of HEARTS",
+    "path": "/images/cards/light/8-H.png"
+  },
+  {
+    "name": "NINE of HEARTS",
+    "path": "/images/cards/light/9-H.png"
+  },
+  {
+    "name": "TEN of HEARTS",
+    "path": "/images/cards/light/10-H.png"
+  },
+  {
+    "name": "JACK of HEARTS",
+    "path": "/images/cards/light/J-H.png"
+  },
+  {
+    "name": "QUEEN of HEARTS",
+    "path": "/images/cards/light/Q-H.png"
+  },
+  {
+    "name": "KING of HEARTS",
+    "path": "/images/cards/light/K-H.png"
+  },
+  {
+    "name": "ACE of SPADES",
+    "path": "/images/cards/light/A-P.png"
+  },
+  {
+    "name": "TWO of SPADES",
+    "path": "/images/cards/light/2-P.png"
+  },
+  {
+    "name": "THREE of SPADES",
+    "path": "/images/cards/light/3-P.png"
+  },
+  {
+    "name": "FOUR of SPADES",
+    "path": "/images/cards/light/4-P.png"
+  },
+  {
+    "name": "FIVE of SPADES",
+    "path": "/images/cards/light/5-P.png"
+  },
+  {
+    "name": "SIX of SPADES",
+    "path": "/images/cards/light/6-P.png"
+  },
+  {
+    "name": "SEVEN of SPADES",
+    "path": "/images/cards/light/7-P.png"
+  },
+  {
+    "name": "EIGHT of SPADES",
+    "path": "/images/cards/light/8-P.png"
+  },
+  {
+    "name": "NINE of SPADES",
+    "path": "/images/cards/light/9-P.png"
+  },
+  {
+    "name": "TEN of SPADES",
+    "path": "/images/cards/light/10-P.png"
+  },
+  {
+    "name": "JACK of SPADES",
+    "path": "/images/cards/light/J-P.png"
+  },
+  {
+    "name": "QUEEN of SPADES",
+    "path": "/images/cards/light/Q-P.png"
+  },
+  {
+    "name": "KING of SPADES",
+    "path": "/images/cards/light/K-P.png"
+  },
+  {
+    "name": "CARTA OCULTA",
+    "path": "/images/cards/card_back.png"
+  }
+]

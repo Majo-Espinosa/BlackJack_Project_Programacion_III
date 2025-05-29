@@ -17,7 +17,7 @@ public class CrupierPanel extends JPanel {
     private final GridBagConstraints gbc;
     private JLabel crupierLabel, timerLabel, ruleLabel, leftPileLabel, rightPileLabel;
     private Timer timer;
-    private static int seconds = 30;
+    private static int seconds = 20;
     private JButton pauseButton, helpButton;
     private CardsPanel cardsPanel;
 
@@ -40,9 +40,6 @@ public class CrupierPanel extends JPanel {
         rightPileLabel = new CardImage();
 
         cardsPanel = new CardsPanel(GameConstants.CRUPIER_CARDS_DIMENSION);
-        for (int i = 0; i < 3; i++) {
-            cardsPanel.addHiddenCard();
-        }
 
         initLabels();
     }
@@ -102,7 +99,7 @@ public class CrupierPanel extends JPanel {
 
     public void resetTimer() {
         timer.restart();
-        seconds = 30;
+        seconds = 20;
         timerLabel.setText("30 s");
     }
 
@@ -173,5 +170,13 @@ public class CrupierPanel extends JPanel {
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
+    }
+
+    public void addMultipleCards(String cards) {
+        cardsPanel.addMultipleCards(cards);
+    }
+
+    public void clearCards() {
+        this.cardsPanel.clearCards();
     }
 }

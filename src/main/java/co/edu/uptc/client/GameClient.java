@@ -3,6 +3,7 @@ package co.edu.uptc.client;
 import co.edu.uptc.model.Player;
 import co.edu.uptc.utils.JsonUtils;
 import co.edu.uptc.view.ConsoleView;
+import co.edu.uptc.view.GuiView;
 import co.edu.uptc.view.MainFrame;
 
 import com.google.gson.Gson;
@@ -20,11 +21,13 @@ public class GameClient extends Thread {
     private Player player;
     private Gson gson;
     private MainFrame view;
+    private GuiView guiView;
 
     public GameClient() throws IOException {
         player = new Player(null);
         gson = new Gson();
         view = new MainFrame();
+        guiView = new GuiView(view);
     }
 
     private void connectClient() {
@@ -105,7 +108,7 @@ public class GameClient extends Thread {
                 case "prompt_bet" -> {
                     int minBet = ((Number) message.get("minBet")).intValue();
                     int maxBet = ((Number) message.get("maxBet")).intValue();
-                    int bet = view.promptBet(player.getBalance(), minBet, maxBet);
+                    int bet = guiView.promptBet(player.getBalance(), minBet, maxBet);
 
                     String response = JsonUtils.toJson(Map.of(
                         "type", "bet",
@@ -115,7 +118,7 @@ public class GameClient extends Thread {
                     System.out.println("Enviando apuesta: " + response);
                 }
                 case "prompt_hit" -> {
-                    String action = view.promptAction();
+                    String action = guiView.promptAction();
                     String response = JsonUtils.toJson(Map.of(
                         "type", action.toLowerCase()
                     ));
@@ -126,7 +129,7 @@ public class GameClient extends Thread {
                     Object data = message.get("data");
                     System.out.println(data);
                     if (data instanceof Map) {
-                        view.showGameState((Map<String, Object>) data);
+                        guiView.showGameState((Map<String, Object>) data);
                     }
                 }
                 case "game_result" -> {
@@ -137,21 +140,21 @@ public class GameClient extends Thread {
                         ((Number) message.get("newBalance")).intValue() : player.getBalance();
 
                     player.setBalance(newBalance);
-                    view.showGameResult(result, amount, newBalance);
+                    guiView.showGameResult(result, amount, newBalance);
                 }
                 case "insufficient_balance" -> {
                     String msg = (String) message.get("message");
-                    view.showMessage(msg != null ? msg : "Balance insuficiente");
+                    guiView.showMessage(msg != null ? msg : "Balance insuficiente");
                     System.exit(0);
                 }
                 case "waiting_for_players" -> {
-                    view.showMessage("Esperando más jugadores...");
+                    guiView.showMessage("Esperando más jugadores...");
                 }
                 case "round_starting" -> {
-                    view.showMessage("¡Nueva ronda comenzando!");
+                    guiView.showMessage("¡Nueva ronda comenzando!");
                 }
                 default -> {
-                    view.showMessage("Mensaje del servidor: " + JsonUtils.toPrettyJson(message));
+                    guiView.showMessage("Mensaje del servidor: " + JsonUtils.toPrettyJson(message));
                 }
             }
         } catch (Exception e) {
@@ -175,8 +178,8 @@ public class GameClient extends Thread {
         this.player.setId(id);
     }
 
-    public void setView(ConsoleView newView) {
-        this.view = newView;
+    public void setView(GuiView newView) {
+        this.guiView = newView;
     }
 
     public static void main(String[] args) {

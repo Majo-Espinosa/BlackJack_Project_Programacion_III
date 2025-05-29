@@ -23,6 +23,10 @@ public class CardsPanel extends JPanel {
         setOpaque(false);
         setPreferredSize(dimension);
         setAlignmentY(Component.TOP_ALIGNMENT);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.ipadx = 5;
+        gbc.ipady = 5;
     }
 
     public void addCard(String path) {
@@ -43,8 +47,7 @@ public class CardsPanel extends JPanel {
             removeAll();
             repaintMultipleCards();
         } else {
-            gbc.ipadx = 5;
-            gbc.ipady = 5;
+            gbc.insets = new Insets(0, cards.size() * 20, 0, 0);
             add(label, gbc);
             revalidate();
             repaint();
@@ -53,12 +56,43 @@ public class CardsPanel extends JPanel {
 
     private void repaintMultipleCards() {
         for (int i = 0; i < cards.size(); i++) {
-            gbc.gridx = 0;
+            gbc.gridx = i;
             gbc.gridy = 0;
-            gbc.insets = new Insets(0, (cards.size() * 20) - (i * 20), 0, i * 30);
-
+            gbc.insets = new Insets(0, -i * 60, 0, 0);
             add(cards.get(i), gbc);
         }
+        revalidate();
+        repaint();
+    }
+
+    public void addMultipleCards(String cards) {
+        this.cards.clear();
+        removeAll();
+        CardImage cardToAdd;
+        String[] cardNames = cards.split(", ");
+        for (String name : cardNames) {
+            name = name.replaceAll("\\[", "");
+            name = name.replaceAll("]", "");
+            if (name.equals("CARTA OCULTA")) {
+                cardToAdd = new CardImage();
+            } else {
+                cardToAdd = new CardImage(name);
+            }
+            cardToAdd.setParentPanel(this);
+            this.cards.add(cardToAdd);
+        }
+
+        if (this.cards.size() > 3) {
+            repaintMultipleCards();
+        } else {
+            for (int i = 0; i < this.cards.size(); i++) {
+                gbc.gridx = i;
+                gbc.insets = new Insets(0, 0, 0, 0);
+                add(this.cards.get(i), gbc);
+            }
+        }
+        revalidate();
+        repaint();
     }
 
     public void clearCards() {
@@ -79,4 +113,5 @@ public class CardsPanel extends JPanel {
         revalidate();
         repaint();
     }
+
 }

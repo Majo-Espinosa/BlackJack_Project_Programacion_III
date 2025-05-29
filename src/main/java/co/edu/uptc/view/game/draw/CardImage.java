@@ -1,18 +1,15 @@
 package co.edu.uptc.view.game.draw;
 
-import java.awt.Color;
+import co.edu.uptc.view.game.CardsPanel;
+import co.edu.uptc.view.game.GameConstants;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
-import co.edu.uptc.view.game.CardsPanel;
-import co.edu.uptc.view.game.GameConstants;
 
 public class CardImage extends JLabel {
 
@@ -22,10 +19,11 @@ public class CardImage extends JLabel {
     private CardsPanel parent;
     private int originalZindex = -1;
 
-    public CardImage(String path) {
+    public CardImage(String name) {
         setBorder(BorderFactory.createLineBorder(Color.RED));
         setPreferredSize(new java.awt.Dimension(width + 40, height + 40));
         try {
+            String path = CardJsonReader.getPathByName(name);
             BufferedImage card = ImageIO.read(getClass().getResource(path));
             icon = new ImageIcon(card.getScaledInstance(width + 20, height + 20, BufferedImage.SCALE_REPLICATE));
             setIcon(icon);

@@ -15,6 +15,8 @@ public class DeckJsonCreator {
     private Stack<String> cards;
     private static final String[] RANKS = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
     private static final String[] SUIT_NAMES = { "C", "D", "H", "P" };
+    private static final String[] RANKS_AUX = {"ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING"};
+    private static final String[] SUIT_NAMES_AUX = { "CLUBS", "DIAMONDS", "HEARTS", "SPADES" };
 
     public void createDeckJson(int singleDecks, String outputPath) {
         cards = new Stack<>();
@@ -25,14 +27,19 @@ public class DeckJsonCreator {
                 String suit = SUIT_NAMES[s];
                 for (int r = 0; r < RANKS.length; r++) {
                     String cardName = RANKS[r] + "-" + suit;
+                    String cardNameAux = RANKS_AUX[r] + " of " + SUIT_NAMES_AUX[s];
                     cards.add(cardName);
                     JsonObject cardJson = new JsonObject();
-                    cardJson.addProperty("name", cardName);
+                    cardJson.addProperty("name", cardNameAux);
                     cardJson.addProperty("path", cardPathName + cardName + ".png");
                     imagesArray.add(cardJson);
                 }
             }
         }
+        JsonObject cardJson = new JsonObject();
+        cardJson.addProperty("name", "CARTA OCULTA");
+        cardJson.addProperty("path", "/images/cards/card_back.png");
+        imagesArray.add(cardJson);
         saveJson(imagesArray, outputPath);
     }
 
