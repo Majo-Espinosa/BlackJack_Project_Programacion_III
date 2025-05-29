@@ -70,12 +70,4 @@ public class MainPanel extends JPanel {
 		g.drawImage(gameBackground, 0, 0, getWidth(), getHeight(), this);
 	}
 
-    public void conectClient(){
-        this.client.start();
-    }
-
-	public GameClient getClient(){
-		return this.client;
-	}
-
 }
