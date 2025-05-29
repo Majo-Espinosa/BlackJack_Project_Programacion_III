@@ -1,5 +1,6 @@
 package co.edu.uptc.view;
 
+import co.edu.uptc.client.GameClient;
 import co.edu.uptc.view.popups.MessageDialog;
 import co.edu.uptc.view.reusable.Constants;
 
@@ -13,9 +14,9 @@ public class MainFrame extends JFrame {
     private int bet = 0;
     private String action = null;
 
-    public MainFrame() {
+    public MainFrame(GameClient client) {
         super(Constants.FRAME_TITLE);
-        initComponents();
+        initComponents(client);
         setSize(Constants.WINDOW_DIMENSION);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,8 +37,8 @@ public class MainFrame extends JFrame {
         return mainPanel;
     }
 
-    public final void initComponents() {
-        mainPanel = new MainPanel(this);
+    public final void initComponents(GameClient client) {
+        mainPanel = new MainPanel(this, client);
         setContentPane(mainPanel);
     }
 
@@ -61,10 +62,9 @@ public class MainFrame extends JFrame {
         return action;
     }
 
-
-
     public static void main(String[] args) throws IOException {
-        MainFrame mainFrame = new MainFrame();
+        GameClient client = new GameClient();
+        MainFrame mainFrame = new MainFrame(client);
     }
 
     public void setBet(int bet) {

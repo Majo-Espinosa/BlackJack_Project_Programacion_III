@@ -6,6 +6,7 @@ import java.awt.Image;
 
 import javax.swing.*;
 
+import co.edu.uptc.client.GameClient;
 import co.edu.uptc.view.game.GamePanel;
 import co.edu.uptc.view.login.LoginPanel;
 import co.edu.uptc.view.menu.MenuPanel;
@@ -31,19 +32,19 @@ public class MainPanel extends JPanel {
 
 	private MainFrame frame;
 
-	public MainPanel(MainFrame frame) {
+	public MainPanel(MainFrame frame, GameClient client) {
 		this.frame = frame;
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
-		initComponents();
+		initComponents(client);
 		gameBackground = new ImageIcon(getClass().getResource(Constants.GAME_BACKGROUND)).getImage();
 	}
 
-	public final void initComponents() {
+	public final void initComponents(GameClient client) {
 		rulesPanel = new RulesPanel();
 		menuPanel = new MenuPanel(this);
-		gamePanel = new GamePanel(frame, this);
-		loginPanel = new LoginPanel(this);
+		gamePanel = new GamePanel(frame, this,client);
+		loginPanel = new LoginPanel(this, client);
 		closePanel = new ClosePanel(this);
 
 		add(menuPanel, Constants.MENU_KEY);

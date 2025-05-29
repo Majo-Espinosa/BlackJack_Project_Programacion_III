@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import co.edu.uptc.client.GameClient;
 import co.edu.uptc.view.MainFrame;
 import co.edu.uptc.view.MainPanel;
 import co.edu.uptc.view.game.crupier.CrupierPanel;
@@ -25,13 +26,13 @@ public class GamePanel extends JPanel {
     private final BottomPanel bottomPanel;
     private final ClosePanel closePanel;
 
-    public GamePanel(MainFrame frame, MainPanel mainPanel) {
+    public GamePanel(MainFrame frame, MainPanel mainPanel, GameClient client) {
         this.frame = frame;
         this.mainPanel = mainPanel;
         closePanel = new ClosePanel(mainPanel);
         crupierPanel = new CrupierPanel(this);
         playersPanel = new PlayersPanel();
-        bottomPanel = new BottomPanel(this, frame);
+        bottomPanel = new BottomPanel(this, frame,client);
 
         initComponents();
     }

@@ -7,6 +7,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import co.edu.uptc.client.GameClient;
+import co.edu.uptc.model.Player;
 import co.edu.uptc.view.MainPanel;
 import co.edu.uptc.view.popups.MessageDialog;
 import co.edu.uptc.view.reusable.Constants;
@@ -18,13 +20,13 @@ public class LoginPanel extends JPanel {
     private UsernameTextField usernameTextField;
     private final GridBagConstraints gbc = new GridBagConstraints();
 
-    public LoginPanel(MainPanel mainPanel) {
+    public LoginPanel(MainPanel mainPanel, GameClient client) {
         this.mainPanel = mainPanel;
-        initComponents();
+        initComponents(client);
         addComponents();
     }
 
-    public final void initComponents() {
+    public final void initComponents(GameClient client) {
         setOpaque(false);
         setLayout(new GridBagLayout());
 
@@ -35,8 +37,13 @@ public class LoginPanel extends JPanel {
         play.addActionListener(_ -> {
             if (usernameTextField.getText().isEmpty()) {
                 new MessageDialog("Ingresa un nombre de \nusuario para continuar").showPopUp();
+
             } else {
                 mainPanel.updatePanel(Constants.GAME_KEY);
+                Player player = client.getPlayer();
+                player.setName(usernameTextField.getText());
+                client.setPlayer(player);
+                client.start();
             }
         }  );
         backToMenu.addActionListener(_ -> mainPanel.updatePanel(Constants.MENU_KEY));

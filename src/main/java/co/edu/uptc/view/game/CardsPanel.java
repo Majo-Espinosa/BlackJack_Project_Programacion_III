@@ -18,7 +18,6 @@ public class CardsPanel extends JPanel {
     private ArrayList<CardImage> cards = new ArrayList<>();
 
     public CardsPanel(Dimension dimension) {
-        setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridBagLayout());
         setOpaque(false);
         setPreferredSize(dimension);

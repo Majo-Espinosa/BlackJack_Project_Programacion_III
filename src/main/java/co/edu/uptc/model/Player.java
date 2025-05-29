@@ -1,70 +1,55 @@
+
 package co.edu.uptc.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import co.edu.uptc.enums.GameState;
 
 public class Player {
-    private String id;
+    private String name;
+    private int id;
+    private GameState gameState;
+    private int bet;
     private int balance;
-    private List<Hand> hands;
-    private int currentBet;
-    private boolean finished;
+    private Hand hand;
+    private String action;
+    private boolean inGame;
+    private boolean inTurn;
 
-    public Player(String id) {
-        this.id = id;
-        this.balance = 1000; // Balance inicial
-        this.hands = new ArrayList<>();
-        this.hands.add(new Hand()); // Mano principal
-        this.currentBet = 0;
-        this.finished = false;
+    public Player() {
+        this.name = null;
+        this.inGame = false;
+        this.id = -1;
+        this.balance = 1000;
+        this.bet = 0;
+        this.action = "STAND";
     }
 
-    public void addCard(Card card) {
-        if (!hands.isEmpty()) {
-            hands.get(0).addCard(card);
-        }
+    public Player(String name) {
+        this();
+        this.name = name;
     }
 
-    public int getHandValue() {
-        return hands.isEmpty() ? 0 : hands.get(0).getValue();
-    }
-
-    public boolean isBlackjack() {
-        return !hands.isEmpty() && hands.get(0).isBlackjack();
-    }
-
-    public boolean isBusted() {
-        return !hands.isEmpty() && hands.get(0).isBusted();
-    }
-
-    public void clearHands() {
-        hands.clear();
-        hands.add(new Hand());
-        currentBet = 0;
-        finished = false;
-    }
-
-    public void setBet(int amount) {
-        this.currentBet = amount;
-    }
-
-    public Map<String, Object> toMap() {
-        return Map.of(
-            "id", id,
-            "balance", balance,
-            "currentBet", currentBet,
-            "hands", hands.stream().map(Hand::toMap).toList(),
-            "finished", finished
-        );
-    }
     // Getters y Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public void setName(String name) { this.name = name; }
+    public String getName() { return name; }
+
+    public GameState getGameState() { return gameState; }
+    public void setGameState(GameState gameState) { this.gameState = gameState; }
+
+    public String getAction() { return action; }
+    public void setAction(String action) { this.action = action; }
+
     public int getBalance() { return balance; }
     public void setBalance(int balance) { this.balance = balance; }
-    public int getCurrentBet() { return currentBet; }
-    public boolean isFinished() { return finished; }
-    public void setFinished(boolean finished) { this.finished = finished; }
-    public List<Hand> getHands() { return hands; }
+
+    public void setHand(Hand hand) { this.hand = hand; }
+    public Hand getHand() { return hand; }
+
+    public boolean isInGame() { return inGame; }
+    public void setInGame(boolean inGame) { this.inGame = inGame; }
+
+    public int getBet() { return bet; }
+    public void setBet(int bet) { this.bet = bet; }
 }

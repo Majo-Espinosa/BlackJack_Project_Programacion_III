@@ -1,5 +1,6 @@
 package co.edu.uptc.view.game.players;
 
+import co.edu.uptc.client.GameClient;
 import co.edu.uptc.view.MainFrame;
 import co.edu.uptc.view.game.GamePanel;
 
@@ -14,11 +15,11 @@ public class BottomPanel extends JPanel{
     private final ActionsPanel actionsPanel;
     private final TokenButtonsPanel tokenButtonsPanel;
 
-    public BottomPanel(GamePanel gamePanel, MainFrame frame) {
+    public BottomPanel(GamePanel gamePanel, MainFrame frame, GameClient client) {
         this.frame = frame;
         this.gamePanel = gamePanel;
-        this.actionsPanel = new ActionsPanel(frame);
-        this.tokenButtonsPanel = new TokenButtonsPanel(this, frame);
+        this.actionsPanel = new ActionsPanel(frame,client);
+        this.tokenButtonsPanel = new TokenButtonsPanel(this, frame, client);
         this.setOpaque(false);
         initcomponents();
         addComponents();

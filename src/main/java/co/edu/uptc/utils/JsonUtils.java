@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
+import java.util.ArrayList;
+
 public class JsonUtils {
     private static final Gson compactGson = new Gson();
     private static final Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
@@ -41,5 +43,11 @@ public class JsonUtils {
         } catch (JsonSyntaxException e) {
             return false;
         }
+    }
+
+    public ArrayList<Player> getPlayersList(String json) {
+        Gson gson = new Gson();
+        Type listType = new TypeToken<ArrayList<Player>>(){}.getType();
+        ArrayList<Player> personas = gson.fromJson(jsonString, listType);
     }
 }

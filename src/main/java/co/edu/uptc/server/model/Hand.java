@@ -1,8 +1,7 @@
-package co.edu.uptc.model;
+package co.edu.uptc.server.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Hand {
     private List<Card> cards;

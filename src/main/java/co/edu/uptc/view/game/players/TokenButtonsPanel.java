@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import co.edu.uptc.client.GameClient;
 import co.edu.uptc.view.MainFrame;
 import co.edu.uptc.view.game.draw.TokenButton;
 
@@ -24,9 +25,11 @@ public class TokenButtonsPanel extends  JPanel {
     private TokenButton fiveHundred;
     private TokenButton thousand;
     private GridBagConstraints gbc;
+    private GameClient client;
 
-    public TokenButtonsPanel(BottomPanel bottomPanel, MainFrame frame) {
+    public TokenButtonsPanel(BottomPanel bottomPanel, MainFrame frame, GameClient client) {
         this.frame = frame;
+        this.client = client;
         this.bottomPanel = bottomPanel;
         initcomponents();
         this.setLayout(new GridBagLayout());
@@ -49,15 +52,15 @@ public class TokenButtonsPanel extends  JPanel {
 
     private void initcomponents() {
         gbc = new GridBagConstraints();
-        ten = new TokenButton(0, 162,"10");
+        ten = new TokenButton(0, 19,"10");
        
-        fifty = new TokenButton(0, 162,"50");
+        fifty = new TokenButton(193, 67,"50");
         
-        hundred = new TokenButton(0, 162,"100");
+        hundred = new TokenButton(0, 115,"100");
       
-        twoHundred = new TokenButton(0, 162,"200");
+        twoHundred = new TokenButton(193, 19,"200");
       
-        fiveHundred = new TokenButton(0, 162,"500");
+        fiveHundred = new TokenButton(193, 162,"500");
      
         thousand = new TokenButton(0, 162,"1K");
 
@@ -68,6 +71,7 @@ public class TokenButtonsPanel extends  JPanel {
         ten.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setBet(10);
                 frame.setBet(10);
             }
         });
@@ -75,6 +79,7 @@ public class TokenButtonsPanel extends  JPanel {
         fifty.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setBet(50);
                 frame.setBet(50);
             }
         });
@@ -82,6 +87,7 @@ public class TokenButtonsPanel extends  JPanel {
         hundred.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setBet(100);
                 frame.setBet(100);
             }
         });
@@ -89,6 +95,7 @@ public class TokenButtonsPanel extends  JPanel {
         twoHundred.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setBet(200);
                 frame.setBet(200);
             }
         });
@@ -96,6 +103,7 @@ public class TokenButtonsPanel extends  JPanel {
         fiveHundred.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setBet(500);
                 frame.setBet(500);
             }
         });
@@ -103,6 +111,7 @@ public class TokenButtonsPanel extends  JPanel {
         thousand.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setBet(1000);
                 frame.setBet(1000);
             }
         });

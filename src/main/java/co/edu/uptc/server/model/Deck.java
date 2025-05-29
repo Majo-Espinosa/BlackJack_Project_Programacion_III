@@ -1,12 +1,4 @@
-package co.edu.uptc.model;
-
-import co.edu.uptc.enums.Rank;
-import co.edu.uptc.enums.Suit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
+package co.edu.uptc.server.model;
 
 
 public class Deck {

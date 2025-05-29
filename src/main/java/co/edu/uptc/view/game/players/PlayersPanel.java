@@ -11,7 +11,6 @@ public class PlayersPanel extends JPanel {
 
     public PlayersPanel() {
         setOpaque(false);
-        setBorder(BorderFactory.createLineBorder(Color.RED));
         setLayout(new GridLayout(0, 3));
         initComponents();
         firstLine();
@@ -21,11 +20,6 @@ public class PlayersPanel extends JPanel {
         leftPlayerPanel = new PlayerPanel("Waiting...");
         centerPlayerPanel = new PlayerPanel("Waiting...");
         rightPlayerPanel = new PlayerPanel("Waiting...");
-
-        centerPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        leftPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        rightPlayerPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-
     }
 
     private void firstLine() {

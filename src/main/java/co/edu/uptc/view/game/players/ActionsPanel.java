@@ -1,5 +1,6 @@
 package co.edu.uptc.view.game.players;
 
+import co.edu.uptc.client.GameClient;
 import co.edu.uptc.view.MainFrame;
 import co.edu.uptc.view.reusable.ImageButton;
 
@@ -14,9 +15,11 @@ public class ActionsPanel extends JPanel {
     private JButton doblar, quit, settle, ask;
     private TokensPanel tokens;
     private GridBagConstraints gbc;
+    private GameClient client;
 
-    public ActionsPanel(MainFrame frame) {
+    public ActionsPanel(MainFrame frame, GameClient client) {
         this.frame = frame;
+        this.client = client;
         setBackground(new java.awt.Color(4, 45, 6));
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true));
         setLayout(new GridBagLayout());
@@ -86,6 +89,7 @@ public class ActionsPanel extends JPanel {
         ask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setAction("HIT");
                 frame.setAction("HIT");
             }
         });
@@ -93,6 +97,7 @@ public class ActionsPanel extends JPanel {
         doblar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setAction("DOUBLE");
                 frame.setAction("DOUBLE");
             }
         });
@@ -100,6 +105,7 @@ public class ActionsPanel extends JPanel {
         quit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setAction("SURRENDER");
                 frame.setAction("SURRENDER");
             }
         });
@@ -107,6 +113,7 @@ public class ActionsPanel extends JPanel {
         settle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                client.getPlayer().setAction("STAND");
                 frame.setAction("STAND");
             }
         });

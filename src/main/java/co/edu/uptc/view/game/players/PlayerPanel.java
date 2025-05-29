@@ -24,7 +24,6 @@ public class PlayerPanel extends JPanel {
     private final TokensPanel betTokens;
 
     public PlayerPanel(String name) {
-        setBorder(BorderFactory.createLineBorder(Color.RED));
         this.name = new JLabel(name);
         betTokens = new TokensPanel();
         cardsPanel = new CardsPanel(GameConstants.PLAYER_CARDS_DIMENSION);
@@ -38,8 +37,6 @@ public class PlayerPanel extends JPanel {
         setLayout(new GridLayout(3, 1));
         setOpaque(false);
         setAlignmentY(Component.TOP_ALIGNMENT);
-        
-
 
         name.setFont(Constants.CUSTOM_FONT.deriveFont(10f));
         name.setBackground(new Color(49,41,41,255));
@@ -67,7 +64,6 @@ public class PlayerPanel extends JPanel {
         gbc.ipadx = 180;
         cardsPanel.setPreferredSize(new Dimension(300, 200));
         add(cardsPanel);
-
 
         JPanel auxNamPanel = new JPanel();
         gbc.gridy = 2;

@@ -23,7 +23,6 @@ public class CrupierPanel extends JPanel {
 
     public CrupierPanel(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
-        setBorder(BorderFactory.createLineBorder(Color.RED));
         setOpaque(false);
         setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
