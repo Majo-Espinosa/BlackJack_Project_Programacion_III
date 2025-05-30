@@ -22,7 +22,6 @@ public class ReaderThread extends Thread {
     @Override
     public void run() {
         try {
-
             while (client.isClosed()!=true) {
 
                 String msg = null;
@@ -34,7 +33,6 @@ public class ReaderThread extends Thread {
 
                 }
             }
-
         } catch (IOException e) {
             System.out.println("Cliente desconectado");
         }

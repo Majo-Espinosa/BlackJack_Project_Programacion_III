@@ -17,7 +17,6 @@ public class CrupierPanel extends JPanel {
     private final GridBagConstraints gbc;
     private JLabel crupierLabel, timerLabel, ruleLabel, leftPileLabel, rightPileLabel;
     private Timer timer;
-    private static int seconds = 20;
     private JButton pauseButton, helpButton;
     private CardsPanel cardsPanel;
 
@@ -59,13 +58,12 @@ public class CrupierPanel extends JPanel {
     private void initLabels() {
         crupierLabel = new JLabel("CRUPIER");
 
-        timerLabel = new JLabel("30 s", SwingConstants.CENTER);
+        timerLabel = new JLabel("-- s", SwingConstants.CENTER);
         timerLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         timerLabel.setOpaque(true);
         timerLabel.setFont(Constants.CUSTOM_FONT.deriveFont(15f));
         timerLabel.setBackground(new Color(49, 41, 41, 255));
         timerLabel.setForeground(Color.WHITE);
-        initTimer();
 
         ruleLabel = new JLabel(GameConstants.CRUPIER_RULE_1, SwingConstants.CENTER);
         ruleLabel.setBorder(BorderFactory.createStrokeBorder(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, new float[]{7, 5}, 0), new Color(25, 45, 34, 255)));
@@ -75,31 +73,28 @@ public class CrupierPanel extends JPanel {
         ruleLabel.setForeground(Color.YELLOW);
     }
 
-    public void initTimer() {
-        timer = new Timer(1000, new ActionListener() {
+    public boolean initTimer(int initialSeconds) {
+        final int[] secondsCounter = new int[] {initialSeconds};
+        final boolean[] isTimeDone = {false};
+        
+        timer = new Timer(GameConstants.TIMER_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (seconds >= 0) {
-                    if (seconds < 10) {
-                        timerLabel.setText("0" + seconds + " s");
+                if (secondsCounter[0] >= 0) {
+                    if (secondsCounter[0] < 10) {
+                        timerLabel.setText("0" + secondsCounter[0] + " s");
                     } else {
-                        timerLabel.setText(seconds + " s");
+                        timerLabel.setText(secondsCounter[0] + " s");
                     }
-                    seconds--;
+                    secondsCounter[0]--;
                 } else {
                     timer.stop();
-                    resetTimer();
+                    isTimeDone[0] = true;
                 }
             }
         });
-
         timer.start();
-    }
-
-    public void resetTimer() {
-        timer.restart();
-        seconds = 20;
-        timerLabel.setText("30 s");
+        return isTimeDone[0];
     }
 
     private void firstLine() {

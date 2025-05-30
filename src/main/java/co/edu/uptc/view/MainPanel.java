@@ -65,10 +65,6 @@ public class MainPanel extends JPanel {
 		rulesPanel.showPopUp(true);
 	}
 
-	public void resetTimer() {
-		gamePanel.resetTimer();
-	}
-
 	public void promptBet(int betValue) {
 		frame.setBet(betValue);
 	}

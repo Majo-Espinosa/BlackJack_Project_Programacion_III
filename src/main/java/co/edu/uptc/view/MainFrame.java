@@ -47,7 +47,6 @@ public class MainFrame extends JFrame {
     }
 
     public int promptBet() {
-        mainPanel.resetTimer();
         if (bet == 0) {
             bet = 10;
         }
@@ -55,7 +54,6 @@ public class MainFrame extends JFrame {
     }
 
     public String promptAction() {
-        mainPanel.resetTimer();
         if (action == null) {
             action = "STAND";
         }

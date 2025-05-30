@@ -88,10 +88,6 @@ public class GamePanel extends JPanel {
         return bottomPanel;
     }
 
-    public void resetTimer() {
-        crupierPanel.resetTimer();
-    }
-
     public void addCrupierCards(String cards) {
         crupierPanel.addMultipleCards(cards);
     }

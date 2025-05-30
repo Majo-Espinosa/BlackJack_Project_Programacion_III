@@ -10,21 +10,28 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Server {
+public class Server extends Thread {
+    ServerController controller;
     final int PORT = 12345;
     private ArrayList<PrintWriter> outputs;
     private List<Player> players;
-    private ServerSocket serverSocket;
+    private volatile boolean changes;
+    private ServerSocket server;
 
-    public Server() {
+    public Server(ServerController controller) {
         outputs = new ArrayList<PrintWriter>();
         players = new ArrayList<>();
         Dealer dealer = new Dealer();
         dealer.setName("Dealer");
         dealer.setId(0);
         players.add(dealer);
+        changes = true;
+
+    }
+
+    public void initServer() {
         try {
-            ServerSocket server = new ServerSocket(PORT);
+            server = new ServerSocket(PORT);
 
             while (true) {
                 System.out.println("Esperando clientes");
@@ -32,7 +39,6 @@ public class Server {
                 System.out.println("Cliente aceptado");
                 ClientThread newClient = new ClientThread(client, this);
                 newClient.start();
-
             }
 
         } catch (IOException e) {
@@ -40,22 +46,29 @@ public class Server {
         }
     }
 
-
+    @Override
+    public void run() {
+        initServer();
+    }
 
     synchronized public ArrayList<PrintWriter> getOutputs() {
         return outputs;
     }
 
-    public static void main(String[] args) {
-            new Server();
-    }
-
-    public List<Player> getPlayers() {
+    public synchronized List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public synchronized void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public synchronized boolean isChanges() {
+        return this.changes;
+    }
+
+    public synchronized void setChanges(boolean changes) {
+        this.changes = changes;
     }
 }
 

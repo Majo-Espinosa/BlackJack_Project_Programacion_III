@@ -9,6 +9,7 @@ public class Dealer extends Player{
     public Dealer() {
         super();
         super.setName("Dealer");
+        super.setId(0);
         this.setHand(new Hand());
     }
 

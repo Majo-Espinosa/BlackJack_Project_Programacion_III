@@ -35,6 +35,18 @@ public class Hand {
         return value;
     }
 
+    public List<Card> getCards() {
+        return cards;
+    }
 
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
 
+    @Override
+    public String toString() {
+        return "Hand{" +
+                "cards=" + cards.toString() +
+                '}';
+    }
 }
