@@ -1,4 +1,3 @@
-
 package co.edu.uptc.model;
 
 import co.edu.uptc.enums.GameState;
@@ -20,7 +19,8 @@ public class Player {
         this.id = -1;
         this.balance = 1000;
         this.bet = 0;
-        this.action = "STAND";
+        this.action = "HIT";
+        this.hand = new Hand();
     }
 
     public Player(String name) {
@@ -52,4 +52,22 @@ public class Player {
 
     public int getBet() { return bet; }
     public void setBet(int bet) { this.bet = bet; }
+
+    public boolean isInTurn() { return inTurn; }
+    public void setInTurn(boolean inTurn) { this.inTurn = inTurn; }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", id=" + id +
+                ", gameState=" + gameState +
+                ", bet=" + bet +
+                ", balance=" + balance +
+                ", hand=" + hand.toString() +
+                ", action='" + action + '\'' +
+                ", inGame=" + inGame +
+                ", inTurn=" + inTurn +
+                '}';
+    }
 }

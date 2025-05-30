@@ -1,194 +1,150 @@
 package co.edu.uptc.client;
 
 import co.edu.uptc.model.Player;
-import co.edu.uptc.utils.JsonUtils;
-import co.edu.uptc.view.ConsoleView;
-import co.edu.uptc.view.GuiView;
-import co.edu.uptc.view.MainFrame;
-
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.net.Socket;
-import java.util.Map;
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Scanner;
 
 public class GameClient extends Thread {
-    private Socket client;
-    private BufferedReader in;
-    private PrintWriter out;
-    private Player player;
+
+    private final int PORT = 12345;
+    private final String SERVER = "localhost";
     private Gson gson;
-    private MainFrame view;
-    private GuiView guiView;
+    private Scanner in = new Scanner(System.in);
+    private int id;
+    private Player player;
 
-    public GameClient() throws IOException {
-        player = new Player(null);
+    public GameClient() {
+        player = new Player();
         gson = new Gson();
-        view = new MainFrame();
-        guiView = new GuiView(view);
+        in = new Scanner(System.in);
+        id = (int) (Math.random() * 100) + 1;
+        player.setId(id);
     }
 
-    private void connectClient() {
-        try {
-            client = new Socket("localhost", 12345);
-            out = new PrintWriter(client.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
-            System.out.println("Conectado al servidor de Blackjack :D");
-        } catch (Exception e) {
-            System.err.println("Error de conexión: " + e.getMessage());
-        }
-    }
-
-    //Correr el hilo del cliente
     @Override
-    @SuppressWarnings("unchecked")
     public void run() {
-        //conectar al servidor
-        connectClient();
-        if (client == null) {
-            System.err.println("No se pudo establecer conexión");
-            return;
-        }
-
-        //Conexion exitosa
-        try {
-            String line;
-            while ((line = in.readLine()) != null) {
-                // Limpiar y verificar la línea
-                line = line.trim();
-
-                if (line.isEmpty()) {
-                    continue; // Ignorar líneas vacías
-                }
-
-                //Solo para debug y ver lo que se recibe xd
-                System.out.println("Recibido: " + line);
-                //Verifica si el mensaje es un json valido
-                if (!JsonUtils.isValidJson(line)) {
-                    System.err.println("JSON inválido: " + line);
-                    continue;
-                }
-                //Lo convierte en un objeto Map<String, Object> para poder obtener los valores
-                Map<String, Object> message = JsonUtils.fromJson(line, Map.class);
-                if (message == null) {
-                    System.err.println("No se pudo parsear: " + line);
-                    continue;
-                }
-                String type = (String) message.get("type");
-
-                if (type == null) {
-                    System.err.println("Mensaje sin tipo: " + line);
-                    continue;
-                }
-                processMessage(type, message);
-            }
-        } catch (IOException e) {
-            view.showMessage("Error de conexión con el servidor: " + e.getMessage());
-            System.exit(1);
-        } finally {
-            closeConnection();
-        }
+        initConnection();
     }
-
-    //Verifica el tipo de mensaje obtenido del servidor y maneja junto a la vista cada uno de los casos
-    private void processMessage(String type, Map<String, Object> message) {
+ 
+    public void initConnection() {
         try {
-            System.out.println("Procesando mensaje tipo: " + type);
-            switch (type) {
-                case "connection_accepted" -> {
-                    String playerId = (String) message.get("playerId");
-                    if (playerId != null) {
-                        setPlayerId(playerId);
-                        view.showMessage("Conectado como: " + playerId);
-                    }
-                }
-                case "prompt_bet" -> {
-                    int minBet = ((Number) message.get("minBet")).intValue();
-                    int maxBet = ((Number) message.get("maxBet")).intValue();
-                    int bet = guiView.promptBet(player.getBalance(), minBet, maxBet);
+            Socket client = new Socket(SERVER, PORT);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
+            List<Player> players;
+            ReaderThread readerThread = new ReaderThread(reader, client);
+        /*
+            System.out.println("Escriba su nombre: ");
+            user.setUser(in.nextLine());
+        */
 
-                    String response = JsonUtils.toJson(Map.of(
-                        "type", "bet",
-                        "amount", bet
-                    ));
-                    out.println(response);
-                    System.out.println("Enviando apuesta: " + response);
-                }
-                case "prompt_hit" -> {
-                    String action = guiView.promptAction();
-                    String response = JsonUtils.toJson(Map.of(
-                        "type", action.toLowerCase()
-                    ));
-                    out.println(response);
-                    System.out.println("Enviando acción: " + response);
-                }
-                case "game_state" -> {
-                    Object data = message.get("data");
-                    System.out.println(data);
-                    if (data instanceof Map) {
-                        guiView.showGameState((Map<String, Object>) data);
-                    }
-                }
-                case "game_result" -> {
-                    String result = (String) message.get("result");
-                    int amount = message.get("amount") != null ?
-                        ((Number) message.get("amount")).intValue() : 0;
-                    int newBalance = message.get("newBalance") != null ?
-                        ((Number) message.get("newBalance")).intValue() : player.getBalance();
+            boolean exit = false;
+            String message;
+            readerThread.start();
 
-                    player.setBalance(newBalance);
-                    guiView.showGameResult(result, amount, newBalance);
+            while (!exit) {
+
+
+                if ((player.getName() != null) && !player.isInGame()) {
+                    player.setInGame(true);
+                    Type playerListType = new TypeToken<List<Player>>() {
+                    }.getType();
+                    String msg;
+                    while ((msg = readerThread.getMessage()) == null) {
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    players = gson.fromJson(msg, playerListType);
+                    if (players != null) {
+                        player.setInTurn(true);
+                        players.addFirst(player);
+                        String jsonPlayers = gson.toJson(players);
+                        writer.println(jsonPlayers);
+                    }
+
                 }
-                case "insufficient_balance" -> {
-                    String msg = (String) message.get("message");
-                    guiView.showMessage(msg != null ? msg : "Balance insuficiente");
-                    System.exit(0);
+
+                message = readerThread.getMessage();
+
+                if (message != null) {
+                    //System.out.println(readerThread.getMessage());
+                    Type playerListType = new TypeToken<List<Player>>() {
+                    }.getType();
+                    players = gson.fromJson(message, playerListType);
+                    readerThread.setMessage(null);
+
                 }
-                case "waiting_for_players" -> {
-                    guiView.showMessage("Esperando más jugadores...");
-                }
-                case "round_starting" -> {
-                    guiView.showMessage("¡Nueva ronda comenzando!");
-                }
-                default -> {
-                    guiView.showMessage("Mensaje del servidor: " + JsonUtils.toPrettyJson(message));
-                }
+
+                //  players = (metodo que devuelve la lista con el jugador en turno con la accion ya seteada) // devolver la lista de jugadores con la accion ya seteada para el jugador en turno
+
+               /* if (message.equalsIgnoreCase("/salir")) {
+                    exit = true;
+                    user.setMessage(message);
+                    writer.println(gson.toJson(user));
+                    client.close();
+                } else {
+                    user.setMessage(message);
+                    }
+                */
+
             }
-        } catch (Exception e) {
-            System.err.println("Error procesando mensaje tipo '" + type + "': " + e.getMessage());
+
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    //Terminar la conexion del cliente
-    private void closeConnection() {
-        try {
-            if (in != null) in.close();
-            if (out != null) out.close();
-            if (client != null) client.close();
-        } catch (IOException e) {
-            System.err.println("Error cerrando conexión: " + e.getMessage());
+    public void sendUpdateInfo(List<Player> players) {
+        int potition;
+        for (int i = 0; i < players.size(); i++) {
+            if (player.getId() == players.get(i).getId()) {
+                //players.
+            }
         }
     }
 
-    public void setPlayerId(String id) {
-        this.player.setId(id);
+    public boolean playerIsInTurn(List<Player> players) {
+        boolean isInTurn = false;
+
+        for (int i = 0; i < players.size(); i++) {
+            if (this.id == players.get(i).getId()) {
+                if (players.get(i).isInTurn()) {
+                    System.out.println("El jugador " + this.id + " esta en turno");
+                    isInTurn = true;
+                }
+            }
+        }
+        return isInTurn;
     }
 
-    public void setView(GuiView newView) {
-        this.guiView = newView;
-    }
 
     public static void main(String[] args) {
-        try {
-            GameClient client = new GameClient();
-            client.start();
-        } catch (IOException e) {
-            System.err.println("Error al iniciar cliente: " + e.getMessage());
-            e.printStackTrace();
-        }
+        GameClient client = new GameClient();
+
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }

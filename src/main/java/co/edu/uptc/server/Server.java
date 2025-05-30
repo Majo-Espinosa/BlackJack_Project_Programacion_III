@@ -22,8 +22,6 @@ public class Server extends Thread {
         outputs = new ArrayList<PrintWriter>();
         players = new ArrayList<>();
         Dealer dealer = new Dealer();
-        dealer.setName("Dealer");
-        dealer.setId(0);
         players.add(dealer);
         changes = true;
 
